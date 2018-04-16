@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Candy Crush</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="game.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.2/seedrandom.js"></script>
+	<script src="https://unpkg.com/event-target@latest/min.js"></script>
+	<script src="util.js"></script>
+	<script src="candy.js"></script>
+	<script src="board.js"></script>
+	<script src="rules.js"></script>
+	<script src="game.js"></script>
+</head>
+
+<body>
+	<div id="page-wrapper">
+
+		<!--left section-->
+		<div id="left-section">
+			<div id="title-text">
+				Candy<br>
+				Crush!
+			</div>
+			<div id="scoreboard">
+				<div id="score-display">0</div>
+				<div id="scoreboard-points">
+					points
+				</div>
+			</div>
+			<button id="new-game-button">
+				New Game
+			</button>
+			<button id="show-hint-button">
+				Show Hint
+			</button>
+		</div>
+
+		<!--middle section-->
+		<div id="middle-section">
+			<div id="middle-section-sizer"></div>
+			<div id="board-wrapper-wrapper">
+				<div id="board-wrapper">
+					<div id="board-label-filler"></div>
+					<div id="board-col-labels"></div>
+					<div id="board-row-labels"></div>
+					<div id="board"></div>
+				</div>
+			</div>
+		</div>
+
+		<!--right section-->
+		<div id="right-section">
+			<div id="controls-wrapper">
+				<div id="control-panel">
+					<button name="move-up" class="move-button" style="grid-row: 1; grid-column: 2;">
+						<img src="graphics/up-arrow.png" class="move-button-arrow">
+					</button>
+					<button name="move-left" class="move-button" style="grid-row: 2; grid-column: 1;">
+						<img src="graphics/left-arrow.png" class="move-button-arrow">
+					</button>
+					<input id="input-field" type="text" style="grid-row: 2; grid-column: 2;">
+					<button name="move-right" class="move-button" style="grid-row: 2; grid-column: 3;">
+						<img src="graphics/right-arrow.png" class="move-button-arrow">
+					</button>
+					<button name="move-down" class="move-button" style="grid-row: 3; grid-column: 2;">
+						<img src="graphics/down-arrow.png" class="move-button-arrow">
+					</button>
+				</div>
+				<div id="crush-once-button-wrapper">
+					<button id="crush-once-button">
+						Crush Once
+					</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
