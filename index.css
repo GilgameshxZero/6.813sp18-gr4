@@ -72,8 +72,34 @@ body {
 
 	display: flex;
 	flex-flow: column wrap;
+
+	font-size: 20px;
 }
 
 #rst-language {
+	width: calc(100% / 3);
+
+	margin: 0px;
+	margin-bottom: 5px;
+
 	display: flex;
+}
+
+#rst-language-select {
+	margin: auto;
+	margin-right: 0px;
+}
+
+#rst-citizenship {
+	width: calc(100% / 3);
+
+	margin: 0px;
+	margin-bottom: 5px;
+
+	display: flex;
+}
+
+#rst-citizenship-select {
+	margin: auto;
+	margin-right: 0px;
 }
