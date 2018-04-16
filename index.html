@@ -5,13 +5,29 @@
 		<title>Connect-7</title>
 		<link rel="stylesheet" href="index.css">
 		<script src="index.js"></script>
-		<script async defer
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrBPYvlDJmXgY_Smyoig8fFX4aTVORVtg&callback=initMap">
-		</script>
+		
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+		
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrBPYvlDJmXgY_Smyoig8fFX4aTVORVtg&callback=initMap"></script>
 	</head>
-
 	<body>
-		<h3>My Google Maps Demo</h3>
 		<div id="map"></div>
+
+		<input id="input"></input>
+
+		<div id="restrictions">
+			<div id="rst-title-wrapper">
+				<div id="rst-title">Restrictions</div>
+			</div>
+			<div id="rst-inner-wrapper">
+				<div id="rst-language">
+					Language: 
+				</div>
+				<div id="rst-citizenship"></div>
+				<div id="rst-pets"></div>
+				<div id="rst-kids"></div>
+				<div id="rst-price"></div>
+			</div>
+		</div>
 	</body>
 </html>
