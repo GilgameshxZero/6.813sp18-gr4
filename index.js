@@ -16,3 +16,14 @@ function initMap() {
 		map: map
 	});
 }
+
+window.onload = function () {
+	var rstPriceSlider = document.getElementById("rst-price-slider");
+	var rstPriceDisplayCurrent = document.getElementById("rst-price-display-current");
+	rstPriceDisplayCurrent.innerHTML = '$' + rstPriceSlider.value; // Display the default slider value
+	
+	// Update the current slider value (each time you drag the slider handle)
+	rstPriceSlider.oninput = function() {
+		rstPriceDisplayCurrent.innerHTML = '$' + this.value;
+	}
+}

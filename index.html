@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="index.css">
 		<script src="index.js"></script>
 		
-		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 		
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrBPYvlDJmXgY_Smyoig8fFX4aTVORVtg&callback=initMap"></script>
 	</head>
@@ -17,26 +17,58 @@
 
 		<div id="restrictions">
 			<div id="rst-title-wrapper">
-				<div id="rst-title">Restrictions</div>
+				<div id="rst-title">Preferences</div>
 			</div>
 			<div id="rst-inner-wrapper">
-				<div id="rst-language">
-					Language:
-					<select id="rst-language-select">
-						<option value="1">dummy1</option>
-						<option value="2">dummy2</option>
-					</select>
+				<div id="rst-col1-wrapper">
+					<div id="rst-col1">
+						<div id="rst-language">
+							Language:
+							<div id="rst-spacer"></div>
+							<select id="rst-language-select">
+								<option value="1">dummy1</option>
+								<option value="2">dummy2</option>
+							</select>
+						</div>
+						<div id="rst-citizenship">
+							Citizenship:
+							<div id="rst-spacer"></div>
+							<select id="rst-citizenship-select">
+								<option value="1">dummy1</option>
+								<option value="2">dummy2</option>
+							</select>
+						</div>
+						<div id="rst-pets">
+							Pets:
+							<div id="rst-spacer"></div>
+							<input id="rst-pets-checkbox" type="checkbox"></input>
+						</div>
+						<div id="rst-kids">
+							Kids:
+							<div id="rst-spacer"></div>
+							<input id="rst-kids-checkbox" type="checkbox"></input>
+						</div>
+					</div>
 				</div>
-				<div id="rst-citizenship">
-					Citizenship:
-					<select id="rst-citizenship-select">
-						<option value="1">dummy1</option>
-						<option value="2">dummy2</option>
-					</select>
+				<div id="rst-col2-wrapper">
+					<div id="rst-col2">
+						<div id="rst-price">
+							<div id="rst-price-display">
+								Residence Price Range:
+								<div id="rst-spacer"></div>
+								<div id="rst-price-display-current"></div>
+							</div>
+							<div id="rst-spacer"></div>
+							<div class="rst-price-slider-wrapper">
+								<input id="rst-price-slider" type="range" min="0" max="3000" value="600" class="slider"></input>
+							</div>
+							<div id="rst-price-slider-label">
+								<div id="rst-price-slider-low">$0</div>
+								<div id="rst-price-slider-high">$3000</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div id="rst-pets"></div>
-				<div id="rst-kids"></div>
-				<div id="rst-price"></div>
 			</div>
 		</div>
 	</body>
