@@ -6,18 +6,49 @@ window.onload = function () {
 	map.style.filter = "blur(2px)";
 
 	var suggestions = ["What kind of weather are you looking for?","what kind of activities do you want to do?","Any specific region mind?"];
-	var placeHolder = document.getElementById("input").placeholder;
-	rotate = setInterval(change, 2000);
-	var counter = 0;
-	function change() { 
-		// $('#input').attr('placeholder').fadeOut(400,function(){
-  //     		$(this).attr('placeholder').html(suggestions[counter]).fadeIn();  
-  //   	});
-  		placeHolder = suggestions[counter];
-	  	counter++;
-	  	if (counter >= suggestions.length) {
-			counter = 0;
-	  	}
+	var input = document.getElementById("input");
+	input.addEventListener('keydown', mainContentLoad);
+	// rotate = setInterval(rotate, 2000);
+	// var counter = 0;
+	// function rotate() { 
+	// 	// $('#input').attr('placeholder').fadeOut(400,function(){
+ //  //     		$(this).attr('placeholder').html(suggestions[counter]).fadeIn();  
+ //  //   	});
+ //  		placeHolder = suggestions[counter];
+	//   	counter++;
+	//   	if (counter >= suggestions.length) {
+	// 		counter = 0;
+	//   	}
+	// }
+}
+
+function mainContentLoad() {
+	console.log("MAIN");
+	clearInterval(rotate);
+
+	// map
+	var map = document.getElementById("map");
+	map.style.filter = "";
+	
+	// textfield
+	var textField = document.getElementById("text-field");
+	var logo = document.getElementById("logo");
+	if (logo) {
+		textField.removeChild(logo);
+	}
+	textField.className = "content-loaded";
+	document.getElementById("input-wrapper").style.width = "auto";
+	document.getElementById("input").removeEventListener('keydown', mainContentLoad);
+
+	// restrictions
+	document.getElementById("restrictions").style.display = "flex";
+	var rstPriceSlider = document.getElementById("rst-price-slider");
+	var rstPriceDisplayCurrent = document.getElementById("rst-price-display-current");
+	rstPriceDisplayCurrent.innerHTML = '$' + rstPriceSlider.value; // Display the default slider value
+	
+	// Update the current slider value (each time you drag the slider handle)
+	rstPriceSlider.oninput = function() {
+		rstPriceDisplayCurrent.innerHTML = '$' + this.value;
 	}
 }
 
@@ -119,7 +150,7 @@ function initMap() {
 		var tags = document.getElementsByClassName("tag");
     	var allText = [];
     	for (var i = 0; i < tags.length; i++){
-    		allText.push(tags[i].innerHTML);
+    		allText.push(tags[i].innerHTML.toLowerCase());
     	}
     	for (var i = 0; i < datas.length; i++){
     		var matched = true;
@@ -175,6 +206,7 @@ function initMap() {
     		}
     	}
 	}
+
 	input.addEventListener("keyup", function(event) {
 	    event.preventDefault();
 	    // Make a new timeout set to go off in 800ms
@@ -263,36 +295,4 @@ function initMap() {
 		 }   
 	 }
 
-}
-
-function mainContentLoad() {
-	console.log("MAIN");
-	clearInterval(rotate);
-
-	// map
-	var map = document.getElementById("map");
-	map.style.filter = "";
-	
-	// textfield
-	var textField = document.getElementById("text-field");
-	var logo = document.getElementById("logo");
-	if (logo) {
-		textField.removeChild(logo);
-	}
-	textField.className = "content-loaded";
-	document.getElementById("input-wrapper").style.width = "auto";
-	var input = document.getElementById("input");
-	input.oninput = "textInput()"; // addEventListener merge with Helen's code 
-
-
-	// restrictions
-	document.getElementById("restrictions").style.display = "flex";
-	var rstPriceSlider = document.getElementById("rst-price-slider");
-	var rstPriceDisplayCurrent = document.getElementById("rst-price-display-current");
-	rstPriceDisplayCurrent.innerHTML = '$' + rstPriceSlider.value; // Display the default slider value
-	
-	// Update the current slider value (each time you drag the slider handle)
-	rstPriceSlider.oninput = function() {
-		rstPriceDisplayCurrent.innerHTML = '$' + this.value;
-	}
 }
