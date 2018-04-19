@@ -1,30 +1,26 @@
 var mapElement = 'map';
-var rotate;
+var placeholder;
 
 window.onload = function () {
 	var map = document.getElementById("map");
 	map.style.filter = "blur(2px)";
 
-	var suggestions = ["What kind of weather are you looking for?","what kind of activities do you want to do?","Any specific region mind?"];
+	var suggestions = ["What kind of weather are you looking for?","What activities do you want to do?","Any specific region mind?"];
 	var input = document.getElementById("input");
 	input.addEventListener('keydown', mainContentLoad);
-	// rotate = setInterval(rotate, 2000);
-	// var counter = 0;
-	// function rotate() { 
-	// 	// $('#input').attr('placeholder').fadeOut(400,function(){
- //  //     		$(this).attr('placeholder').html(suggestions[counter]).fadeIn();  
- //  //   	});
- //  		placeHolder = suggestions[counter];
-	//   	counter++;
-	//   	if (counter >= suggestions.length) {
-	// 		counter = 0;
-	//   	}
-	// }
+	placeholder = setInterval(rotate, 2000);
+	var counter = 0;
+	function rotate() { 
+  		input.placeholder = suggestions[counter];
+	  	counter++;
+	  	if (counter >= suggestions.length) {
+			counter = 0;
+	  	}
+	}
 }
 
 function mainContentLoad() {
-	console.log("MAIN");
-	clearInterval(rotate);
+	clearInterval(placeholder);
 
 	// map
 	var map = document.getElementById("map");
@@ -38,7 +34,9 @@ function mainContentLoad() {
 	}
 	textField.className = "content-loaded";
 	document.getElementById("input-wrapper").style.width = "auto";
-	document.getElementById("input").removeEventListener('keydown', mainContentLoad);
+	var input = document.getElementById("input");
+	input.placeholder = "";
+	input.removeEventListener('keydown', mainContentLoad);
 
 	// restrictions
 	document.getElementById("restrictions").style.display = "flex";
