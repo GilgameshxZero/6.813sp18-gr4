@@ -114,39 +114,59 @@ function makePopups(markers, locationName, position_x, position_y){
 
 function fillPopups(popupid, data){
 	var popup = document.getElementById(popupid);
-
+	popup.style.overflow = "scroll";
+	
+	// heading
 	var heading = document.createElement("h2");
-	heading.innerHTML = data["name"];
-
+	heading.innerHTML = data["name"] + ",\n" + data["country"];
+	popup.appendChild(heading);
+	
+	// image
 	var image = document.createElement("img");
 	image.src = "assets/" + popupid + ".jpg";
 	image.classList.add("popupImage");
-
-	popup.appendChild(heading);
 	popup.appendChild(image);
+
+	// suggested date
+	var dateLabel = document.createElement("h3");
+	dateLabel.innerHTML = "Suggested Dates:";
+	var date = document.createElement("h4");
+	date.innerHTML = data["date"];
+	popup.appendChild(dateLabel);
+	popup.appendChild(date);
+
+	// info and link 
+	var info = document.createElement("p");
+	info.innerHTML = data["info"];
+	var link = document.createElement("a");
+	link.setAttribute("href", data["link"]);
+	link.innerHTML = "more";
+	popup.appendChild(info);
+	popup.appendChild(link);
 }
 
 function initMap() {
 	var mit = {lat: 42.358792, lng: -71.093493};
-	var florida = {lat: 27.775295, lng: -81.576485};
-	var regensburg = {lat: 49.013454, lng: 12.100383};
-	var bryceCanyon = {lat: 37.593833, lng: -112.187092}
-	// var shanghai = {lat: 31.2240453, lng: 121.1965744};
 	var map = new google.maps.Map(document.getElementById(mapElement), {
 		zoom: 2,
 		minZoom:2.3,
 		center: mit
 	});
 
+	var florida = {lat: 27.775295, lng: -81.576485};
 	var florida_data = {
-		"name": "florida",
+		"name": "Florida",
+		"country": "United States",
 		"position": florida,
 		"text": ["warm", "beach"],
 		"language": "---",
 		"citizenship": "---",
 		"pets": false,
 		"kids": false,
-		"budget": 0
+		"budget": 0,
+		"date": "Mar 19 - Mar 24",
+		"info": "Florida is warm and has beach",
+		"link": "https://en.wikipedia.org/wiki/Florida"
 	};
 	var marker_florida = new google.maps.Marker({
 		position: florida,
@@ -154,8 +174,10 @@ function initMap() {
 	});
 	marker_florida.setVisible(false);
 
+	var regensburg = {lat: 49.013454, lng: 12.100383};
 	var regensburg_data = {
-		"name": "regensburg",
+		"name": "Regensburg",
+		"country": "Germany",
 		"position": regensburg,
 		"text": ["europe", "oldcities", "castles"],
 		"language": "german",
@@ -163,6 +185,9 @@ function initMap() {
 		"pets": false,
 		"kids": false,
 		"budget": 200,
+		"date": "January 19 - January 23",
+		"info": "Regensburg is an old city in Germany with medieval castles",
+		"link": "https://en.wikipedia.org/wiki/Regensburg"
 	}
 	var marker_regensburg = new google.maps.Marker({
 		position: regensburg,
@@ -170,15 +195,20 @@ function initMap() {
 	});
 	marker_regensburg.setVisible(false);
 
+	var bryceCanyon = {lat: 37.593833, lng: -112.187092}
 	var bryce_data = {
-		"name": "bryce",
+		"name": "Bryce Canyon",
+		"country": "United States",
 		"position": bryceCanyon,
 		"text": ["hiking", "camping"],
 		"language": "---",
 		"citizenship": "canada",
 		"pets": true,
 		"kids": true,
-		"budget": 0
+		"budget": 0,
+		"date": "June 7 - June 9",
+		"info": "Bryce Canyon is located in the United States and it is perfect for hiking and camping with pets or kids",
+		"link": "https://en.wikipedia.org/wiki/Bryce_Canyon_National_Park"
 	};
 	var marker_bryce = new google.maps.Marker({
 		position: bryceCanyon,
@@ -188,23 +218,22 @@ function initMap() {
 
 	var datas = [florida_data, regensburg_data, bryce_data];
 	var markers = {
-		"bryce": [marker_bryce, false], 
-		"florida": [marker_florida, false], 
-		"regensburg": [marker_regensburg, false]
+		"Bryce Canyon": [marker_bryce, false], 
+		"Florida": [marker_florida, false], 
+		"Regensburg": [marker_regensburg, false]
 	};
 
 	google.maps.event.addListener(marker_florida, 'click', function(){
-		makePopups(markers, "florida", event.clientX, event.clientY);
-		fillPopups("florida", florida_data);
-		// marker_florida.setIcon('assets/bookmark_marker.png');
+		makePopups(markers, "Florida", event.clientX, event.clientY);
+		fillPopups("Florida", florida_data);
 	});
 	google.maps.event.addListener(marker_bryce, 'click', function(){
-		makePopups(markers, "bryce", event.clientX, event.clientY);
-		fillPopups("bryce", bryce_data);
+		makePopups(markers, "Bryce Canyon", event.clientX, event.clientY);
+		fillPopups("Bryce Canyon", bryce_data);
 	});
 	google.maps.event.addListener(marker_regensburg, 'click', function(){
-		makePopups(markers, "regensburg", event.clientX, event.clientY);
-		fillPopups("regensburg", regensburg_data);
+		makePopups(markers, "Regensburg", event.clientX, event.clientY);
+		fillPopups("Regensburg", regensburg_data);
 	});
 
 	var inputWrapper = document.getElementById("input-wrapper");
@@ -253,20 +282,23 @@ function initMap() {
 
     		// kids preference
     		kidsBool = datas[i]["kids"];
-    		if (petsBool != document.getElementById("kidsCheckbox").checked){
+    		if (kidsBool != document.getElementById("kidsCheckbox").checked){
     			matched = false;
     		}
 
     		// budget
     		var currentBudget = parseInt(document.getElementById("rst-price-display-current").innerHTML.slice(1));
-    		if (Math.abs(currentBudget - datas[i]["budget"]) > 50){
+    		// if (Math.abs(currentBudget - datas[i]["budget"]) > 50){
+    		// 	matched = false;
+    		// }
+    		if (datas[i]["budget"] < currentBudget){
     			matched = false;
     		}
 
     		if (matched){
     			markers[datas[i]["name"]][0].setVisible(true);
     		}
-    		else if (! matched && !markers[datas[i]["name"]][1]) {
+    		else if (!matched && !markers[datas[i]["name"]][1]) {
     			markers[datas[i]["name"]][0].setVisible(false);
     		}
     	}
