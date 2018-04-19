@@ -70,6 +70,20 @@ body {
     cursor: pointer;
 }
 
+.bookmark{
+	width: 30px;
+	height: 50px;
+	float: right;
+	filter: grayscale(100%);
+}
+
+.bookmark:hover,
+.bookmark:focus {
+	filter: grayscale(0%);
+    text-decoration: none;
+    cursor: pointer;
+}
+
 /*------------------------------- TEXT FIELD -------------------------------------*/
 .landing {
 	position: absolute;

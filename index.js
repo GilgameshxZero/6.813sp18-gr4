@@ -57,8 +57,9 @@ function mainContentLoad() {
 	}
 }
 
-function makePopups(locationName, position_x, position_y){
+function makePopups(markers, locationName, position_x, position_y){
 	var modal = document.getElementById("modal");
+	var marker = markers[locationName][0];
 	// console.log(modal);
 
 	var existingPops = document.getElementsByClassName("popup");
@@ -74,13 +75,38 @@ function makePopups(locationName, position_x, position_y){
 	var close = document.createElement("span");
 	close.classList.add("close");
 	close.innerHTML = "&times;";
+	// close.style.float = "right";
 
 	close.onclick = function(){
 		modal.style.display = "none";
 		document.getElementById("input").focus();
 	}
+	var link = document.createElement("a");
+	var bookmark = document.createElement("img");
+	bookmark.src = "assets/bookmark.png";
+	bookmark.classList.add("bookmark");
+	if (markers[locationName][1]){
+		bookmark.style.filter = "grayscale(0%)";
+	}
 
+	bookmark.onclick = function(){
+		if (markers[locationName][1]){
+			bookmark.style.filter = "grayscale(100%)";
+			marker.setIcon("");
+
+			markers[locationName][1] = false;
+		}
+		else{
+			bookmark.style.filter = "grayscale(0%)";
+			marker.setIcon('assets/bookmark_marker.png');
+			markers[locationName][1] = true;
+		}
+	}
+
+	// popup.appendChild(bookmark);
 	popup.appendChild(close);
+	link.appendChild(bookmark);
+	popup.appendChild(link);
 	modal.appendChild(popup);
 
 	modal.style.display = "block";
@@ -162,21 +188,22 @@ function initMap() {
 
 	var datas = [florida_data, regensburg_data, bryce_data];
 	var markers = {
-		"bryce": marker_bryce, 
-		"florida": marker_florida, 
-		"regensburg": marker_regensburg
+		"bryce": [marker_bryce, false], 
+		"florida": [marker_florida, false], 
+		"regensburg": [marker_regensburg, false]
 	};
 
 	google.maps.event.addListener(marker_florida, 'click', function(){
-		makePopups("florida", event.clientX, event.clientY);
+		makePopups(markers, "florida", event.clientX, event.clientY);
 		fillPopups("florida", florida_data);
+		// marker_florida.setIcon('assets/bookmark_marker.png');
 	});
 	google.maps.event.addListener(marker_bryce, 'click', function(){
-		makePopups("bryce", event.clientX, event.clientY);
+		makePopups(markers, "bryce", event.clientX, event.clientY);
 		fillPopups("bryce", bryce_data);
 	});
 	google.maps.event.addListener(marker_regensburg, 'click', function(){
-		makePopups("regensburg", event.clientX, event.clientY);
+		makePopups(markers, "regensburg", event.clientX, event.clientY);
 		fillPopups("regensburg", regensburg_data);
 	});
 
@@ -237,10 +264,10 @@ function initMap() {
     		}
 
     		if (matched){
-    			markers[datas[i]["name"]].setVisible(true);
+    			markers[datas[i]["name"]][0].setVisible(true);
     		}
-    		else{
-    			markers[datas[i]["name"]].setVisible(false);
+    		else if (! matched && !markers[datas[i]["name"]][1]) {
+    			markers[datas[i]["name"]][0].setVisible(false);
     		}
     	}
 	}
