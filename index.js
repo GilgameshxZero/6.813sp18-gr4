@@ -48,6 +48,13 @@ function mainContentLoad() {
 	rstPriceSlider.oninput = function() {
 		rstPriceDisplayCurrent.innerHTML = '$' + this.value;
 	}
+
+	window.onclick = function(event) {
+		var modal = document.getElementById("modal");
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
 }
 
 function initMap() {
@@ -63,11 +70,12 @@ function initMap() {
 	});
 
 	function makePopups(locationName, position_x, position_y){
-		var mapDiv = document.getElementById("map");
+		var modal = document.getElementById("modal");
+		// console.log(modal);
 
 		var existingPops = document.getElementsByClassName("popup");
 		for (var i = 0; i < existingPops.length; i++)
-			mapDiv.removeChild(existingPops[i]);
+			modal.removeChild(existingPops[i]);
 
 		var popup = document.createElement("div");
 		popup.classList.add("popup");
@@ -75,7 +83,24 @@ function initMap() {
 		popup.style.top = (position_y - 100) + "px";
 		popup.style.left = (position_x - 100) + "px";
 
-		mapDiv.appendChild(popup);
+		var close = document.createElement("span");
+		close.classList.add("close");
+		close.innerHTML = "&times;";
+
+		close.onclick = function(){
+			modal.style.display = "none";
+		}
+
+		console.log(popup);
+		console.log(modal);
+
+		popup.appendChild(close);
+		modal.appendChild(popup);
+
+		// console.log(popup);
+		// console.log(modal);
+
+		modal.style.display = "block";
 	};
 
 	var florida_data = {
