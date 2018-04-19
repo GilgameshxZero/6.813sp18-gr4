@@ -5,7 +5,7 @@ window.onload = function () {
 	var map = document.getElementById("map");
 	map.style.filter = "blur(2px)";
 
-	var suggestions = ["What kind of weather are you looking for?","What activities do you want to do?","Any specific region mind?"];
+	var suggestions = ["What kind of weather are you looking for?","What activities do you want to do?","Any specific region in mind?"];
 	var input = document.getElementById("input");
 	input.addEventListener('keydown', mainContentLoad);
 	placeholder = setInterval(rotate, 2000);
