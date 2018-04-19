@@ -48,6 +48,56 @@ function mainContentLoad() {
 	rstPriceSlider.oninput = function() {
 		rstPriceDisplayCurrent.innerHTML = '$' + this.value;
 	}
+
+	window.onclick = function(event) {
+		var modal = document.getElementById("modal");
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
+}
+
+function makePopups(locationName, position_x, position_y){
+	var modal = document.getElementById("modal");
+	// console.log(modal);
+
+	var existingPops = document.getElementsByClassName("popup");
+	for (var i = 0; i < existingPops.length; i++)
+		modal.removeChild(existingPops[i]);
+
+	var popup = document.createElement("div");
+	popup.classList.add("popup");
+	popup.id = locationName;
+	popup.style.top = (position_y - 100) + "px";
+	popup.style.left = (position_x - 100) + "px";
+
+	var close = document.createElement("span");
+	close.classList.add("close");
+	close.innerHTML = "&times;";
+
+	close.onclick = function(){
+		modal.style.display = "none";
+		document.getElementById("input").focus();
+	}
+
+	popup.appendChild(close);
+	modal.appendChild(popup);
+
+	modal.style.display = "block";
+};
+
+function fillPopups(popupid, data){
+	var popup = document.getElementById(popupid);
+
+	var heading = document.createElement("h2");
+	heading.innerHTML = data["name"];
+
+	var image = document.createElement("img");
+	image.src = "assets/" + popupid + ".jpg";
+	image.classList.add("popupImage");
+
+	popup.appendChild(heading);
+	popup.appendChild(image);
 }
 
 function initMap() {
@@ -61,22 +111,6 @@ function initMap() {
 		minZoom:2.3,
 		center: mit
 	});
-
-	function makePopups(locationName, position_x, position_y){
-		var mapDiv = document.getElementById("map");
-
-		var existingPops = document.getElementsByClassName("popup");
-		for (var i = 0; i < existingPops.length; i++)
-			mapDiv.removeChild(existingPops[i]);
-
-		var popup = document.createElement("div");
-		popup.classList.add("popup");
-		popup.id = locationName;
-		popup.style.top = (position_y - 100) + "px";
-		popup.style.left = (position_x - 100) + "px";
-
-		mapDiv.appendChild(popup);
-	};
 
 	var florida_data = {
 		"name": "florida",
@@ -133,12 +167,18 @@ function initMap() {
 		"regensburg": marker_regensburg
 	};
 
-	for (var i = 0; i < datas.length; i++){
-		data = datas[i]["name"];
-		google.maps.event.addListener(markers[data], 'click', function(){
-			makePopups(data, event.clientX, event.clientY);
-		});
-	}
+	google.maps.event.addListener(marker_florida, 'click', function(){
+		makePopups("florida", event.clientX, event.clientY);
+		fillPopups("florida", florida_data);
+	});
+	google.maps.event.addListener(marker_bryce, 'click', function(){
+		makePopups("bryce", event.clientX, event.clientY);
+		fillPopups("bryce", bryce_data);
+	});
+	google.maps.event.addListener(marker_regensburg, 'click', function(){
+		makePopups("regensburg", event.clientX, event.clientY);
+		fillPopups("regensburg", regensburg_data);
+	});
 
 	var inputWrapper = document.getElementById("input-wrapper");
 	var input = document.getElementById("input");
