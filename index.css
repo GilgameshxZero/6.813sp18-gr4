@@ -1,99 +1,3 @@
-.slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 15px;
-    border-radius: 5px;   
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-}
-
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%; 
-    background: #4CAF50;
-    cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #4CAF50;
-    cursor: pointer;
-}
-
-/* Customize the label (the container) */
-.container {
-	display: block;
-	position: relative;
-	cursor: pointer;
-	font-size: 22px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	height: 25px;
-	width: 25px;
-}
-
-/* Hide the browser's default checkbox */
-.container input {
-	position: absolute;
-	opacity: 0;
-	cursor: pointer;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 25px;
-	width: 25px;
-	background-color: #eee;
-}
-
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-	background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark {
-	background-color: #2196F3;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-	content: "";
-	position: absolute;
-	display: none;
-}
-
-/* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
-	display: block;
-}
-
-/* Style the checkmark/indicator */
-.container .checkmark:after {
-	left: 9px;
-	top: 5px;
-	width: 5px;
-	height: 10px;
-	border: solid white;
-	border-width: 0 3px 3px 0;
-	-webkit-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-	transform: rotate(45deg);
-}
-
 html {
 	height: 100vh;
 	width: 100vw;
@@ -113,47 +17,109 @@ body {
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+/*----------------------------------- MAP ---------------------------------------*/
 #map {
+	position: relative;
 	width: 100%;
 	flex: 6.5 6.5 65%;
+	z-index: 0;
+}
+
+.popup{
+	position: absolute;
+	width: 200px;
+	height: 200px;
+	background-color: white;
+	z-index: 1;
+}
+
+/*------------------------------- TEXT FIELD -------------------------------------*/
+.landing {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 10;
+	width: 100%;
+
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;	
+}
+
+.content-loaded {
+
+}
+
+#logo {
+	width: 200px;
+	height: 200px;
 }
 
 #input-wrapper {
+	display: flex;
 	flex: 0 1 7.5%;
+	flex-flow: row nowrap;
 	position: relative;
+
 	margin-top: 15px;
 	margin-bottom: 15px;
 	padding-left: 10px;
 	padding-right: 10px;
+	width: 90%;
+	height: 60px;
 	
 	border-radius: 5px;
 	border-width: 2px;
 	border-style: solid;
+}
 
-	display: flex;
-	flex-flow: row nowrap;
+#input-wrapper span.tag{
+  cursor:pointer;
+  display:block;
+  float:left;
+  color:#555;
+  background:#add;
+  padding:5px 10px;
+  padding-right:30px;
+  margin:4px;
+  font-size: 25px;
+}
+#input-wrapper span.tag:hover{
+  opacity:0.7;
+}
+#input-wrapper span.tag:after{
+ position:absolute;
+ content:"×";
+ border:1px solid;
+ border-radius:10px;
+ padding:0 4px;
+ margin:3px 0 10px 7px;
+ font-size:10px;
 }
 
 #input-tags {
 	margin: auto;
 	margin-left: 0px;
-	
 	font-size: 30px;
+	color: #808080;
 }
 
 #input {
 	width: 100%;
 	height: 85%;
 	margin: auto;
+	z-index: 10;
 
 	font-size: 30px;
+	background: transparent;
 
 	text-align: left;
 	border-width: 0px;
 }
 
 #input:focus {
-    outline: none;
+	outline: none;
 }
 
 #input-magnifying {
@@ -161,7 +127,9 @@ body {
 	margin-right: 0px;
 }
 
+/*------------------------------- RESTRICTIONS -------------------------------------*/
 #restrictions {
+	display: none;
 	flex: 3 3 30%;
 	margin-top: 5px;
 	border-width: 2px;
@@ -317,4 +285,100 @@ body {
 #rst-price-slider-high {
 	margin: auto;
 	margin-right: 0px;
+}
+
+.slider {
+	-webkit-appearance: none;
+	width: 100%;
+	height: 15px;
+	border-radius: 5px;   
+	background: #d3d3d3;
+	outline: none;
+	opacity: 0.7;
+	-webkit-transition: .2s;
+	transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%; 
+	background: #4CAF50;
+	cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: #4CAF50;
+	cursor: pointer;
+}
+
+/* Customize the label (the container) */
+.container {
+	display: block;
+	position: relative;
+	cursor: pointer;
+	font-size: 22px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	height: 25px;
+	width: 25px;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+	background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+	background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+	display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+	left: 9px;
+	top: 5px;
+	width: 5px;
+	height: 10px;
+	border: solid white;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
 }
