@@ -104,7 +104,6 @@ function makePopups(markers, locationName, position_x, position_y){
 		}
 	}
 
-	// popup.appendChild(bookmark);
 	popup.appendChild(close);
 	link.appendChild(bookmark);
 	popup.appendChild(link);
@@ -154,22 +153,10 @@ function fillPopups(popupid, data){
 	info.classList.add("popup-info");
 	var link = document.createElement("a");
 	link.setAttribute("href", data["link"]);
-<<<<<<< HEAD
-	link.innerHTML = "more";
-	popup.appendChild(info);
-	popup.appendChild(link);
-
-	// mail
-	var mail = document.createElement("a");
-	mail.setAttribute("href", "jieunlee@mit.edu");
-	mail.innerHTML = "\nmail to myself";
-	popup.appendChild(mail);
-=======
 	link.setAttribute("target", "_blank");
 	link.innerHTML = "more...";
 	nonImage.appendChild(info);
 	nonImage.appendChild(link);
->>>>>>> b6e8256936e2f74009fd5ad452a1795a87eca635
 }
 
 function initMap() {
@@ -213,13 +200,9 @@ function initMap() {
 		"kids": false,
 		"budget": 200,
 		"date": "January 19 - January 23",
-<<<<<<< HEAD
-		"info": "Regensburg is a town in south-east Germany in Bavaria. It is located at the confluence of the Danube, Naab, and Regen rivers, " +
+		"info": "Regensburg is an old city in south-east Germany in Bavaria. It is located at the confluence of the Danube, Naab, and Regen rivers, " +
 				+ "and it is the political, economic,and cultural centre of easter Bavaria. The medieval centre of the city is UNESCO Worlk Heritage  Site, "
 				+ "and in 2014, it was among the top sights in Germany.",
-=======
-		"info": "Regensburg is a town in south-east Germany, at the confluence of the Danube, Naab and Regen rivers. With over 140,000 inhabitants, Regensburg is the fourth-largest city in the State of Bavaria after Munich, Nuremberg and Augsburg. The city is the political, economic and cultural centre of eastern Bavaria and capital of the Upper Palatinate.",
->>>>>>> b6e8256936e2f74009fd5ad452a1795a87eca635
 		"link": "https://en.wikipedia.org/wiki/Regensburg"
 	}
 	var marker_regensburg = new google.maps.Marker({

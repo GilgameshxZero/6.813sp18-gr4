@@ -139,7 +139,7 @@ body {
 /*------------------------------- TEXT FIELD -------------------------------------*/
 .landing {
 	position: absolute;
-	top: 50%;
+	top: 40%;
 	transform: translateY(-50%);
 	z-index: 10;
 	width: 100%;
