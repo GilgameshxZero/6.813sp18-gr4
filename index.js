@@ -109,17 +109,16 @@ function makePopups(markers, locationName, position_x, position_y){
 	popup.appendChild(link);
 	modal.appendChild(popup);
 
+	close.classList.add("popup-non-image");
+	bookmark.classList.add("popup-non-image");
+	link.classList.add("popup-non-image");
+	link.classList.add("popup-link");
+
 	modal.style.display = "block";
 };
 
 function fillPopups(popupid, data){
 	var popup = document.getElementById(popupid);
-	popup.style.overflow = "scroll";
-	
-	// heading
-	var heading = document.createElement("h2");
-	heading.innerHTML = data["name"] + ",\n" + data["country"];
-	popup.appendChild(heading);
 	
 	// image
 	var image = document.createElement("img");
@@ -127,22 +126,37 @@ function fillPopups(popupid, data){
 	image.classList.add("popupImage");
 	popup.appendChild(image);
 
+	//non-image background
+	var nonImage = document.createElement("div");
+	nonImage.classList.add("popup-non-image");
+	popup.appendChild(nonImage);
+	
+	// heading
+	var heading = document.createElement("div");
+	heading.innerHTML = data["name"] + ",<br \>" + data["country"];
+	heading.classList.add("popup-heading");
+	nonImage.appendChild(heading);
+
 	// suggested date
-	var dateLabel = document.createElement("h3");
+	var dateLabel = document.createElement("div");
 	dateLabel.innerHTML = "Suggested Dates:";
-	var date = document.createElement("h4");
+	dateLabel.classList.add("popup-datelabel");
+	var date = document.createElement("div");
 	date.innerHTML = data["date"];
-	popup.appendChild(dateLabel);
-	popup.appendChild(date);
+	date.classList.add("popup-date");
+	nonImage.appendChild(dateLabel);
+	nonImage.appendChild(date);
 
 	// info and link 
-	var info = document.createElement("p");
+	var info = document.createElement("div");
 	info.innerHTML = data["info"];
+	info.classList.add("popup-info");
 	var link = document.createElement("a");
 	link.setAttribute("href", data["link"]);
-	link.innerHTML = "more";
-	popup.appendChild(info);
-	popup.appendChild(link);
+	link.setAttribute("target", "_blank");
+	link.innerHTML = "more...";
+	nonImage.appendChild(info);
+	nonImage.appendChild(link);
 }
 
 function initMap() {
@@ -165,7 +179,7 @@ function initMap() {
 		"kids": false,
 		"budget": 0,
 		"date": "Mar 19 - Mar 24",
-		"info": "Florida is warm and has beach",
+		"info": "Florida is the southernmost contiguous state in the United States. The state is bordered to the west by the Gulf of Mexico, to the northwest by Alabama, to the north by Georgia, to the east by the Atlantic Ocean, and to the south by the Straits of Florida.",
 		"link": "https://en.wikipedia.org/wiki/Florida"
 	};
 	var marker_florida = new google.maps.Marker({
@@ -186,7 +200,7 @@ function initMap() {
 		"kids": false,
 		"budget": 200,
 		"date": "January 19 - January 23",
-		"info": "Regensburg is an old city in Germany with medieval castles",
+		"info": "Regensburg is a town in south-east Germany, at the confluence of the Danube, Naab and Regen rivers. With over 140,000 inhabitants, Regensburg is the fourth-largest city in the State of Bavaria after Munich, Nuremberg and Augsburg. The city is the political, economic and cultural centre of eastern Bavaria and capital of the Upper Palatinate.",
 		"link": "https://en.wikipedia.org/wiki/Regensburg"
 	}
 	var marker_regensburg = new google.maps.Marker({
@@ -207,7 +221,7 @@ function initMap() {
 		"kids": true,
 		"budget": 0,
 		"date": "June 7 - June 9",
-		"info": "Bryce Canyon is located in the United States and it is perfect for hiking and camping with pets or kids",
+		"info": "Bryce Canyon National Park is a United States national park located in southwestern Utah. The major feature of the park is Bryce Canyon, which despite its name, is not a canyon, but a collection of giant natural amphitheaters along the eastern side of the Paunsaugunt Plateau. Bryce is distinctive due to geological structures called hoodoos, formed by frost weathering and stream erosion of the river and lake bed sedimentary rocks. The red, orange, and white colors of the rocks provide spectacular views for park visitors. Bryce sits at a much higher elevation than nearby Zion National Park. The rim at Bryce varies from 8,000 to 9,000 feet (2,400 to 2,700 m).",
 		"link": "https://en.wikipedia.org/wiki/Bryce_Canyon_National_Park"
 	};
 	var marker_bryce = new google.maps.Marker({
