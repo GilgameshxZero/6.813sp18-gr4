@@ -3,7 +3,8 @@ var placeholder;
 
 window.onload = function () {
 	var map = document.getElementById("map");
-	map.style.filter = "blur(2px)";
+	map.style.filter = "blur(5px)";
+	// map.style.filter = "grayscale(10%)";
 
 	var suggestions = ["What kind of weather are you looking for?","What activities do you want to do?","Any specific region in mind?"];
 	var input = document.getElementById("input");
@@ -143,6 +144,12 @@ function fillPopups(popupid, data){
 	link.innerHTML = "more";
 	popup.appendChild(info);
 	popup.appendChild(link);
+
+	// mail
+	var mail = document.createElement("a");
+	mail.setAttribute("href", "jieunlee@mit.edu");
+	mail.innerHTML = "\nmail to myself";
+	popup.appendChild(mail);
 }
 
 function initMap() {
@@ -186,7 +193,9 @@ function initMap() {
 		"kids": false,
 		"budget": 200,
 		"date": "January 19 - January 23",
-		"info": "Regensburg is an old city in Germany with medieval castles",
+		"info": "Regensburg is a town in south-east Germany in Bavaria. It is located at the confluence of the Danube, Naab, and Regen rivers, " +
+				+ "and it is the political, economic,and cultural centre of easter Bavaria. The medieval centre of the city is UNESCO Worlk Heritage  Site, "
+				+ "and in 2014, it was among the top sights in Germany.",
 		"link": "https://en.wikipedia.org/wiki/Regensburg"
 	}
 	var marker_regensburg = new google.maps.Marker({

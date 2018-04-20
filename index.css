@@ -23,6 +23,7 @@ body {
 	width: 100%;
 	flex: 6.5 6.5 65%;
 	z-index: 0;
+	border-radius: 25px;
 }
 
 #modal {
@@ -79,7 +80,6 @@ body {
 
 .bookmark:hover,
 .bookmark:focus {
-	filter: grayscale(0%);
     text-decoration: none;
     cursor: pointer;
 }
@@ -87,7 +87,7 @@ body {
 /*------------------------------- TEXT FIELD -------------------------------------*/
 .landing {
 	position: absolute;
-	top: 50%;
+	top: 40%;
 	transform: translateY(-50%);
 	z-index: 10;
 	width: 100%;
@@ -103,8 +103,8 @@ body {
 }
 
 #logo {
-	width: 200px;
-	height: 200px;
+	width: 50%;
+	height: 50%;
 	margin: 15px;
 }
 
