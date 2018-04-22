@@ -61,7 +61,6 @@ function mainContentLoad() {
 function makePopups(markers, locationName, position_x, position_y){
 	var modal = document.getElementById("modal");
 	var marker = markers[locationName][0];
-	// console.log(modal);
 
 	var existingPops = document.getElementsByClassName("popup");
 	for (var i = 0; i < existingPops.length; i++)
@@ -153,7 +152,7 @@ function fillPopups(popupid, data){
 	info.classList.add("popup-info");
 	var link = document.createElement("a");
 	link.setAttribute("href", data["link"]);
-	link.setAttribute("target", "_blank");
+	// link.setAttribute("target", "_blank");
 	link.innerHTML = "more...";
 	nonImage.appendChild(info);
 	nonImage.appendChild(link);
