@@ -303,12 +303,12 @@ function initMap() {
 
     		// budget
     		var currentBudget = parseInt(document.getElementById("rst-price-display-current").innerHTML.slice(1));
-    		// if (Math.abs(currentBudget - datas[i]["budget"]) > 50){
-    		// 	matched = false;
-    		// }
-    		if (datas[i]["budget"] < currentBudget){
+    		if (Math.abs(currentBudget - datas[i]["budget"]) > 50){
     			matched = false;
     		}
+    		// if (datas[i]["budget"] < currentBudget){
+    		// 	matched = false;
+    		// }
 
     		if (matched){
     			markers[datas[i]["name"]][0].setVisible(true);
