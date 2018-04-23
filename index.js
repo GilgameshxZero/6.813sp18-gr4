@@ -153,7 +153,7 @@ function fillPopups(popupid, data){
 	var link = document.createElement("a");
 	link.setAttribute("href", data["link"]);
 	link.style.zIndex = 2;
-	// link.setAttribute("target", "_blank");
+	link.setAttribute("target", "_blank");
 	link.innerHTML = "more...";
 	nonImage.appendChild(info);
 	nonImage.appendChild(link);
