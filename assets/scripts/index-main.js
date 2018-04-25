@@ -3,11 +3,15 @@ var tfPhTime = 1500;
 var mapElement;
 var textField;
 
+function gMapReady() {
+	//called by google API, do nothing
+}
+
 window.onload = function () {
 	mapElement = document.getElementById('map');
 	textField = document.getElementById('input-text');
 
-	textField.addEventListener('keydown', mainContentLoad);
+	textField.addEventListener('keydown', endOnboarding);
 
 	function tfPhInterval() {
 		if (typeof this.counter == 'undefined') {
@@ -23,7 +27,7 @@ window.onload = function () {
 	initMap();
 }
 
-function mainContentLoad() {
+function endOnboarding() {
 	mapElement.classList.remove('blur5px');
 	
 	// textfield
@@ -35,7 +39,7 @@ function mainContentLoad() {
 	inputWrapperWrapper.className = 'content-loaded';
 	document.getElementById('input-wrapper').style.width = 'auto';
 	textField.placeholder = '';
-	textField.removeEventListener('keydown', mainContentLoad);
+	textField.removeEventListener('keydown', endOnboarding);
 
 	// restrictions
 	document.getElementById('pref').style.display = 'flex';
@@ -155,10 +159,6 @@ function fillPopups(popupid, data){
 	link.innerHTML = 'more...';
 	nonImage.appendChild(info);
 	nonImage.appendChild(link);
-}
-
-function gMapReady() {
-	//do nothing
 }
 
 function initMap() {
