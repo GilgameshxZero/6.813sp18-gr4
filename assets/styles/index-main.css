@@ -50,7 +50,7 @@ body {
 	z-index: 0;
 }
 
-.popupImage{
+.popup-image{
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -233,8 +233,8 @@ body {
 	margin-right: 0px;
 }
 
-/*------------------------------- RESTRICTIONS -------------------------------------*/
-#restrictions {
+/*------------------------------- PREFERENCES -------------------------------------*/
+#pref {
 	display: none;
 	flex: 3 3 30%;
 	margin-top: 5px;
@@ -244,12 +244,12 @@ body {
 }
 
 /*wrapper to center absolutely positioned titled*/
-#rst-title-wrapper {
+#pref-title-wrapper {
 	position: absolute;
 	left: 50%;
 }
 
-#rst-title {
+#pref-title {
 	position: relative;
 	margin: auto;
 	top: -20px;
@@ -261,7 +261,7 @@ body {
 	background-color: rgba(255, 255, 255, 1);
 }
 
-#rst-inner-wrapper {
+#pref-inner-wrapper {
 	width: calc(100% - 10px * 2);
 	height: calc(100% - 10px - 15px);
 	margin: 10px;
@@ -273,25 +273,25 @@ body {
 	font-size: 20px;
 }
 
-#rst-spacer {
+#pref-spacer {
 	width: 10px;
 	height: 5px;
 }
 
-#rst-col1-wrapper {
+#pref-col1-wrapper {
 	width: 50%;
 	height: 100%;
 
 	display: flex;
 }
 
-#rst-col1 {
+#pref-col1 {
 	margin: auto;
 	display: flex;
 	flex-flow: column nowrap;
 }
 
-#rst-language {
+#pref-language {
 	margin: 0px;
 	margin-bottom: 5px;
 
@@ -299,12 +299,12 @@ body {
 	flex-flow: row nowrap;
 }
 
-#rst-language-select {
+#pref-language-select {
 	margin: auto;
 	margin-right: 0px;
 }
 
-#rst-citizenship {
+#pref-citizenship {
 	margin: 0px;
 	margin-bottom: 5px;
 
@@ -312,12 +312,12 @@ body {
 	flex-flow: row nowrap;
 }
 
-#rst-citizenship-select {
+#pref-citizenship-select {
 	margin: auto;
 	margin-right: 0px;
 }
 
-#rst-pets {
+#pref-pets {
 	margin: 0px;
 	margin-bottom: 5px;
 
@@ -325,67 +325,67 @@ body {
 	flex-flow: row nowrap;
 }
 
-#rst-pets-checkbox {
+#pref-pets-checkbox {
 	margin: auto;
 	margin-right: 0px;
 }
 
-#rst-kids {
+#pref-kids {
 	margin: 0px;
 
 	display: flex;
 	flex-flow: row nowrap;
 }
 
-#rst-kids-checkbox {
+#pref-kids-checkbox {
 	margin: auto;
 	margin-right: 0px;
 }
 
-#rst-col2-wrapper {
+#pref-col2-wrapper {
 	width: 50%;
 	height: 100%;
 	display: flex;
 }
 
-#rst-col2 {
+#pref-col2 {
 	margin: auto;
 	display: flex;
 	flex-flow: column nowrap;
 }
 
-#rst-price {
+#pref-price {
 	margin: 0px;
 
 	display: flex;
 	flex-flow: column nowrap;
 }
 
-#rst-price-display {
+#pref-price-display {
 	display: flex;
 	flex-flow: row nowrap;
 }
 
-#rst-price-display-current {
+#pref-price-display-current {
 	margin: auto;
 	margin-right: 0px;
 }
 
-#rst-price-slider-wrapper {
+#pref-price-slider-wrapper {
 	margin-top: 10px;
 }
 
-#rst-price-slider-label {
+#pref-price-slider-label {
 	display: flex;
 	flex-flow: row nowrap;
 }
 
-#rst-price-slider-low {
+#pref-price-slider-low {
 	margin: auto;
 	margin-left: 0px;
 }
 
-#rst-price-slider-high {
+#pref-price-slider-high {
 	margin: auto;
 	margin-right: 0px;
 }

@@ -41,13 +41,13 @@ function mainContentLoad() {
 
 	// restrictions
 	document.getElementById("restrictions").style.display = "flex";
-	var rstPriceSlider = document.getElementById("rst-price-slider");
-	var rstPriceDisplayCurrent = document.getElementById("rst-price-display-current");
-	rstPriceDisplayCurrent.innerHTML = '$' + rstPriceSlider.value; // Display the default slider value
+	var prefPriceSlider = document.getElementById("pref-price-slider");
+	var prefPriceDisplayCurrent = document.getElementById("pref-price-display-current");
+	prefPriceDisplayCurrent.innerHTML = '$' + prefPriceSlider.value; // Display the default slider value
 	
 	// Update the current slider value (each time you drag the slider handle)
-	rstPriceSlider.oninput = function() {
-		rstPriceDisplayCurrent.innerHTML = '$' + this.value;
+	prefPriceSlider.oninput = function() {
+		prefPriceDisplayCurrent.innerHTML = '$' + this.value;
 	}
 
 	window.onclick = function(event) {
@@ -83,7 +83,7 @@ function makePopups(markers, locationName, position_x, position_y){
 	}
 	var link = document.createElement("a");
 	var bookmark = document.createElement("img");
-	bookmark.src = "assets/bookmark.png";
+	bookmark.src = "assets/img/bookmark.png";
 	bookmark.classList.add("bookmark");
 	if (markers[locationName][1]){
 		bookmark.style.filter = "grayscale(0%)";
@@ -98,7 +98,7 @@ function makePopups(markers, locationName, position_x, position_y){
 		}
 		else{
 			bookmark.style.filter = "grayscale(0%)";
-			marker.setIcon('assets/bookmark_marker.png');
+			marker.setIcon('assets/img/bookmark-marker.png');
 			markers[locationName][1] = true;
 		}
 	}
@@ -121,8 +121,8 @@ function fillPopups(popupid, data){
 	
 	// image
 	var image = document.createElement("img");
-	image.src = "assets/" + popupid + ".jpg";
-	image.classList.add("popupImage");
+	image.src = "assets/img/" + popupid + ".jpg";
+	image.classList.add("popup-image");
 	popup.appendChild(image);
 
 	//non-image background
@@ -274,7 +274,7 @@ function initMap() {
     		}
 
     		// language preference
-    		var languageSelect = document.getElementById("rst-language-select");
+    		var languageSelect = document.getElementById("pref-language-select");
 			var l_option = languageSelect.options[languageSelect.selectedIndex].text;
 			
 			if (l_option.toLowerCase() != datas[i]['language']){
@@ -282,7 +282,7 @@ function initMap() {
 			}
 
     		// citizenship preference
-    		var citizenshipSelect = document.getElementById("rst-citizenship-select");
+    		var citizenshipSelect = document.getElementById("pref-citizenship-select");
 			var c_option = citizenshipSelect.options[citizenshipSelect.selectedIndex].text;
 			
 			if (c_option.toLowerCase() != datas[i]['citizenship']){
@@ -303,7 +303,7 @@ function initMap() {
     		}
 
     		// budget
-    		var currentBudget = parseInt(document.getElementById("rst-price-display-current").innerHTML.slice(1));
+    		var currentBudget = parseInt(document.getElementById("pref-price-display-current").innerHTML.slice(1));
     		if (Math.abs(currentBudget - datas[i]["budget"]) > 50){
     			matched = false;
     		}
@@ -367,17 +367,17 @@ function initMap() {
 			checkData();
 	});
 
-	document.getElementById("rst-language-select")
+	document.getElementById("pref-language-select")
 		.addEventListener("change", function() {
 		    checkData();
 	});
 
-	document.getElementById("rst-citizenship-select")
+	document.getElementById("pref-citizenship-select")
 		.addEventListener("change", function() {
 		    checkData();
 	});
 
-	document.getElementById("rst-price-slider")
+	document.getElementById("pref-price-slider")
 		.addEventListener("change", function() {
 		    checkData();
 	});

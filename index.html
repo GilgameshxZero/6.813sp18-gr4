@@ -3,12 +3,13 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Connect-7</title>
-		<link rel="stylesheet" href="index.css">
-		<script src="index.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<link rel="shortcut icon" href="assets/logo_whiteBack.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
 		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrBPYvlDJmXgY_Smyoig8fFX4aTVORVtg&callback=initMap"></script>
+		
+		<link rel="stylesheet" href="assets/styles/index-main.css">
+		<script src="assets/scripts/index-main.js"></script>
 	</head>
 
 	<body>
@@ -22,52 +23,52 @@
 		<!-- text field -->
 		<div id="text-field" class="landing">
 			<!-- logo -->
-			<img src="assets/logo.png" id="logo">
+			<img src="assets/img/logo.png" id="logo">
 			<!-- textbox input -->
 			<div id="input-wrapper" class="input-wrapper">
 				<input id="input" class="input" type="text" placeholder=""> 
-				<img id="input-magnifying" src="assets/search-24.png"></img>
+				<img id="input-magnifying" src="assets/img/search-24.png"></img>
 			</div>
 		</div>
 
 		<!-- restictions -->
 		<div id="restrictions">
-			<div id="rst-title-wrapper">
-				<div id="rst-title" >Preferences</div>
+			<div id="pref-title-wrapper">
+				<div id="pref-title" >Preferences</div>
 			</div>
-			<div id="rst-inner-wrapper">
-				<div id="rst-col1-wrapper">
-					<div id="rst-col1">
-						<div id="rst-language">
+			<div id="pref-inner-wrapper">
+				<div id="pref-col1-wrapper">
+					<div id="pref-col1">
+						<div id="pref-language">
 							Language:
-							<div id="rst-spacer"></div>
-							<select id="rst-language-select">
+							<div id="pref-spacer"></div>
+							<select id="pref-language-select">
 								<option value="1">---</option>
 								<option value="2">German</option>
 							</select>
 						</div>
-						<div id="rst-citizenship">
+						<div id="pref-citizenship">
 							Citizenship:
-							<div id="rst-spacer"></div>
-							<select id="rst-citizenship-select">
+							<div id="pref-spacer"></div>
+							<select id="pref-citizenship-select">
 								<option value="1">---</option>
 								<option value="2">Canada</option>
 							</select>
 						</div>
-						<div id="rst-pets">
+						<div id="pref-pets">
 							Pets:
-							<div id="rst-spacer"></div>
-							<div id="rst-pets-checkbox">
+							<div id="pref-spacer"></div>
+							<div id="pref-pets-checkbox">
 								<label class="container">
 									<input id = "petsCheckbox" type="checkbox">
 									<span class="checkmark"></span>
 								</label>
 							</div>
 						</div>
-						<div id="rst-kids">
+						<div id="pref-kids">
 							Kids:
-							<div id="rst-spacer"></div>
-							<div id="rst-kids-checkbox">
+							<div id="pref-spacer"></div>
+							<div id="pref-kids-checkbox">
 								<label class="container">
 									<input id = "kidsCheckbox" type="checkbox">
 									<span class="checkmark"></span>
@@ -76,21 +77,21 @@
 						</div>
 					</div>
 				</div>
-				<div id="rst-col2-wrapper">
-					<div id="rst-col2">
-						<div id="rst-price">
-							<div id="rst-price-display">
+				<div id="pref-col2-wrapper">
+					<div id="pref-col2">
+						<div id="pref-price">
+							<div id="pref-price-display">
 								Residence Price Range:
-								<div id="rst-spacer"></div>
-								<div id="rst-price-display-current"></div>
+								<div id="pref-spacer"></div>
+								<div id="pref-price-display-current"></div>
 							</div>
-							<div id="rst-spacer"></div>
-							<div class="rst-price-slider-wrapper">
-								<input id="rst-price-slider" type="range" min="0" max="3000" value="0" class="slider">
+							<div id="pref-spacer"></div>
+							<div class="pref-price-slider-wrapper">
+								<input id="pref-price-slider" type="range" min="0" max="3000" value="0" class="slider">
 							</div>
-							<div id="rst-price-slider-label">
-								<div id="rst-price-slider-low">$0</div>
-								<div id="rst-price-slider-high">$3000</div>
+							<div id="pref-price-slider-label">
+								<div id="pref-price-slider-low">$0</div>
+								<div id="pref-price-slider-high">$3000</div>
 							</div>
 						</div>
 					</div>
