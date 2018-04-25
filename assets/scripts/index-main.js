@@ -20,7 +20,10 @@ window.onload = function () {
 		}
 	
 		textField.placeholder = this.tfPhText[this.counter++ % tfPhText.length];
-		setTimeout(tfPhInterval, tfPhTime);
+		if (tfPhTime != 0)
+			setTimeout(tfPhInterval, tfPhTime);
+		else
+			textField.placeholder = '';
 	}
 	tfPhInterval();
 
@@ -29,6 +32,7 @@ window.onload = function () {
 
 function endOnboarding() {
 	mapElement.classList.remove('blur5px');
+	tfPhTime = 0;
 	
 	// textfield
 	var inputWrapperWrapper = document.getElementById('input-wrapper-wrapper');
@@ -335,7 +339,7 @@ function initMap() {
 	    	checkData();
 	    }
 	    // BUG with how to fix when only one word left in input value
-	    else if (event.keyCode === 8 && input.value == '') {
+	    else if (event.keyCode === 8 && textField.value == '') {
 	    	// console.log(inputWrapper.childNodes);
 	    	var tag = inputWrapper.childNodes[inputWrapper.childNodes.length - 5];
 	    	if (tag){
@@ -352,7 +356,7 @@ function initMap() {
 			var tag = event.target;
 			if (tag.classList.contains('tag')){
 				inputWrapper.removeChild(tag);
-				input.focus();
+				textField.focus();
 			}
 			checkData();
 		}
