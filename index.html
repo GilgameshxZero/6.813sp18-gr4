@@ -5,11 +5,13 @@
 		<title>Connect-7</title>
 		<link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
 		
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrBPYvlDJmXgY_Smyoig8fFX4aTVORVtg&callback=initMap"></script>
-		
 		<link rel="stylesheet" href="assets/styles/index-main.css">
+
 		<script src="assets/scripts/index-main.js"></script>
+		<script src="assets/scripts/index-data.js"></script>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrBPYvlDJmXgY_Smyoig8fFX4aTVORVtg&callback=gMapReady"></script>
 	</head>
 
 	<body>
@@ -21,17 +23,17 @@
 		<div id = "modal"> </div>
 
 		<!-- text field -->
-		<div id="text-field" class="landing">
+		<div id="input-wrapper-wrapper" class="landing">
 			<!-- logo -->
 			<img src="assets/img/logo.png" id="logo">
 			<!-- textbox input -->
 			<div id="input-wrapper" class="input-wrapper">
-				<input id="input" class="input" type="text" placeholder=""> 
+				<input id="input-text" class="input" type="text" placeholder=""> 
 				<img id="input-magnifying" src="assets/img/search-24.png"></img>
 			</div>
 		</div>
 
-		<!-- restictions -->
+		<!-- preferences -->
 		<div id="pref">
 			<div id="pref-title-wrapper">
 				<div id="pref-title" >Preferences</div>
@@ -81,13 +83,13 @@
 					<div id="pref-col2">
 						<div id="pref-price">
 							<div id="pref-price-display">
-								Residence Price Range:
+								Per-Day Max Residence Price:
 								<div id="pref-spacer"></div>
 								<div id="pref-price-display-current"></div>
 							</div>
 							<div id="pref-spacer"></div>
 							<div class="pref-price-slider-wrapper">
-								<input id="pref-price-slider" type="range" min="0" max="3000" value="0" class="slider">
+								<input id="pref-price-slider" type="range" min="0" max="500" value="0" class="slider">
 							</div>
 							<div id="pref-price-slider-label">
 								<div id="pref-price-slider-low">$0</div>
