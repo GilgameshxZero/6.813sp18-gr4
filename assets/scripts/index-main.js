@@ -1,4 +1,4 @@
-var placeholder;
+var tfPhTime = 1500;
 
 var mapElement;
 var textField;
@@ -7,28 +7,24 @@ window.onload = function () {
 	mapElement = document.getElementById('map');
 	textField = document.getElementById('input-text');
 
-	mapElement.style.filter = 'blur(5px)';
-
-	var suggestions = [];
 	textField.addEventListener('keydown', mainContentLoad);
-	placeholder = setInterval(rotate, 2000);
-	var counter = 0;
-	function rotate() { 
-		textField.placeholder = suggestions[counter];
-	  	counter++;
-	  	if (counter >= suggestions.length) {
-			counter = 0;
-	  	}
+
+	function tfPhInterval() {
+		if (typeof this.counter == 'undefined') {
+			this.tfPhText = jsonData['textfield-placeholder'];
+			this.counter = 0;
+		}
+	
+		textField.placeholder = this.tfPhText[this.counter++ % tfPhText.length];
+		setTimeout(tfPhInterval, tfPhTime);
 	}
+	tfPhInterval();
 
 	initMap();
 }
 
 function mainContentLoad() {
-	clearInterval(placeholder);
-
-	// map
-	mapElement.style.filter = '';
+	mapElement.classList.remove('blur5px');
 	
 	// textfield
 	var inputWrapperWrapper = document.getElementById('input-wrapper-wrapper');

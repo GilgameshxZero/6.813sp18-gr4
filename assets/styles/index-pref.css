@@ -1,0 +1,156 @@
+/*------------------------------- PREFERENCES -------------------------------------*/
+#pref {
+	display: none;
+	flex: 3 3 30%;
+	margin-top: 5px;
+	border-width: 2px;
+	border-radius: 5px;
+	border-style: solid;
+}
+
+/*wrapper to center absolutely positioned titled*/
+#pref-title-wrapper {
+	position: absolute;
+	left: 50%;
+}
+
+#pref-title {
+	position: relative;
+	margin: auto;
+	top: -20px;
+	left: -50%;
+
+	font-size: 30px;
+
+	/*keep background non-transparent*/
+	background-color: rgba(255, 255, 255, 1);
+}
+
+#pref-inner-wrapper {
+	width: calc(100% - 10px * 2);
+	height: calc(100% - 10px - 15px);
+	margin: 10px;
+	margin-top: 15px;
+
+	display: flex;
+	flex-flow: row nowrap;
+
+	font-size: 20px;
+}
+
+#pref-spacer {
+	width: 10px;
+	height: 5px;
+}
+
+#pref-col1-wrapper {
+	width: 50%;
+	height: 100%;
+
+	display: flex;
+}
+
+#pref-col1 {
+	margin: auto;
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+#pref-language {
+	margin: 0px;
+	margin-bottom: 5px;
+
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+#pref-language-select {
+	margin: auto;
+	margin-right: 0px;
+}
+
+#pref-citizenship {
+	margin: 0px;
+	margin-bottom: 5px;
+
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+#pref-citizenship-select {
+	margin: auto;
+	margin-right: 0px;
+}
+
+#pref-pets {
+	margin: 0px;
+	margin-bottom: 5px;
+
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+#pref-pets-checkbox {
+	margin: auto;
+	margin-right: 0px;
+}
+
+#pref-kids {
+	margin: 0px;
+
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+#pref-kids-checkbox {
+	margin: auto;
+	margin-right: 0px;
+}
+
+#pref-col2-wrapper {
+	width: 50%;
+	height: 100%;
+	display: flex;
+}
+
+#pref-col2 {
+	margin: auto;
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+#pref-price {
+	margin: 0px;
+
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+#pref-price-display {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+#pref-price-display-current {
+	margin: auto;
+	margin-right: 0px;
+}
+
+#pref-price-slider-wrapper {
+	margin-top: 10px;
+}
+
+#pref-price-slider-label {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+#pref-price-slider-low {
+	margin: auto;
+	margin-left: 0px;
+}
+
+#pref-price-slider-high {
+	margin: auto;
+	margin-right: 0px;
+}
