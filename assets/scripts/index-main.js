@@ -328,9 +328,9 @@ function initMap() {
 	    	var tag = document.createElement('span');
 	    	tag.classList.add('tag');
 	    	// this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g,'');
-	        tag.innerHTML = input.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g,'');;
-	        inputWrapper.insertBefore(tag, input);
-	        input.value = '';
+	        tag.innerHTML = textField.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g,'');;
+	        inputWrapper.insertBefore(tag, textField);
+	        textField.value = '';
 
 	    	checkData();
 	    }
