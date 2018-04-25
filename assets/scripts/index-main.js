@@ -393,7 +393,6 @@ function initMap() {
 	});
 	// If the map position is out of range, move it back
 	function checkBounds(map) {
-
 		var latNorth = map.getBounds().getNorthEast().lat();
 		var latSouth = map.getBounds().getSouthWest().lat();
 
