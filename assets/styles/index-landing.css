@@ -36,7 +36,7 @@
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 20px;
-	margin-top: -30px;
+	margin-top: -50px;
 }
 
 #map.map-landing {
@@ -59,4 +59,28 @@
 #pref.pref-landing {
 	transform: scaleY(0);
 	height: 0px;
+}
+
+#landing-bkg {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	filter: blur(5px);
+
+	opacity: 0.5;
+
+	background-image: url("../img/landing-map.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+	
+	transition-property: all;
+	transition-duration: 1s;
+	transition-timing-function: ease;
+}
+
+#landing-bkg.landing-bkg-hidden {
+	opacity: 0;
 }

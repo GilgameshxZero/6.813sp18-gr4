@@ -9,6 +9,7 @@ var pref;
 var prefPriceDisplayCurrent;
 var prefPriceSlider;
 var landingLogo;
+var landingBkg;
 
 function gMapReady() {
 	//called by google API, do nothing
@@ -24,6 +25,7 @@ window.onload = function () {
 	prefPriceSlider = document.getElementById('pref-price-slider');
 	prefPriceDisplayCurrent = document.getElementById('pref-price-display-current');
 	landingLogo = document.getElementById('landing-logo');
+	landingBkg = document.getElementById('landing-bkg');
 
 	textField.addEventListener('keydown', endLanding, {once: true});
 	prefPriceDisplayCurrent.innerHTML = '$' + prefPriceSlider.value; //display the default slider value
@@ -58,6 +60,8 @@ function endLanding(event) {
 	mapElement.classList.remove('map-landing');
 	inputWrapper.classList.remove('input-wrapper-landing');
 	pref.classList.remove('pref-landing');
+	body.classList.remove('body-landing');
+	landingBkg.classList.add('landing-bkg-hidden');
 
 	//update the current slider value (each time you drag the slider handle)
 	prefPriceSlider.oninput = function() {
