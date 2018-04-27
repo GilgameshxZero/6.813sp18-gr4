@@ -1,10 +1,7 @@
 /*------------------------------- TEXT FIELD -------------------------------------*/
 #input-wrapper {
-	display: flex;
 	flex: 0 1 7.5%;
-	flex-flow: row nowrap;
-	margin-top: 15px;
-	margin-bottom: 15px;
+	margin: 15px;
 	margin-left: 0px;
 	margin-right: 0px;
 	padding-left: 10px;
@@ -14,18 +11,24 @@
 	border-width: 2px;
 	border-style: solid;
 
-	order: 2;
+	display: flex;
+	flex-flow: row nowrap;
+	order: 3;
+	
+	transition-property: all;
+	transition-duration: 1s;
+	transition-timing-function: ease;
 }
 
 #input-wrapper span.tag{
-  	cursor:pointer;
-  	display:block;
-  	float:left;
-  	color:#555;
-  	background:#add;
-  	padding:5px 10px;
- 	padding-right:30px;
-  	margin:4px;
+  	cursor: pointer;
+  	display: block;
+  	float: left;
+  	color: #555;
+  	background: #add;
+  	padding: 5px 10px;
+ 	padding-right: 30px;
+  	margin: 4px;
   	font-size: 25px;
   	border-radius: 5px;
 }
