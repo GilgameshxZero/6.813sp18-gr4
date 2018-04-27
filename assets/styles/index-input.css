@@ -1,43 +1,20 @@
 /*------------------------------- TEXT FIELD -------------------------------------*/
-.landing {
-	position: absolute;
-	top: 40%;
-	transform: translateY(-50%);
-	z-index: 10;
-	width: 100%;
-
-	display: flex;
-	flex-flow: column;
-	justify-content: center;
-	align-items: center;	
-}
-
-.content-loaded {
-
-}
-
-#logo {
-	width: 50%;
-	height: 50%;
-	margin: 15px;
-}
-
 #input-wrapper {
 	display: flex;
 	flex: 0 1 7.5%;
 	flex-flow: row nowrap;
-	position: relative;
-
 	margin-top: 15px;
 	margin-bottom: 15px;
+	margin-left: 0px;
+	margin-right: 0px;
 	padding-left: 10px;
 	padding-right: 10px;
-	width: 90%;
 	height: 60px;
-	
 	border-radius: 5px;
 	border-width: 2px;
 	border-style: solid;
+
+	order: 2;
 }
 
 #input-wrapper span.tag{
@@ -74,7 +51,7 @@
 	color: #808080;
 }
 
-#input-text {
+#text-field {
 	width: 100%;
 	height: 85%;
 	margin: auto;
@@ -87,7 +64,7 @@
 	border-width: 0px;
 }
 
-#input-text:focus {
+#text-field:focus {
 	outline: none;
 }
 
