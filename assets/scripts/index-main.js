@@ -2,13 +2,13 @@ var tfPhTime = 1500;
 
 var mapElement;
 var textField;
-var landingWrapper;
 var landing;
 var body;
 var inputWrapper;
 var pref;
 var prefPriceDisplayCurrent;
 var prefPriceSlider;
+var landingLogo;
 
 function gMapReady() {
 	//called by google API, do nothing
@@ -17,15 +17,15 @@ function gMapReady() {
 window.onload = function () {
 	mapElement = document.getElementById('map');
 	textField = document.getElementById('text-field');
-	landingWrapper = document.getElementById('landing-wrapper');
 	landing = document.getElementById('landing');
 	body = document.body;
 	inputWrapper = document.getElementById('input-wrapper');
 	pref = document.getElementById('pref');
 	prefPriceSlider = document.getElementById('pref-price-slider');
 	prefPriceDisplayCurrent = document.getElementById('pref-price-display-current');
+	landingLogo = document.getElementById('landing-logo');
 
-	textField.addEventListener('keydown', endLanding);
+	textField.addEventListener('keydown', endLanding, {once: true});
 	prefPriceDisplayCurrent.innerHTML = '$' + prefPriceSlider.value; //display the default slider value
 
 	function tfPhInterval() {
@@ -34,26 +34,28 @@ window.onload = function () {
 			this.counter = 0;
 		}
 	
-		textField.placeholder = this.tfPhText[this.counter++ % tfPhText.length];
-		if (tfPhTime != 0)
+		if (tfPhTime != 0) {
+			textField.placeholder = this.tfPhText[this.counter++ % tfPhText.length];
 			setTimeout(tfPhInterval, tfPhTime);
-		else
-			textField.placeholder = '';
+		}
 	}
 	tfPhInterval();
+
+	//dynamically sizing the landing page for smoother animations
+	landing.style.height = landing.offsetHeight + 'px';
+	landingLogo.classList.add('landing-logo-postsize');
 
 	initMap();
 }
 
-function endLanding() {
-	mapElement.classList.remove('map-landing');
+function endLanding(event) {
+	textField.placeholder = '';
 	tfPhTime = 0;
-	textField.removeEventListener('keydown', endLanding);
 	
 	//animate landing away into main page
-	landing.removeChild(inputWrapper);
-	body.appendChild(inputWrapper);
-	landingWrapper.classList.add('hidden');
+	landing.style.height = '0px';
+	landing.classList.add('hidden');
+	mapElement.classList.remove('map-landing');
 	inputWrapper.classList.remove('input-wrapper-landing');
 	pref.classList.remove('pref-landing');
 
@@ -69,6 +71,8 @@ function endLanding() {
 	        modal.style.display = 'none';
 	    }
 	}
+
+	textField.focus();
 }
 
 function makePopups(markers, locationName, position_x, position_y){

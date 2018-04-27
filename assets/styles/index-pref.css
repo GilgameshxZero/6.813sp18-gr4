@@ -1,13 +1,20 @@
 /*------------------------------- PREFERENCES -------------------------------------*/
 #pref {
 	flex: 3 3 30%;
+
 	margin-top: 5px;
 	border-width: 2px;
 	border-radius: 5px;
 	border-style: solid;
 
-	order: 3;
+	order: 4;
 	display: flex;
+
+	transform: scaleY(1);
+	
+	transition-property: all;
+	transition-duration: 1s;
+	transition-timing-function: ease;
 }
 
 /*wrapper to center absolutely positioned titled*/
