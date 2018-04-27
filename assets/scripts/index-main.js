@@ -2,14 +2,13 @@ var tfPhTime = 1500;
 
 var mapElement;
 var textField;
+var landingWrapper;
 var landing;
 var body;
 var inputWrapper;
 var pref;
 var prefPriceDisplayCurrent;
 var prefPriceSlider;
-var landingLogo;
-var landingBkg;
 
 function gMapReady() {
 	//called by google API, do nothing
@@ -18,16 +17,15 @@ function gMapReady() {
 window.onload = function () {
 	mapElement = document.getElementById('map');
 	textField = document.getElementById('text-field');
+	landingWrapper = document.getElementById('landing-wrapper');
 	landing = document.getElementById('landing');
 	body = document.body;
 	inputWrapper = document.getElementById('input-wrapper');
 	pref = document.getElementById('pref');
 	prefPriceSlider = document.getElementById('pref-price-slider');
 	prefPriceDisplayCurrent = document.getElementById('pref-price-display-current');
-	landingLogo = document.getElementById('landing-logo');
-	landingBkg = document.getElementById('landing-bkg');
 
-	textField.addEventListener('keydown', endLanding, {once: true});
+	textField.addEventListener('keydown', endLanding);
 	prefPriceDisplayCurrent.innerHTML = '$' + prefPriceSlider.value; //display the default slider value
 
 	function tfPhInterval() {
@@ -36,37 +34,34 @@ window.onload = function () {
 			this.counter = 0;
 		}
 	
-		if (tfPhTime != 0) {
-			textField.placeholder = this.tfPhText[this.counter++ % tfPhText.length];
+		textField.placeholder = this.tfPhText[this.counter++ % tfPhText.length];
+		if (tfPhTime != 0)
 			setTimeout(tfPhInterval, tfPhTime);
-		}
+		else
+			textField.placeholder = '';
 	}
 	tfPhInterval();
 
-	//dynamically sizing the landing page for smoother animations
-	landing.style.height = landing.offsetHeight + 'px';
-	landingLogo.classList.add('landing-logo-postsize');
-
 	initMap();
+
 }
 
-function endLanding(event) {
-	textField.placeholder = '';
+function endLanding() {
+	mapElement.classList.remove('map-landing');
 	tfPhTime = 0;
+	textField.removeEventListener('keydown', endLanding);
 	
 	//animate landing away into main page
-	landing.style.height = '0px';
-	landing.classList.add('hidden');
-	mapElement.classList.remove('map-landing');
+	landing.removeChild(inputWrapper);
+	body.appendChild(inputWrapper);
+	landingWrapper.classList.add('hidden');
 	inputWrapper.classList.remove('input-wrapper-landing');
 	pref.classList.remove('pref-landing');
-	body.classList.remove('body-landing');
-	landingBkg.classList.add('landing-bkg-hidden');
 
-	//update the current slider value (each time you drag the slider handle)
-	prefPriceSlider.oninput = function() {
-		prefPriceDisplayCurrent.innerHTML = '$' + this.value;
-	}
+	// //update the current slider value (each time you drag the slider handle)
+	// prefPriceSlider.oninput = function() {
+	// 	prefPriceDisplayCurrent.innerHTML = '$' + this.value;
+	// }
 
 	//idk what this does
 	window.onclick = function(event) {
@@ -75,8 +70,6 @@ function endLanding(event) {
 	        modal.style.display = 'none';
 	    }
 	}
-
-	textField.focus();
 }
 
 function makePopups(markers, locationName, position_x, position_y){
@@ -195,9 +188,7 @@ function initMap() {
 		'position': florida,
 		'text': ['warm', 'beach'],
 		'language': '---',
-		'location': '---',
-		'pets': false,
-		'kids': false,
+		'domestic': null,
 		'budget': 0,
 		'date': 'Mar 19 - Mar 24',
 		'info': 'Florida is the southernmost contiguous state in the United States. The state is bordered to the west by the Gulf of Mexico, to the northwest by Alabama, to the north by Georgia, to the east by the Atlantic Ocean, and to the south by the Straits of Florida.',
@@ -216,9 +207,7 @@ function initMap() {
 		'position': regensburg,
 		'text': ['europe', 'oldcities', 'castles'],
 		'language': 'german',
-		'location': '---',
-		'pets': false,
-		'kids': false,
+		'domestic': null,
 		'budget': 200,
 		'date': 'January 19 - January 23',
 		'info': 'Regensburg is an old city in south-east Germany in Bavaria. It is located at the confluence of the Danube, Naab, and Regen rivers, ' +
@@ -239,9 +228,7 @@ function initMap() {
 		'position': bryceCanyon,
 		'text': ['hiking', 'camping'],
 		'language': '---',
-		'location': 'international',
-		'pets': true,
-		'kids': true,
+		'domestic': false,
 		'budget': 0,
 		'date': 'June 7 - June 9',
 		'info': 'Bryce Canyon National Park is a United States national park located in southwestern Utah. The major feature of the park is Bryce Canyon, which despite its name, is not a canyon, but a collection of giant natural amphitheaters along the eastern side of the Paunsaugunt Plateau. Bryce is distinctive due to geological structures called hoodoos, formed by frost weathering and stream erosion of the river and lake bed sedimentary rocks. The red, orange, and white colors of the rocks provide spectacular views for park visitors. Bryce sits at a much higher elevation than nearby Zion National Park. The rim at Bryce varies from 8,000 to 9,000 feet (2,400 to 2,700 m).',
@@ -302,31 +289,34 @@ function initMap() {
 			}
 
     		//citizenship preference
-    		var citizenshipSelect = document.getElementById('pref-citizenship-select');
-			var c_option = citizenshipSelect.options[citizenshipSelect.selectedIndex].text;
+   //  		var citizenshipSelect = document.getElementById('pref-citizenship-select');
+			// var c_option = citizenshipSelect.options[citizenshipSelect.selectedIndex].text;
 			
-			if (c_option.toLowerCase() != datas[i]['citizenship']){
-				matched = false;
-			}
+			// if (c_option.toLowerCase() != datas[i]['citizenship']){
+			// 	matched = false;
+			// }
 
-    		//pets preference
-    		petsBool = datas[i]['pets'];
-    		//console.log(document.getElementById('petsCheckbox').checked);
-    		if (petsBool != document.getElementById('petsCheckbox').checked){
-    			matched = false;
-    		}
+			var domesticPref = document.getElementById("pref-domestic");
+			var internationalPref = document.getElementById("pref-international");
 
-    		//kids preference
-    		kidsBool = datas[i]['kids'];
-    		if (kidsBool != document.getElementById('kidsCheckbox').checked){
-    			matched = false;
-    		}
+    		// //pets preference
+    		// petsBool = datas[i]['pets'];
+    		// //console.log(document.getElementById('petsCheckbox').checked);
+    		// if (petsBool != document.getElementById('petsCheckbox').checked){
+    		// 	matched = false;
+    		// }
 
-    		//budget
-    		var currentBudget = parseInt(document.getElementById('pref-price-display-current').innerHTML.slice(1));
-    		if (Math.abs(currentBudget - datas[i]['budget']) > 50){
-    			matched = false;
-    		}
+    		// //kids preference
+    		// kidsBool = datas[i]['kids'];
+    		// if (kidsBool != document.getElementById('kidsCheckbox').checked){
+    		// 	matched = false;
+    		// }
+
+    		// //budget
+    		// var currentBudget = parseInt(document.getElementById('pref-price-display-current').innerHTML.slice(1));
+    		// if (Math.abs(currentBudget - datas[i]['budget']) > 50){
+    		// 	matched = false;
+    		// }
     		//if (datas[i]['budget'] < currentBudget){
     		//	matched = false;
     		//}
@@ -377,30 +367,41 @@ function initMap() {
 		}
 	});
 
-	document.getElementById('petsCheckbox')
-		.addEventListener('click', function(event){
-			checkData();
-	});
+	// document.getElementById('petsCheckbox')
+	// 	.addEventListener('click', function(event){
+	// 		checkData();
+	// });
 
-	document.getElementById('kidsCheckbox')
-		.addEventListener('click', function(event){
-			checkData();
-	});
+	// document.getElementById('kidsCheckbox')
+	// 	.addEventListener('click', function(event){
+	// 		checkData();
+	// });
 
 	document.getElementById('pref-language-select')
 		.addEventListener('change', function() {
 		    checkData();
 	});
 
-	document.getElementById('pref-citizenship-select')
-		.addEventListener('change', function() {
-		    checkData();
-	});
+	// document.getElementById('pref-citizenship-select')
+	// 	.addEventListener('change', function() {
+	// 	    checkData();
+	// });
 
-	document.getElementById('pref-price-slider')
-		.addEventListener('change', function() {
-		    checkData();
-	});
+	// document.getElementById('pref-price-slider')
+	// 	.addEventListener('change', function() {
+	// 	    checkData();
+	// });
+
+
+	var buttons = document.getElementsByTagName("button");
+
+	var myFunction = function() {
+	    console.log("he");
+	};
+
+	for (var i = 0; i < buttons.length; i++) {
+	    buttons[i].addEventListener('click', myFunction, false);
+	}
 
 	//taking care of centering and not leaving bounds of the world map
 	google.maps.event.addListener(map, 'center_changed', function() {
