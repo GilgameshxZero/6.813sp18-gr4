@@ -331,11 +331,21 @@ function initMap() {
     		//	matched = false;
     		//}
 
+			if (typeof this.staticVarMarker == 'undefined') {
+				this.staticVarMarker = true;
+				this.visibleMarkers = 0;
+				this.mapCenter = 0;
+			}
+
     		if (matched){
-    			markers[datas[i]['name']][0].setVisible(true);
+				markers[datas[i]['name']][0].setVisible(true);
+				
+				//for centering map
     		}
     		else if (!matched && !markers[datas[i]['name']][1]) {
-    			markers[datas[i]['name']][0].setVisible(false);
+				markers[datas[i]['name']][0].setVisible(false);
+				
+				//for centering map
     		}
     	}
 	}
