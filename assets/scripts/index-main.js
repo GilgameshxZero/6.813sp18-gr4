@@ -334,18 +334,30 @@ function initMap() {
 			if (typeof this.staticVarMarker == 'undefined') {
 				this.staticVarMarker = true;
 				this.visibleMarkers = 0;
-				this.mapCenter = 0;
+				this.mapCenter = mit;
 			}
 
-    		if (matched){
+    		if (matched && !markers[datas[i]['name']][0].getVisible()){
 				markers[datas[i]['name']][0].setVisible(true);
 				
 				//for centering map
+				this.mapCenter.lat = (this.mapCenter.lat * this.visibleMarkers + markers[datas[i]['name']][0].getPosition().lat()) / (this.visibleMarkers + 1);
+				this.mapCenter.lng = (this.mapCenter.lng * this.visibleMarkers + markers[datas[i]['name']][0].getPosition().lng()) / (this.visibleMarkers + 1);
+				map.panTo(new google.maps.LatLng(this.mapCenter.lat, this.mapCenter.lng));
+				this.visibleMarkers++;
     		}
-    		else if (!matched && !markers[datas[i]['name']][1]) {
+    		else if (!matched && !markers[datas[i]['name']][1] && markers[datas[i]['name']][0].getVisible()) {
 				markers[datas[i]['name']][0].setVisible(false);
 				
 				//for centering map
+				if (this.visibleMarkers == 1)
+					this.mapCenter = mit;
+				else {
+					this.mapCenter.lat = (this.mapCenter.lat * this.visibleMarkers + markers[datas[i]['name']][0].getPosition().lat()) / (this.visibleMarkers - 1);
+					this.mapCenter.lng = (this.mapCenter.lng * this.visibleMarkers + markers[datas[i]['name']][0].getPosition().lng()) / (this.visibleMarkers - 1);
+				}
+				map.panTo(new google.maps.LatLng(this.mapCenter.lat, this.mapCenter.lng));
+				this.visibleMarkers--;
     		}
     	}
 	}
