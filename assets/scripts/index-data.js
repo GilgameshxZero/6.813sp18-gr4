@@ -44,7 +44,7 @@ var jsonData = {
             "country": "United States",
             "text": ["hiking", "camping"],
             "language": "---",
-            "location": "international",
+            "location": "---",
             "budget": "---",
             "season": "summer",
             "date": "June 7 - June 9",
