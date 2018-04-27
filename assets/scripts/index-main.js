@@ -1,3 +1,5 @@
+let zoomBounds = [3, 10];
+
 var tfPhTime = 1500;
 
 var mapElement;
@@ -82,7 +84,7 @@ function endLanding(event) {
 
 function makePopups(markers, locationName, position_x, position_y){
 	var modal = document.getElementById('modal');
-	var marker = markers[locationName][0];
+	var marker = markers[locationName];
 
 	var existingPops = document.getElementsByClassName('popup');
 	for (var i = 0; i < existingPops.length; i++)
@@ -90,7 +92,7 @@ function makePopups(markers, locationName, position_x, position_y){
 
 	var popup = document.createElement('div');
 	popup.classList.add('popup');
-	popup.id = locationName;
+	popup.id = 'marker-' + locationName;
 	popup.style.top = (position_y - 100) + 'px';
 	popup.style.left = (position_x - 100) + 'px';
 
@@ -107,21 +109,21 @@ function makePopups(markers, locationName, position_x, position_y){
 	var bookmark = document.createElement('img');
 	bookmark.src = 'assets/img/bookmark.png';
 	bookmark.classList.add('bookmark');
-	if (markers[locationName][1]){
+	if (markers[locationName]['bookmarked']){
 		bookmark.style.filter = 'grayscale(0%)';
 	}
 
 	bookmark.onclick = function(){
-		if (markers[locationName][1]){
+		if (markers[locationName]['bookmarked']){
 			bookmark.style.filter = 'grayscale(100%)';
 			marker.setIcon('');
 
-			markers[locationName][1] = false;
+			markers[locationName]['bookmarked'] = false;
 		}
 		else{
 			bookmark.style.filter = 'grayscale(0%)';
 			marker.setIcon('assets/img/bookmark-marker.png');
-			markers[locationName][1] = true;
+			markers[locationName]['bookmarked'] = true;
 		}
 	}
 
@@ -139,11 +141,11 @@ function makePopups(markers, locationName, position_x, position_y){
 };
 
 function fillPopups(popupid, data){
-	var popup = document.getElementById(popupid);
+	var popup = document.getElementById('marker-' + popupid);
 	
 	//image
 	var image = document.createElement('img');
-	image.src = 'assets/img/' + popupid + '.jpg';
+	image.src = data['img'];
 	image.classList.add('popup-image');
 	popup.appendChild(image);
 
@@ -187,14 +189,34 @@ function animateMapZoomTo(map, targetZoom) {
         google.maps.event.addListenerOnce(map, 'zoom_changed', function (event) {
             animateMapZoomTo(map, targetZoom, currentZoom + (targetZoom > currentZoom ? 1 : -1));
         });
-        setTimeout(function(){ map.setZoom(currentZoom) }, 80);
     }
+	setTimeout(function(){ map.setZoom(currentZoom); }, 80);
+}
+
+function getZoomByBounds( map, bounds ){
+	var MAX_ZOOM = map.mapTypes.get( map.getMapTypeId() ).maxZoom || 21 ;
+	var MIN_ZOOM = map.mapTypes.get( map.getMapTypeId() ).minZoom || 0 ;
+
+	var ne= map.getProjection().fromLatLngToPoint( bounds.getNorthEast() );
+	var sw= map.getProjection().fromLatLngToPoint( bounds.getSouthWest() ); 
+
+	var worldCoordWidth = Math.abs(ne.x-sw.x);
+	var worldCoordHeight = Math.abs(ne.y-sw.y);
+
+	var FIT_PAD = 40;
+
+	for( var zoom = MAX_ZOOM; zoom >= MIN_ZOOM; --zoom ){ 
+		if( worldCoordWidth*(1<<zoom)+2*FIT_PAD < $(map.getDiv()).width() && 
+			worldCoordHeight*(1<<zoom)+2*FIT_PAD < $(map.getDiv()).height() )
+			return zoom;
+	}
+	return 0;
 }
 
 function initMap() {
 	var mit = {lat: 42.358792, lng: -71.093493};
 	var map = new google.maps.Map(mapElement, {
-		zoom: 2,
+		zoom: 3,
 		minZoom: 2.3,
 		center: mit
 	});
@@ -203,10 +225,16 @@ function initMap() {
 	for (var a = 0; a < jsonData['data-markers'].length;a++) {
 		markers.push(new google.maps.Marker({position: {lat: jsonData['data-markers'][a]['lat'], lng: jsonData['data-markers'][a]['lng']}, map: map}));
 		markers[markers.length - 1].setVisible(false);
-		google.maps.event.addListener(markers[markers.length - 1], 'click', function(){
-			makePopups(markers, a, event.clientX, event.clientY);
-			fillPopups(a, jsonData['data-markers'][a]);
-		});
+		markers[markers.length - 1]['bookmarked'] = false;
+
+		var listenerMaker = function(index) {
+			return function() {
+				makePopups(markers, index, event.clientX, event.clientY);
+				fillPopups(index, jsonData['data-markers'][index]);
+			};
+		};
+		var listener = listenerMaker(a);
+		google.maps.event.addListener(markers[a], 'click', listener);
 	}
 
 	textField.focus();
@@ -321,23 +349,26 @@ function initMap() {
 			
     		if (matched && !markers[i].getVisible())
 				markers[i].setVisible(true);
-    		else if (!matched && markers[i].getVisible())
+    		else if (!matched && !markers[i]['bookmarked'] && markers[i].getVisible())
 				markers[i].setVisible(false);
-			
-			var bounds = new google.maps.LatLngBounds();
-			var markersVisible = 0;
-			for (var a = 0;a < markers.length;a++) {
-				if (markers[a].getVisible()) {
-					bounds.extend(markers[a].position);
-					markersVisible++;
-				}
-			}
-
-			if (markersVisible == 0)
-				bounds.extend(mit);
-			map.panTo(bounds.getCenter());
-			animateMapZoomTo(map, markersVisible > 0 ? 5 : 2);
     	}
+			
+		var bounds = new google.maps.LatLngBounds();
+		var markersVisible = 0;
+		for (var a = 0;a < markers.length;a++) {
+			if (markers[a].getVisible()) {
+				bounds.extend(markers[a].position);
+				markersVisible++;
+			}
+		}
+
+		if (markersVisible == 0)
+			bounds.extend(mit);
+		map.panTo(bounds.getCenter());
+		if (markersVisible == 0)
+			animateMapZoomTo(map, zoomBounds[0]);
+		else
+			animateMapZoomTo(map, Math.max(Math.min(getZoomByBounds(map, bounds) - 1, zoomBounds[1]), zoomBounds[0]));
 	}
 
 	textField.addEventListener('keyup', function(event) {
@@ -450,7 +481,7 @@ function initMap() {
         	//console.log('n');
             newLat =  map.getCenter().lat() - (latNorth-85);   /* too north, centering */
         }
-        if(latSouth<-85.5) {
+        if(latSouth < -85.5) {
         	//console.log('s'); 
             newLat =  map.getCenter().lat() - (latSouth+85);   /* too south, centering */
 		}   
