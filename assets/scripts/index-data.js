@@ -49,5 +49,19 @@ var jsonData = {
             "info": "Bryce Canyon National Park is a United States national park located in southwestern Utah. The major feature of the park is Bryce Canyon, which despite its name, is not a canyon, but a collection of giant natural amphitheaters along the eastern side of the Paunsaugunt Plateau. Bryce is distinctive due to geological structures called hoodoos, formed by frost weathering and stream erosion of the river and lake bed sedimentary rocks. The red, orange, and white colors of the rocks provide spectacular views for park visitors. Bryce sits at a much higher elevation than nearby Zion National Park. The rim at Bryce varies from 8,000 to 9,000 feet (2,400 to 2,700 m).",
             "link": "https://en.wikipedia.org/wiki/Bryce_Canyon_National_Park"
         },
+        {
+            "lat": 33.7197257,
+            "lng": -78.9488477,
+            "name": "Myrtle Beach",
+            "country": "United States",
+            "text": ["beach"],
+            "language": "---",
+            "location": "---",
+            "budget": "---",
+            "season": "summer",
+            "date": "May 24 - May 27",
+            "info": "Myrtle Beach, a city and vacation resort on South Carolina’s Atlantic coast, is the hub of the Grand Strand, a 60-mile string of beaches. It’s also known for its celebrity-designed golf courses. Along its beachfront boardwalk are arcades, souvenir stands and restaurants, as well as the old-fashioned Family Kingdom amusement park and the SkyWheel, one of the country’s tallest Ferris wheels.",
+            "link": "https://www.visitmyrtlebeach.com/"
+        }
     ]
 }
