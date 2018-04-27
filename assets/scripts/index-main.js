@@ -2,6 +2,13 @@ var tfPhTime = 1500;
 
 var mapElement;
 var textField;
+var landingWrapper;
+var landing;
+var body;
+var inputWrapper;
+var pref;
+var prefPriceDisplayCurrent;
+var prefPriceSlider;
 
 function gMapReady() {
 	//called by google API, do nothing
@@ -9,9 +16,17 @@ function gMapReady() {
 
 window.onload = function () {
 	mapElement = document.getElementById('map');
-	textField = document.getElementById('input-text');
+	textField = document.getElementById('text-field');
+	landingWrapper = document.getElementById('landing-wrapper');
+	landing = document.getElementById('landing');
+	body = document.body;
+	inputWrapper = document.getElementById('input-wrapper');
+	pref = document.getElementById('pref');
+	prefPriceSlider = document.getElementById('pref-price-slider');
+	prefPriceDisplayCurrent = document.getElementById('pref-price-display-current');
 
-	textField.addEventListener('keydown', endOnboarding);
+	textField.addEventListener('keydown', endLanding);
+	prefPriceDisplayCurrent.innerHTML = '$' + prefPriceSlider.value; //display the default slider value
 
 	function tfPhInterval() {
 		if (typeof this.counter == 'undefined') {
@@ -30,32 +45,24 @@ window.onload = function () {
 	initMap();
 }
 
-function endOnboarding() {
-	mapElement.classList.remove('blur5px');
+function endLanding() {
+	mapElement.classList.remove('map-landing');
 	tfPhTime = 0;
+	textField.removeEventListener('keydown', endLanding);
 	
-	// textfield
-	var inputWrapperWrapper = document.getElementById('input-wrapper-wrapper');
-	var logo = document.getElementById('logo');
-	if (logo) {
-		inputWrapperWrapper.removeChild(logo);
-	}
-	inputWrapperWrapper.className = 'content-loaded';
-	document.getElementById('input-wrapper').style.width = 'auto';
-	textField.placeholder = '';
-	textField.removeEventListener('keydown', endOnboarding);
+	//animate landing away into main page
+	landing.removeChild(inputWrapper);
+	body.appendChild(inputWrapper);
+	landingWrapper.classList.add('hidden');
+	inputWrapper.classList.remove('input-wrapper-landing');
+	pref.classList.remove('pref-landing');
 
-	// restrictions
-	document.getElementById('pref').style.display = 'flex';
-	var prefPriceSlider = document.getElementById('pref-price-slider');
-	var prefPriceDisplayCurrent = document.getElementById('pref-price-display-current');
-	prefPriceDisplayCurrent.innerHTML = '$' + prefPriceSlider.value; // Display the default slider value
-	
-	// Update the current slider value (each time you drag the slider handle)
+	//update the current slider value (each time you drag the slider handle)
 	prefPriceSlider.oninput = function() {
 		prefPriceDisplayCurrent.innerHTML = '$' + this.value;
 	}
 
+	//idk what this does
 	window.onclick = function(event) {
 		var modal = document.getElementById('modal');
 	    if (event.target == modal) {
@@ -81,7 +88,7 @@ function makePopups(markers, locationName, position_x, position_y){
 	var close = document.createElement('span');
 	close.classList.add('close');
 	close.innerHTML = '&times;';
-	// close.style.float = 'right';
+	//close.style.float = 'right';
 
 	close.onclick = function(){
 		modal.style.display = 'none';
@@ -125,7 +132,7 @@ function makePopups(markers, locationName, position_x, position_y){
 function fillPopups(popupid, data){
 	var popup = document.getElementById(popupid);
 	
-	// image
+	//image
 	var image = document.createElement('img');
 	image.src = 'assets/img/' + popupid + '.jpg';
 	image.classList.add('popup-image');
@@ -136,13 +143,13 @@ function fillPopups(popupid, data){
 	nonImage.classList.add('popup-non-image');
 	popup.appendChild(nonImage);
 	
-	// heading
+	//heading
 	var heading = document.createElement('div');
 	heading.innerHTML = data['name'] + ',<br \>' + data['country'];
 	heading.classList.add('popup-heading');
 	nonImage.appendChild(heading);
 
-	// suggested date
+	//suggested date
 	var dateLabel = document.createElement('div');
 	dateLabel.innerHTML = 'Suggested Dates:';
 	dateLabel.classList.add('popup-datelabel');
@@ -152,7 +159,7 @@ function fillPopups(popupid, data){
 	nonImage.appendChild(dateLabel);
 	nonImage.appendChild(date);
 
-	// info and link 
+	//info and link 
 	var info = document.createElement('div');
 	info.innerHTML = data['info'];
 	info.classList.add('popup-info');
@@ -269,7 +276,7 @@ function initMap() {
     	}
     	for (var i = 0; i < datas.length; i++){
     		var matched = true;
-    		// check for text
+    		//check for text
     		dataText = datas[i]['text'];
     		for (var j = 0; j < dataText.length; j++){
     			if (allText.indexOf(dataText[j]) < 0){
@@ -278,7 +285,7 @@ function initMap() {
     			}
     		}
 
-    		// language preference
+    		//language preference
     		var languageSelect = document.getElementById('pref-language-select');
 			var l_option = languageSelect.options[languageSelect.selectedIndex].text;
 			
@@ -286,7 +293,7 @@ function initMap() {
 				matched = false;
 			}
 
-    		// citizenship preference
+    		//citizenship preference
     		var citizenshipSelect = document.getElementById('pref-citizenship-select');
 			var c_option = citizenshipSelect.options[citizenshipSelect.selectedIndex].text;
 			
@@ -294,27 +301,27 @@ function initMap() {
 				matched = false;
 			}
 
-    		// pets preference
+    		//pets preference
     		petsBool = datas[i]['pets'];
-    		// console.log(document.getElementById('petsCheckbox').checked);
+    		//console.log(document.getElementById('petsCheckbox').checked);
     		if (petsBool != document.getElementById('petsCheckbox').checked){
     			matched = false;
     		}
 
-    		// kids preference
+    		//kids preference
     		kidsBool = datas[i]['kids'];
     		if (kidsBool != document.getElementById('kidsCheckbox').checked){
     			matched = false;
     		}
 
-    		// budget
+    		//budget
     		var currentBudget = parseInt(document.getElementById('pref-price-display-current').innerHTML.slice(1));
     		if (Math.abs(currentBudget - datas[i]['budget']) > 50){
     			matched = false;
     		}
-    		// if (datas[i]['budget'] < currentBudget){
-    		// 	matched = false;
-    		// }
+    		//if (datas[i]['budget'] < currentBudget){
+    		//	matched = false;
+    		//}
 
     		if (matched){
     			markers[datas[i]['name']][0].setVisible(true);
@@ -327,20 +334,20 @@ function initMap() {
 
 	textField.addEventListener('keyup', function(event) {
 	    event.preventDefault();
-	    // Make a new timeout set to go off in 800ms
+	    //Make a new timeout set to go off in 800ms
         if (event.keyCode === 13) {
 	    	var tag = document.createElement('span');
 	    	tag.classList.add('tag');
-	    	// this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g,'');
+	    	//this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g,'');
 	        tag.innerHTML = textField.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g,'');;
 	        inputWrapper.insertBefore(tag, textField);
 	        textField.value = '';
 
 	    	checkData();
 	    }
-	    // BUG with how to fix when only one word left in input value
+	    //BUG with how to fix when only one word left in input value
 	    else if (event.keyCode === 8 && textField.value == '') {
-	    	// console.log(inputWrapper.childNodes);
+	    	//console.log(inputWrapper.childNodes);
 	    	var tag = inputWrapper.childNodes[inputWrapper.childNodes.length - 5];
 	    	if (tag){
 		    	inputWrapper.removeChild(tag);
@@ -387,11 +394,11 @@ function initMap() {
 		    checkData();
 	});
 
-	// taking care of centering and not leaving bounds of the world map
+	//taking care of centering and not leaving bounds of the world map
 	google.maps.event.addListener(map, 'center_changed', function() {
 	    checkBounds(map);
 	});
-	// If the map position is out of range, move it back
+	//If the map position is out of range, move it back
 	function checkBounds(map) {
 		var latNorth = map.getBounds().getNorthEast().lat();
 		var latSouth = map.getBounds().getSouthWest().lat();
@@ -399,11 +406,11 @@ function initMap() {
 		var newLat;
 
         if(latNorth > 85.5) {
-        	// console.log('n');
+        	//console.log('n');
             newLat =  map.getCenter().lat() - (latNorth-85);   /* too north, centering */
         }
         if(latSouth<-85.5) {
-        	// console.log('s'); 
+        	//console.log('s'); 
             newLat =  map.getCenter().lat() - (latSouth+85);   /* too south, centering */
 		}   
 		if(newLat) {
