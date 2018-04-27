@@ -353,8 +353,8 @@ function initMap() {
 				if (this.visibleMarkers == 1)
 					this.mapCenter = mit;
 				else {
-					this.mapCenter.lat = (this.mapCenter.lat * this.visibleMarkers + markers[datas[i]['name']][0].getPosition().lat()) / (this.visibleMarkers - 1);
-					this.mapCenter.lng = (this.mapCenter.lng * this.visibleMarkers + markers[datas[i]['name']][0].getPosition().lng()) / (this.visibleMarkers - 1);
+					this.mapCenter.lat = (this.mapCenter.lat * this.visibleMarkers - markers[datas[i]['name']][0].getPosition().lat()) / (this.visibleMarkers - 1);
+					this.mapCenter.lng = (this.mapCenter.lng * this.visibleMarkers - markers[datas[i]['name']][0].getPosition().lng()) / (this.visibleMarkers - 1);
 				}
 				map.panTo(new google.maps.LatLng(this.mapCenter.lat, this.mapCenter.lng));
 				this.visibleMarkers--;
