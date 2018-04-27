@@ -15,6 +15,7 @@ function gMapReady() {
 	//called by google API, do nothing
 }
 
+
 window.onload = function () {
 	mapElement = document.getElementById('map');
 	textField = document.getElementById('text-field');
@@ -196,9 +197,8 @@ function initMap() {
 		'text': ['warm', 'beach'],
 		'language': '---',
 		'location': '---',
-		'pets': false,
-		'kids': false,
-		'budget': 0,
+		'budget': '---',
+		'season': 'summer',
 		'date': 'Mar 19 - Mar 24',
 		'info': 'Florida is the southernmost contiguous state in the United States. The state is bordered to the west by the Gulf of Mexico, to the northwest by Alabama, to the north by Georgia, to the east by the Atlantic Ocean, and to the south by the Straits of Florida.',
 		'link': 'https://en.wikipedia.org/wiki/Florida'
@@ -217,9 +217,8 @@ function initMap() {
 		'text': ['europe', 'oldcities', 'castles'],
 		'language': 'german',
 		'location': '---',
-		'pets': false,
-		'kids': false,
-		'budget': 200,
+		'budget': '$$',
+		'season': 'winter',
 		'date': 'January 19 - January 23',
 		'info': 'Regensburg is an old city in south-east Germany in Bavaria. It is located at the confluence of the Danube, Naab, and Regen rivers, ' +
 				+ 'and it is the political, economic,and cultural centre of easter Bavaria. The medieval centre of the city is UNESCO Worlk Heritage  Site, '
@@ -240,9 +239,8 @@ function initMap() {
 		'text': ['hiking', 'camping'],
 		'language': '---',
 		'location': 'international',
-		'pets': true,
-		'kids': true,
-		'budget': 0,
+		'budget': '---',
+		'season': 'summer',
 		'date': 'June 7 - June 9',
 		'info': 'Bryce Canyon National Park is a United States national park located in southwestern Utah. The major feature of the park is Bryce Canyon, which despite its name, is not a canyon, but a collection of giant natural amphitheaters along the eastern side of the Paunsaugunt Plateau. Bryce is distinctive due to geological structures called hoodoos, formed by frost weathering and stream erosion of the river and lake bed sedimentary rocks. The red, orange, and white colors of the rocks provide spectacular views for park visitors. Bryce sits at a much higher elevation than nearby Zion National Park. The rim at Bryce varies from 8,000 to 9,000 feet (2,400 to 2,700 m).',
 		'link': 'https://en.wikipedia.org/wiki/Bryce_Canyon_National_Park'
@@ -308,6 +306,59 @@ function initMap() {
 			// if (c_option.toLowerCase() != datas[i]['citizenship']){
 			// 	matched = false;
 			// }
+			var location = datas[i]['location'];
+			var domestic = document.getElementById("pref-domestic");
+			var international = document.getElementById("pref-international");
+			if (domestic.classList.contains("clicked") && (location != "domestic")){
+				matched = false;
+			}
+			else if (international.classList.contains("clicked") && (location != "international")){
+				matched = false;
+			}
+			else if (!domestic.classList.contains("clicked") && !international.classList.contains("clicked")
+				&& location != "---"){
+				matched = false;
+			}
+
+			var budget = datas[i]['budget'];
+			var lowBudget = document.getElementById("pref-$");
+			var midBudget = document.getElementById("pref-$$");
+			var highBudget = document.getElementById("pref-$$$");
+			if (lowBudget.classList.contains("clicked") && (budget != "$")){
+				matched = false;
+			}
+			else if (midBudget.classList.contains("clicked") && (budget != "$$")){
+				matched = false;
+			}
+			else if (highBudget.classList.contains("clicked") && (budget != "$$$")){
+				matched = false;
+			}
+			else if (!lowBudget.classList.contains("clicked") && !midBudget.classList.contains("clicked") && !highBudget.classList.contains("clicked")
+				&& budget != "---"){
+				matched = false;
+			}
+
+			var season = datas[i]['season'];
+			var spring = document.getElementById("pref-spring");
+			var summer = document.getElementById("pref-summer");
+			var fall = document.getElementById("pref-fall");
+			var winter = document.getElementById("pref-winter");
+			if (spring.classList.contains("clicked") && (season != "spring")){
+				matched = false;
+			}
+			else if (summer.classList.contains("clicked") && (season != "summer")){
+				matched = false;
+			}
+			else if (fall.classList.contains("clicked") && (season != "fall")){
+				matched = false;
+			}
+			else if (winter.classList.contains("clicked") && (season != "winter")){
+				matched = false;
+			}
+			else if (!spring.classList.contains("clicked") && !summer.classList.contains("clicked") 
+				&& !fall.classList.contains("clicked") && !winter.classList.contains("clicked")){
+				matched = false;
+			}
 
    //  		//pets preference
    //  		petsBool = datas[i]['pets'];
@@ -348,6 +399,12 @@ function initMap() {
     		}
     		else if (!matched && !markers[datas[i]['name']][1] && markers[datas[i]['name']][0].getVisible()) {
 				markers[datas[i]['name']][0].setVisible(false);
+
+				// var buttons = document.getElementsByTagName("button");
+				// for (let j = 0; j < buttons.length; j++) {
+				//   var button = buttons[j];
+				//   button.classList.remove("clicked");
+				// }
 				
 				//for centering map
 				if (this.visibleMarkers == 1)
@@ -423,6 +480,40 @@ function initMap() {
 	// 	.addEventListener('change', function() {
 	// 	    checkData();
 	// });
+
+	var buttons = document.getElementsByTagName("button");
+	var groups = {};
+	for (var i = 0; i < buttons.length; i++){
+		var parentName = buttons[i].parentNode.id.slice(5);
+		if (parentName in groups){
+			groups[parentName].push(buttons[i]);
+		}
+		else{
+			groups[parentName] = [buttons[i]];
+		}
+	}
+	// console.log(groups);
+	var buttons = document.getElementsByTagName("button");
+	for (let j = 0; j < buttons.length; j++) {
+	  let button = buttons[j];
+	  button.addEventListener('click', function() {
+
+	  	if (button.classList.contains("clicked")){
+	  		button.classList.remove("clicked");
+	  	}
+	  	else{
+	  		var sametypes = groups[button.parentNode.id.slice(5)];
+	  		for (var i = 0; i < sametypes.length; i++){
+	  			if (sametypes[i] != button && sametypes[i].classList.contains("clicked")){
+	  				sametypes[i].classList.remove("clicked");
+	  			}
+		  	}
+	    	button.classList.add("clicked");
+	    }
+	    checkData();
+	  });
+	}
+
 
 	//taking care of centering and not leaving bounds of the world map
 	google.maps.event.addListener(map, 'center_changed', function() {

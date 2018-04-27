@@ -1,6 +1,6 @@
 /*------------------------------- PREFERENCES -------------------------------------*/
 #pref {
-	flex: 3 3 30%;
+	flex: 3 3 15%;
 
 	margin-top: 5px;
 	border-width: 2px;
@@ -52,6 +52,7 @@
 	height: 5px;
 }
 
+
 #pref-col1-wrapper {
 	width: 50%;
 	height: 100%;
@@ -65,6 +66,7 @@
 	flex-flow: column nowrap;
 }
 
+
 #pref-language {
 	margin: 0px;
 	margin-bottom: 5px;
@@ -75,7 +77,7 @@
 
 #pref-language-select {
 	margin: auto;
-	margin-right: 0px;
+	/*margin-right: 0px;*/
 }
 
 #pref-location button{
@@ -90,14 +92,15 @@
     font-size: 16px;
     margin: 4px 5px;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 #pref-location button:hover{
 	background-color: #0042ad;
 }
 
-#pref-location button:target{
-	background-color: #0042ad;
+#pref-location button.clicked{
+	background-color: #0042ad ;
 }
 
 #pref-citizenship {
@@ -173,6 +176,9 @@
 #pref-price button:hover{
 	background-color: #0042ad;
 }
+#pref-price button.clicked{
+	background-color: #0042ad;
+}
 
 #pref-price-display {
 	display: flex;
@@ -221,8 +227,12 @@
     font-size: 16px;
     margin: 4px 5px;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 #pref-season button:hover{
+	background-color: #0042ad;
+}
+#pref-season button.clicked{
 	background-color: #0042ad;
 }
