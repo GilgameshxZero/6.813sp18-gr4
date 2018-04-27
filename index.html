@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="assets/styles/index-map.css">
 		<link rel="stylesheet" href="assets/styles/index-input.css">
 		<link rel="stylesheet" href="assets/styles/index-pref.css">
+		<link rel="stylesheet" href="assets/styles/index-landing.css">
 
 		<script src="assets/scripts/index-main.js"></script>
 		<script src="assets/scripts/index-data.js"></script>
@@ -21,24 +22,28 @@
 	</head>
 
 	<body>
-		<!-- map -->
-		<div id="map" class="blur5px"></div>
+		<!-- TODO: to be removed -->
+		<div id="modal"></div>
 
-		<div id = "modal"></div>
-
-		<!-- text field -->
-		<div id="input-wrapper-wrapper" class="landing">
-			<!-- logo -->
-			<img src="assets/img/logo.png" id="logo">
-			<!-- textbox input -->
-			<div id="input-wrapper" class="input-wrapper">
-				<input id="input-text" class="input" type="text" placeholder=""> 
-				<img id="input-magnifying" src="assets/img/search-24.png"></img>
+		<!-- components specific to landing except map -->
+		<div id="landing-wrapper">
+			<div id="landing">
+				<!-- logo -->
+				<img id="landing-logo" src="assets/img/logo.png">
+				<div id="landing-title">Connect-7</div>
+				<!-- textbox input -->
+				<div id="input-wrapper" class="input-wrapper-landing">
+					<input id="text-field" type="text"> 
+					<img id="input-magnifying" src="assets/img/search-24.png"></img>
+				</div>
 			</div>
 		</div>
 
+		<!-- map -->
+		<div id="map" class="map-landing"></div>
+
 		<!-- preferences -->
-		<div id="pref">
+		<div id="pref" class="pref-landing">
 			<div id="pref-title-wrapper">
 				<div id="pref-title">Preferences</div>
 			</div>

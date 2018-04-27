@@ -1,11 +1,13 @@
 /*------------------------------- PREFERENCES -------------------------------------*/
 #pref {
-	display: none;
 	flex: 3 3 30%;
 	margin-top: 5px;
 	border-width: 2px;
 	border-radius: 5px;
 	border-style: solid;
+
+	order: 3;
+	display: flex;
 }
 
 /*wrapper to center absolutely positioned titled*/
