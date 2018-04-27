@@ -78,6 +78,28 @@
 	margin-right: 0px;
 }
 
+#pref-location button{
+	/*margin-right: 10px;*/
+	background-color: #8eb9ff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 5px;
+    cursor: pointer;
+}
+
+#pref-location button:hover{
+	background-color: #0042ad;
+}
+
+#pref-location button:target{
+	background-color: #0042ad;
+}
+
 #pref-citizenship {
 	margin: 0px;
 	margin-bottom: 5px;
@@ -135,6 +157,23 @@
 	flex-flow: column nowrap;
 }
 
+#pref-price button{
+	background-color: #8eb9ff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 5px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+#pref-price button:hover{
+	background-color: #0042ad;
+}
+
 #pref-price-display {
 	display: flex;
 	flex-flow: row nowrap;
@@ -162,4 +201,28 @@
 #pref-price-slider-high {
 	margin: auto;
 	margin-right: 0px;
+}
+
+#pref-season {
+	margin: 0px;
+
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+#pref-season button{
+	background-color: #8eb9ff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 5px;
+    cursor: pointer;
+}
+
+#pref-season button:hover{
+	background-color: #0042ad;
 }
