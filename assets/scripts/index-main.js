@@ -28,7 +28,7 @@ window.onload = function () {
 	landingBkg = document.getElementById('landing-bkg');
 
 	textField.addEventListener('keydown', endLanding, {once: true});
-	prefPriceDisplayCurrent.innerHTML = '$' + prefPriceSlider.value; //display the default slider value
+	// prefPriceDisplayCurrent.innerHTML = '$' + prefPriceSlider.value; //display the default slider value
 
 	function tfPhInterval() {
 		if (typeof this.counter == 'undefined') {
@@ -63,10 +63,10 @@ function endLanding(event) {
 	body.classList.remove('body-landing');
 	landingBkg.classList.add('landing-bkg-hidden');
 
-	//update the current slider value (each time you drag the slider handle)
-	prefPriceSlider.oninput = function() {
-		prefPriceDisplayCurrent.innerHTML = '$' + this.value;
-	}
+	// //update the current slider value (each time you drag the slider handle)
+	// prefPriceSlider.oninput = function() {
+	// 	prefPriceDisplayCurrent.innerHTML = '$' + this.value;
+	// }
 
 	//idk what this does
 	window.onclick = function(event) {
@@ -301,32 +301,32 @@ function initMap() {
 				matched = false;
 			}
 
-    		//citizenship preference
-    		var citizenshipSelect = document.getElementById('pref-citizenship-select');
-			var c_option = citizenshipSelect.options[citizenshipSelect.selectedIndex].text;
+   //  		//citizenship preference
+   //  		var citizenshipSelect = document.getElementById('pref-citizenship-select');
+			// var c_option = citizenshipSelect.options[citizenshipSelect.selectedIndex].text;
 			
-			if (c_option.toLowerCase() != datas[i]['citizenship']){
-				matched = false;
-			}
+			// if (c_option.toLowerCase() != datas[i]['citizenship']){
+			// 	matched = false;
+			// }
 
-    		//pets preference
-    		petsBool = datas[i]['pets'];
-    		//console.log(document.getElementById('petsCheckbox').checked);
-    		if (petsBool != document.getElementById('petsCheckbox').checked){
-    			matched = false;
-    		}
+   //  		//pets preference
+   //  		petsBool = datas[i]['pets'];
+   //  		//console.log(document.getElementById('petsCheckbox').checked);
+   //  		if (petsBool != document.getElementById('petsCheckbox').checked){
+   //  			matched = false;
+   //  		}
 
-    		//kids preference
-    		kidsBool = datas[i]['kids'];
-    		if (kidsBool != document.getElementById('kidsCheckbox').checked){
-    			matched = false;
-    		}
+   //  		//kids preference
+   //  		kidsBool = datas[i]['kids'];
+   //  		if (kidsBool != document.getElementById('kidsCheckbox').checked){
+   //  			matched = false;
+   //  		}
 
-    		//budget
-    		var currentBudget = parseInt(document.getElementById('pref-price-display-current').innerHTML.slice(1));
-    		if (Math.abs(currentBudget - datas[i]['budget']) > 50){
-    			matched = false;
-    		}
+   //  		//budget
+   //  		var currentBudget = parseInt(document.getElementById('pref-price-display-current').innerHTML.slice(1));
+   //  		if (Math.abs(currentBudget - datas[i]['budget']) > 50){
+   //  			matched = false;
+   //  		}
     		//if (datas[i]['budget'] < currentBudget){
     		//	matched = false;
     		//}
@@ -387,30 +387,30 @@ function initMap() {
 		}
 	});
 
-	document.getElementById('petsCheckbox')
-		.addEventListener('click', function(event){
-			checkData();
-	});
+	// document.getElementById('petsCheckbox')
+	// 	.addEventListener('click', function(event){
+	// 		checkData();
+	// });
 
-	document.getElementById('kidsCheckbox')
-		.addEventListener('click', function(event){
-			checkData();
-	});
+	// document.getElementById('kidsCheckbox')
+	// 	.addEventListener('click', function(event){
+	// 		checkData();
+	// });
 
 	document.getElementById('pref-language-select')
 		.addEventListener('change', function() {
 		    checkData();
 	});
 
-	document.getElementById('pref-citizenship-select')
-		.addEventListener('change', function() {
-		    checkData();
-	});
+	// document.getElementById('pref-citizenship-select')
+	// 	.addEventListener('change', function() {
+	// 	    checkData();
+	// });
 
-	document.getElementById('pref-price-slider')
-		.addEventListener('change', function() {
-		    checkData();
-	});
+	// document.getElementById('pref-price-slider')
+	// 	.addEventListener('change', function() {
+	// 	    checkData();
+	// });
 
 	//taking care of centering and not leaving bounds of the world map
 	google.maps.event.addListener(map, 'center_changed', function() {
