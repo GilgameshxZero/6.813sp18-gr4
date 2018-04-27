@@ -154,7 +154,7 @@
 	margin: 0px;
 
 	display: flex;
-	flex-flow: column nowrap;
+	flex-flow: row nowrap;
 }
 
 #pref-price button{
