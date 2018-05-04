@@ -353,6 +353,7 @@ function initMap() {
 				markers[i].setVisible(false);
     	}
 			
+		//update map zoom & location
 		var bounds = new google.maps.LatLngBounds();
 		var markersVisible = 0;
 		for (var a = 0;a < markers.length;a++) {
@@ -362,13 +363,10 @@ function initMap() {
 			}
 		}
 
-		if (markersVisible == 0)
-			bounds.extend(mit);
-		map.panTo(bounds.getCenter());
-		if (markersVisible == 0)
-			animateMapZoomTo(map, zoomBounds[0]);
-		else
+		if (markersVisible != 0) {
+			map.panTo(bounds.getCenter());
 			animateMapZoomTo(map, Math.max(Math.min(getZoomByBounds(map, bounds) - 1, zoomBounds[1]), zoomBounds[0]));
+		}
 	}
 
 	textField.addEventListener('keyup', function(event) {
