@@ -13,10 +13,6 @@ var prefPriceSlider;
 var landingLogo;
 var landingBkg;
 
-function gMapReady() {
-	//called by google API, do nothing
-}
-
 window.onload = function () {
 	mapElement = document.getElementById('map');
 	textField = document.getElementById('text-field');
