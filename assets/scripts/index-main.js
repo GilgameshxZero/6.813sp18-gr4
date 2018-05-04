@@ -1,3 +1,5 @@
+let zoomBounds = [3, 10];
+
 var tfPhTime = 1500;
 
 var mapElement;
@@ -38,7 +40,7 @@ window.onload = function () {
 		}
 	
 		if (tfPhTime != 0) {
-			textField.placeholder = this.tfPhText[this.counter++ % tfPhText.length];
+			textField.placeholder = this.tfPhText[this.counter++ % this.tfPhText.length];
 			setTimeout(tfPhInterval, tfPhTime);
 		}
 	}
@@ -82,7 +84,7 @@ function endLanding(event) {
 
 function makePopups(markers, locationName, position_x, position_y){
 	var modal = document.getElementById('modal');
-	var marker = markers[locationName][0];
+	var marker = markers[locationName];
 
 	var existingPops = document.getElementsByClassName('popup');
 	for (var i = 0; i < existingPops.length; i++)
@@ -90,7 +92,7 @@ function makePopups(markers, locationName, position_x, position_y){
 
 	var popup = document.createElement('div');
 	popup.classList.add('popup');
-	popup.id = locationName;
+	popup.id = 'marker-' + locationName;
 	popup.style.top = (position_y - 100) + 'px';
 	popup.style.left = (position_x - 100) + 'px';
 
@@ -107,21 +109,21 @@ function makePopups(markers, locationName, position_x, position_y){
 	var bookmark = document.createElement('img');
 	bookmark.src = 'assets/img/bookmark.png';
 	bookmark.classList.add('bookmark');
-	if (markers[locationName][1]){
+	if (markers[locationName]['bookmarked']){
 		bookmark.style.filter = 'grayscale(0%)';
 	}
 
 	bookmark.onclick = function(){
-		if (markers[locationName][1]){
+		if (markers[locationName]['bookmarked']){
 			bookmark.style.filter = 'grayscale(100%)';
 			marker.setIcon('');
 
-			markers[locationName][1] = false;
+			markers[locationName]['bookmarked'] = false;
 		}
 		else{
 			bookmark.style.filter = 'grayscale(0%)';
 			marker.setIcon('assets/img/bookmark-marker.png');
-			markers[locationName][1] = true;
+			markers[locationName]['bookmarked'] = true;
 		}
 	}
 
@@ -139,11 +141,11 @@ function makePopups(markers, locationName, position_x, position_y){
 };
 
 function fillPopups(popupid, data){
-	var popup = document.getElementById(popupid);
+	var popup = document.getElementById('marker-' + popupid);
 	
 	//image
 	var image = document.createElement('img');
-	image.src = 'assets/img/' + popupid + '.jpg';
+	image.src = data['img'];
 	image.classList.add('popup-image');
 	popup.appendChild(image);
 
@@ -181,97 +183,60 @@ function fillPopups(popupid, data){
 	nonImage.appendChild(link);
 }
 
+function animateMapZoomTo(map, targetZoom) {
+    var currentZoom = arguments[2] || map.getZoom();
+    if (currentZoom != targetZoom) {
+        google.maps.event.addListenerOnce(map, 'zoom_changed', function (event) {
+            animateMapZoomTo(map, targetZoom, currentZoom + (targetZoom > currentZoom ? 1 : -1));
+        });
+    }
+	setTimeout(function(){ map.setZoom(currentZoom); }, 80);
+}
+
+function getZoomByBounds( map, bounds ){
+	var MAX_ZOOM = map.mapTypes.get( map.getMapTypeId() ).maxZoom || 21 ;
+	var MIN_ZOOM = map.mapTypes.get( map.getMapTypeId() ).minZoom || 0 ;
+
+	var ne= map.getProjection().fromLatLngToPoint( bounds.getNorthEast() );
+	var sw= map.getProjection().fromLatLngToPoint( bounds.getSouthWest() ); 
+
+	var worldCoordWidth = Math.abs(ne.x-sw.x);
+	var worldCoordHeight = Math.abs(ne.y-sw.y);
+
+	var FIT_PAD = 40;
+
+	for( var zoom = MAX_ZOOM; zoom >= MIN_ZOOM; --zoom ){ 
+		if( worldCoordWidth*(1<<zoom)+2*FIT_PAD < $(map.getDiv()).width() && 
+			worldCoordHeight*(1<<zoom)+2*FIT_PAD < $(map.getDiv()).height() )
+			return zoom;
+	}
+	return 0;
+}
+
 function initMap() {
 	var mit = {lat: 42.358792, lng: -71.093493};
 	var map = new google.maps.Map(mapElement, {
-		zoom: 2,
-		minZoom:2.3,
+		zoom: 3,
+		minZoom: 2.3,
 		center: mit
 	});
 
-	var florida = {lat: 27.775295, lng: -81.576485};
-	var florida_data = {
-		'name': 'Florida',
-		'country': 'United States',
-		'position': florida,
-		'text': ['warm', 'beach'],
-		'language': '---',
-		'location': '---',
-		'budget': '---',
-		'season': 'summer',
-		'date': 'Mar 19 - Mar 24',
-		'info': 'Florida is the southernmost contiguous state in the United States. The state is bordered to the west by the Gulf of Mexico, to the northwest by Alabama, to the north by Georgia, to the east by the Atlantic Ocean, and to the south by the Straits of Florida.',
-		'link': 'https://en.wikipedia.org/wiki/Florida'
-	};
-	var marker_florida = new google.maps.Marker({
-		position: florida,
-		map: map
-	});
-	marker_florida.setVisible(false);
+	var markers = [];
+	for (var a = 0; a < jsonData['data-markers'].length;a++) {
+		markers.push(new google.maps.Marker({position: {lat: jsonData['data-markers'][a]['lat'], lng: jsonData['data-markers'][a]['lng']}, map: map}));
+		markers[markers.length - 1].setVisible(false);
+		markers[markers.length - 1]['bookmarked'] = false;
 
-	var regensburg = {lat: 49.013454, lng: 12.100383};
-	var regensburg_data = {
-		'name': 'Regensburg',
-		'country': 'Germany',
-		'position': regensburg,
-		'text': ['europe', 'oldcities', 'castles'],
-		'language': 'german',
-		'location': '---',
-		'budget': '$$',
-		'season': 'winter',
-		'date': 'January 19 - January 23',
-		'info': 'Regensburg is an old city in south-east Germany in Bavaria. It is located at the confluence of the Danube, Naab, and Regen rivers, ' +
-				+ 'and it is the political, economic,and cultural centre of easter Bavaria. The medieval centre of the city is UNESCO Worlk Heritage  Site, '
-				+ 'and in 2014, it was among the top sights in Germany.',
-		'link': 'https://en.wikipedia.org/wiki/Regensburg'
+		var listenerMaker = function(index) {
+			return function() {
+				makePopups(markers, index, event.clientX, event.clientY);
+				fillPopups(index, jsonData['data-markers'][index]);
+			};
+		};
+		var listener = listenerMaker(a);
+		google.maps.event.addListener(markers[a], 'click', listener);
 	}
-	var marker_regensburg = new google.maps.Marker({
-		position: regensburg,
-		map: map
-	});
-	marker_regensburg.setVisible(false);
 
-	var bryceCanyon = {lat: 37.593833, lng: -112.187092}
-	var bryce_data = {
-		'name': 'Bryce Canyon',
-		'country': 'United States',
-		'position': bryceCanyon,
-		'text': ['hiking', 'camping'],
-		'language': '---',
-		'location': 'international',
-		'budget': '---',
-		'season': 'summer',
-		'date': 'June 7 - June 9',
-		'info': 'Bryce Canyon National Park is a United States national park located in southwestern Utah. The major feature of the park is Bryce Canyon, which despite its name, is not a canyon, but a collection of giant natural amphitheaters along the eastern side of the Paunsaugunt Plateau. Bryce is distinctive due to geological structures called hoodoos, formed by frost weathering and stream erosion of the river and lake bed sedimentary rocks. The red, orange, and white colors of the rocks provide spectacular views for park visitors. Bryce sits at a much higher elevation than nearby Zion National Park. The rim at Bryce varies from 8,000 to 9,000 feet (2,400 to 2,700 m).',
-		'link': 'https://en.wikipedia.org/wiki/Bryce_Canyon_National_Park'
-	};
-	var marker_bryce = new google.maps.Marker({
-		position: bryceCanyon,
-		map: map
-	});
-	marker_bryce.setVisible(false);
-
-	var datas = [florida_data, regensburg_data, bryce_data];
-	var markers = {
-		'Bryce Canyon': [marker_bryce, false], 
-		'Florida': [marker_florida, false], 
-		'Regensburg': [marker_regensburg, false]
-	};
-
-	google.maps.event.addListener(marker_florida, 'click', function(){
-		makePopups(markers, 'Florida', event.clientX, event.clientY);
-		fillPopups('Florida', florida_data);
-	});
-	google.maps.event.addListener(marker_bryce, 'click', function(){
-		makePopups(markers, 'Bryce Canyon', event.clientX, event.clientY);
-		fillPopups('Bryce Canyon', bryce_data);
-	});
-	google.maps.event.addListener(marker_regensburg, 'click', function(){
-		makePopups(markers, 'Regensburg', event.clientX, event.clientY);
-		fillPopups('Regensburg', regensburg_data);
-	});
-
-	var inputWrapper = document.getElementById('input-wrapper');
 	textField.focus();
 
 	function checkData(){
@@ -280,10 +245,10 @@ function initMap() {
     	for (var i = 0; i < tags.length; i++){
     		allText.push(tags[i].innerHTML.toLowerCase());
     	}
-    	for (var i = 0; i < datas.length; i++){
+    	for (var i = 0; i < jsonData['data-markers'].length; i++){
     		var matched = true;
-    		//check for text
-    		dataText = datas[i]['text'];
+			//check for text
+    		dataText = jsonData['data-markers'][i]['text'];
     		for (var j = 0; j < dataText.length; j++){
     			if (allText.indexOf(dataText[j]) < 0){
     				matched = false;
@@ -295,7 +260,7 @@ function initMap() {
     		var languageSelect = document.getElementById('pref-language-select');
 			var l_option = languageSelect.options[languageSelect.selectedIndex].text;
 			
-			if (l_option.toLowerCase() != datas[i]['language']){
+			if (l_option.toLowerCase() != jsonData['data-markers'][i]['language']){
 				matched = false;
 			}
 
@@ -306,7 +271,7 @@ function initMap() {
 			// if (c_option.toLowerCase() != datas[i]['citizenship']){
 			// 	matched = false;
 			// }
-			var location = datas[i]['location'];
+			var location = jsonData['data-markers'][i]['location'];
 			var domestic = document.getElementById("pref-domestic");
 			var international = document.getElementById("pref-international");
 			if (domestic.classList.contains("clicked") && (location != "domestic")){
@@ -320,7 +285,7 @@ function initMap() {
 				matched = false;
 			}
 
-			var budget = datas[i]['budget'];
+			var budget = jsonData['data-markers'][i]['budget'];
 			var lowBudget = document.getElementById("pref-$");
 			var midBudget = document.getElementById("pref-$$");
 			var highBudget = document.getElementById("pref-$$$");
@@ -338,7 +303,7 @@ function initMap() {
 				matched = false;
 			}
 
-			var season = datas[i]['season'];
+			var season = jsonData['data-markers'][i]['season'];
 			var spring = document.getElementById("pref-spring");
 			var summer = document.getElementById("pref-summer");
 			var fall = document.getElementById("pref-fall");
@@ -380,43 +345,30 @@ function initMap() {
    //  		}
     		//if (datas[i]['budget'] < currentBudget){
     		//	matched = false;
-    		//}
-
-			if (typeof this.staticVarMarker == 'undefined') {
-				this.staticVarMarker = true;
-				this.visibleMarkers = 0;
-				this.mapCenter = mit;
-			}
-
-    		if (matched && !markers[datas[i]['name']][0].getVisible()){
-				markers[datas[i]['name']][0].setVisible(true);
-				
-				//for centering map
-				this.mapCenter.lat = (this.mapCenter.lat * this.visibleMarkers + markers[datas[i]['name']][0].getPosition().lat()) / (this.visibleMarkers + 1);
-				this.mapCenter.lng = (this.mapCenter.lng * this.visibleMarkers + markers[datas[i]['name']][0].getPosition().lng()) / (this.visibleMarkers + 1);
-				map.panTo(new google.maps.LatLng(this.mapCenter.lat, this.mapCenter.lng));
-				this.visibleMarkers++;
-    		}
-    		else if (!matched && !markers[datas[i]['name']][1] && markers[datas[i]['name']][0].getVisible()) {
-				markers[datas[i]['name']][0].setVisible(false);
-
-				// var buttons = document.getElementsByTagName("button");
-				// for (let j = 0; j < buttons.length; j++) {
-				//   var button = buttons[j];
-				//   button.classList.remove("clicked");
-				// }
-				
-				//for centering map
-				if (this.visibleMarkers == 1)
-					this.mapCenter = mit;
-				else {
-					this.mapCenter.lat = (this.mapCenter.lat * this.visibleMarkers - markers[datas[i]['name']][0].getPosition().lat()) / (this.visibleMarkers - 1);
-					this.mapCenter.lng = (this.mapCenter.lng * this.visibleMarkers - markers[datas[i]['name']][0].getPosition().lng()) / (this.visibleMarkers - 1);
-				}
-				map.panTo(new google.maps.LatLng(this.mapCenter.lat, this.mapCenter.lng));
-				this.visibleMarkers--;
-    		}
+			//}
+			
+    		if (matched && !markers[i].getVisible())
+				markers[i].setVisible(true);
+    		else if (!matched && !markers[i]['bookmarked'] && markers[i].getVisible())
+				markers[i].setVisible(false);
     	}
+			
+		var bounds = new google.maps.LatLngBounds();
+		var markersVisible = 0;
+		for (var a = 0;a < markers.length;a++) {
+			if (markers[a].getVisible()) {
+				bounds.extend(markers[a].position);
+				markersVisible++;
+			}
+		}
+
+		if (markersVisible == 0)
+			bounds.extend(mit);
+		map.panTo(bounds.getCenter());
+		if (markersVisible == 0)
+			animateMapZoomTo(map, zoomBounds[0]);
+		else
+			animateMapZoomTo(map, Math.max(Math.min(getZoomByBounds(map, bounds) - 1, zoomBounds[1]), zoomBounds[0]));
 	}
 
 	textField.addEventListener('keyup', function(event) {
@@ -514,7 +466,6 @@ function initMap() {
 	  });
 	}
 
-
 	//taking care of centering and not leaving bounds of the world map
 	google.maps.event.addListener(map, 'center_changed', function() {
 	    checkBounds(map);
@@ -530,7 +481,7 @@ function initMap() {
         	//console.log('n');
             newLat =  map.getCenter().lat() - (latNorth-85);   /* too north, centering */
         }
-        if(latSouth<-85.5) {
+        if(latSouth < -85.5) {
         	//console.log('s'); 
             newLat =  map.getCenter().lat() - (latSouth+85);   /* too south, centering */
 		}   
