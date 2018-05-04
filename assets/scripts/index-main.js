@@ -92,7 +92,7 @@ function makePopups(markers, locationName, position_x, position_y){
 
 	var popup = document.createElement('div');
 	popup.classList.add('popup');
-	popup.id = 'marker-' + locationName;
+	popup.id = locationName;
 	popup.style.top = (position_y - 100) + 'px';
 	popup.style.left = (position_x - 100) + 'px';
 
@@ -141,24 +141,13 @@ function makePopups(markers, locationName, position_x, position_y){
 };
 
 function fillPopups(popupid, data){
-	var popup = document.getElementById('marker-' + popupid);
-	
-	//image
-	var image = document.createElement('img');
-	image.src = data['img'];
-	image.classList.add('popup-image');
-	popup.appendChild(image);
+	var popup = document.getElementById(popupid);
 
-	//non-image background
-	var nonImage = document.createElement('div');
-	nonImage.classList.add('popup-non-image');
-	popup.appendChild(nonImage);
-	
 	//heading
 	var heading = document.createElement('div');
-	heading.innerHTML = data['name'] + ',<br \>' + data['country'];
+	heading.innerHTML = data['name'] + ', ' + data['country'];
 	heading.classList.add('popup-heading');
-	nonImage.appendChild(heading);
+	popup.appendChild(heading);
 
 	//suggested date
 	var dateLabel = document.createElement('div');
@@ -167,20 +156,31 @@ function fillPopups(popupid, data){
 	var date = document.createElement('div');
 	date.innerHTML = data['date'];
 	date.classList.add('popup-date');
-	nonImage.appendChild(dateLabel);
-	nonImage.appendChild(date);
+	popup.appendChild(dateLabel);
+	popup.appendChild(date);
+
+	//image
+	var image = document.createElement('img');
+	image.src = data['img'];
+	image.classList.add('popup-image');
+	popup.appendChild(image);
 
 	//info and link 
 	var info = document.createElement('div');
 	info.innerHTML = data['info'];
 	info.classList.add('popup-info');
-	var link = document.createElement('a');
-	link.setAttribute('href', data['link']);
-	link.style.zIndex = 2;
-	link.setAttribute('target', '_blank');
-	link.innerHTML = 'more...';
-	nonImage.appendChild(info);
-	nonImage.appendChild(link);
+	// var link = document.createElement('a');
+	// link.setAttribute('href', data['link']);
+	// link.style.zIndex = 2;
+	// link.setAttribute('target', '_blank');
+	// link.innerHTML = 'more...';
+	popup.appendChild(info);
+	// popup.appendChild(link);
+
+	var link = document.createElement('img');
+	link.src = 'assets/img/expedia.png';
+	link.classList.add('link-image');
+	popup.appendChild(link);
 }
 
 function animateMapZoomTo(map, targetZoom) {

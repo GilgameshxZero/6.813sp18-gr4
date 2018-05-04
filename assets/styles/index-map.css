@@ -13,9 +13,9 @@
 }
 
 /* TODO: fix this without creating lag */
-#map > div {
+/*#map > div {
 	border-radius: 25px;
-}
+}*/
 
 #modal {
 	display: none; /* Hidden by default */
@@ -33,26 +33,23 @@
 
 .popup{
 	position: absolute;
-	width: 250px;
-	height: 250px;
+	width: 600px;
+	height: 600px;
 	padding: 10px;
 
 	background-color: white;
 	border-radius: 5px;
 	z-index: 0;
+
+	display: flex;
+	flex-direction: column;
 }
 
 .popup-image{
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	left: 0px;
-	right: 0px;
-	top: 0px;
-	bottom: 0px;
-	
-	z-index: 1;
-	opacity: 0.2;
+	width: 80%;
+	height: 40%
+	margin-bottom: 20px;
+	align-self: center;
 }
 
 .popup-non-image {
@@ -61,14 +58,12 @@
 
 	display: flex;
 	flex-flow: column wrap;
+	justify-content: flex-end;
 }
 
-.popup-link {
-	position: absolute;
-	right: 30px;
-	top: 10px;
-
-	z-index: 3;
+.link-image {
+	width: 100px;
+	height: 75px;
 }
 
 .popup-heading {
@@ -87,7 +82,8 @@
 	margin-bottom: 10px;
 }
 
-.popup-info {
+.popup-info {\
+	font-size: 12px;
 	max-height: 100px;
 	overflow: hidden;
 }
