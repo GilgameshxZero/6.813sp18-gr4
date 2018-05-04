@@ -369,8 +369,7 @@ function initMap() {
 		}
 	}
 
-	textField.addEventListener('keyup', function(event) {
-	    event.preventDefault();
+	textField.addEventListener('keydown', function(event) {
 	    //Make a new timeout set to go off in 800ms
         if (event.keyCode === 13) {
 	    	var tag = document.createElement('span');
@@ -384,13 +383,11 @@ function initMap() {
 	    }
 	    //BUG with how to fix when only one word left in input value
 	    else if (event.keyCode === 8 && textField.value == '') {
-	    	//console.log(inputWrapper.childNodes);
 	    	var tag = inputWrapper.childNodes[inputWrapper.childNodes.length - 5];
 	    	if (tag){
 		    	inputWrapper.removeChild(tag);
 		    	checkData();
 		    }
-
     	}
 	});
 
