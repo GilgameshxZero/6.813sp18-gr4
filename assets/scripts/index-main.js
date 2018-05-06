@@ -16,6 +16,7 @@ var landingBkg;
 var inputLogo;
 var inputTags;
 var inputTagDummy;
+var inputWrapperMain;
 
 var tagSet;
 var mapMarkers = [];
@@ -39,6 +40,7 @@ window.onload = function () {
 	inputLogo = document.getElementById('input-logo');
 	inputTags = document.getElementById('input-tags');
 	inputTagDummy = document.getElementById('input-tag-dummy');
+	inputWrapperMain = document.getElementById('input-wrapper-main');
 
 	tagSet = new Set([]);
 
@@ -96,8 +98,11 @@ function initHandlers() {
 			
 	    	updateMap();
 		} else if (event.keyCode === 8 && textField.value == '') {
-			if (inputTags.childNodes.length > 1) //more tags than dummy
+			if (inputTags.childNodes.length > 1) { //more tags than dummy
+				event.preventDefault();
+				textField.value = getTagText(inputTags.lastChild);
 				removeTag(inputTags.lastChild);
+			}
     	}
 	});
 
