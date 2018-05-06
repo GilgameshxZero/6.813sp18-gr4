@@ -79,9 +79,16 @@ function initHandlers() {
 				onLanding = false;
 			}
 
-			var newTag = inputTagDummy.cloneNode(true);
+			var newTag = inputTagDummy.cloneNode(deep=true);
 			newTag.classList.remove('input-tag-hidden');
-			newTag.innerHTML = textField.value;
+			newTag.classList.add('input-tag-real');
+			newTag.id = '';
+			for (var a = 0;a < newTag.childNodes.length;a++) {
+				if (newTag.childNodes[a].className == 'input-tag-elem-text') {
+					newTag.childNodes[a].innerHTML = textField.value;
+					break;
+				}
+			}
 
 			tagSet.add(textField.value);
 	        inputTags.appendChild(newTag);
@@ -89,26 +96,20 @@ function initHandlers() {
 			
 	    	updateMap();
 		} else if (event.keyCode === 8 && textField.value == '') {
-			if (inputTags.childNodes.length > 1) { //more tags than dummy
-				tagSet.delete(inputTags.childNodes[inputTags.childNodes.length - 1].innerHTML);
-				inputTags.removeChild(inputTags.childNodes[inputTags.childNodes.length - 1]);
-
-		    	updateMap();
-			}
+			if (inputTags.childNodes.length > 1) //more tags than dummy
+				removeTag(inputTags.lastChild);
     	}
 	});
 
-	inputWrapper.addEventListener('click', function(event){
+	inputTags.addEventListener('click', function(event){
 		var tag = event.target;
-		if (tag.classList.contains('tag')){
-			var tag = event.target;
-			if (tag.classList.contains('tag')){
-				inputWrapper.removeChild(tag);
-				tagSet.delete(tag.innerHTML);
-				textField.focus();
-			}
-			updateMap();
-		}
+
+		//get correct ancestor
+		while (tag.parentNode != inputTags)
+			tag = tag.parentNode;
+
+		if (tag.classList.contains('input-tag-elem'))
+			removeTag(tag);
 	});
 
 	document.getElementById('pref-language-select')
@@ -147,6 +148,21 @@ function initHandlers() {
 			updateMap();
 	  	});
 	}
+}
+
+//get text of a tag node
+function getTagText(tag) {
+	for (var a = 0;a < tag.childNodes.length;a++)
+		if (tag.childNodes[a].className == 'input-tag-elem-text')
+			return tag.childNodes[a].innerHTML;
+}
+
+//remove a tag from the list
+function removeTag(tag) {
+	inputTags.removeChild(tag);
+	tagSet.delete(getTagText(tag));
+	textField.focus();
+	updateMap();
 }
 
 //animate landing away into main page
@@ -244,11 +260,11 @@ function initMap() {
 
 //displays markers based on tags and prefs
 function updateMap() {
-	var tags = document.getElementsByClassName('input-tag-elem');
+	var tags = document.getElementsByClassName('input-tag-real');
 	var allText = [];
 	
 	for (var i = 0; i < tags.length; i++){
-		allText.push(tags[i].innerHTML.toLowerCase());
+		allText.push(getTagText(tags[i]));
 	}
 	
 	for (var i = 0; i < jsonData['data-markers'].length; i++){

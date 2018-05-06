@@ -1,6 +1,6 @@
 /*------------------------------- TEXT FIELD -------------------------------------*/
 #input-wrapper {
-	flex: 0.75 0.75 7.5%;
+	flex: 0 0 55px;
 	margin: 15px;
 	margin-left: 0px;
 	margin-right: 0px;
@@ -70,31 +70,40 @@
 	outline: none;
 }
 
-#input-tag-dummy {
+.input-tag-elem {
 	cursor: pointer;
-	display: block;
 	float: left;
 	color: #555;
 	background: #E1ECF4;
 	padding: 5px 10px;
+	padding-right: 7px;
 	margin: 2px;
 	border-radius: 5px;
-
-	padding-right: 20px;
 	
-	font-size: 25px;
+	flex-flow: row nowrap;
 }
 
-#input-tag-dummy:hover{
+.input-tag-elem:hover{
 	opacity: 0.7;
 }
 
-#input-tag-dummy.input-tag-hidden {
+.input-tag-elem.input-tag-hidden {
 	display: none;
 }
 
-#input-tag-dummy-remove {
-	height: 100%;
+.input-tag-elem.input-tag-real {
+	display: flex;
+}
 
-	
+.input-tag-elem-text {
+	font-size: 25px;
+	order: 1;
+}
+
+.input-tag-elem-remove {
+	height: 15px;
+	width: 15px;
+	order: 2;
+	margin: auto;
+	padding-left: 5px;
 }
