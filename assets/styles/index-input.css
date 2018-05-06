@@ -1,15 +1,10 @@
 /*------------------------------- TEXT FIELD -------------------------------------*/
 #input-wrapper {
-	flex: 0 1 7.5%;
+	flex: 0.75 0.75 7.5%;
 	margin: 15px;
 	margin-left: 0px;
 	margin-right: 0px;
-	padding-left: 10px;
-	padding-right: 10px;
 	height: 60px;
-	border-radius: 5px;
-	border-width: 2px;
-	border-style: solid;
 
 	display: flex;
 	flex-flow: row nowrap;
@@ -17,39 +12,43 @@
 	
 	transition-property: all;
 	transition-duration: 1s;
-	transition-timing-function: ease;
+	transition-timing-function: linear;
 }
 
-#input-wrapper span.tag{
-  	cursor: pointer;
-  	display: block;
-  	float: left;
-  	color: #555;
-  	background: #add;
-  	padding: 5px 10px;
- 	padding-right: 30px;
-  	margin: 4px;
-  	font-size: 25px;
-  	border-radius: 5px;
+#input-logo {
+	height: 100%;
+	margin-right: 5px;
+
+	opacity: 1;
+	
+	transition-property: all;
+	transition-duration: 1s;
+	transition-timing-function: linear;
 }
 
-#input-wrapper span.tag:hover{
-  opacity:0.7;
-}
+#input-wrapper-main {
+	width: 100%;
+	height: 100%;
+	z-index: 3;
+	
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 5px;
+	border-width: 2px;
+	border-style: solid;
 
-#input-wrapper span.tag:after{
- 	position:absolute;
- 	content:"×";
- 	border:1px solid;
- 	border-radius:10px;
- 	padding:0 4px;
- 	margin:3px 0 10px 7px;
- 	font-size:10px;
+	display: flex;
+	flex-flow: row nowrap;
 }
 
 #input-tags {
 	margin: auto;
-	margin-left: 0px;
+	margin-left: -5px;
+	height: 85%;
+
+	display: flex;
+	flex-flow: row nowrap;
+
 	font-size: 30px;
 	color: #808080;
 }
@@ -58,9 +57,9 @@
 	width: 100%;
 	height: 85%;
 	margin: auto;
-	z-index: 10;
+	z-index: 5;
 
-	font-size: 30px;
+	font-size: 25px;
 	background: transparent;
 
 	text-align: left;
@@ -71,7 +70,31 @@
 	outline: none;
 }
 
-#input-magnifying {
-	margin: auto;
-	margin-right: 0px;
+#input-tag-dummy {
+	cursor: pointer;
+	display: block;
+	float: left;
+	color: #555;
+	background: #E1ECF4;
+	padding: 5px 10px;
+	margin: 2px;
+	border-radius: 5px;
+
+	padding-right: 20px;
+	
+	font-size: 25px;
+}
+
+#input-tag-dummy:hover{
+	opacity: 0.7;
+}
+
+#input-tag-dummy.input-tag-hidden {
+	display: none;
+}
+
+#input-tag-dummy-remove {
+	height: 100%;
+
+	
 }

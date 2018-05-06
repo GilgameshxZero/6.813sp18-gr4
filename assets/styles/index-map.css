@@ -5,11 +5,12 @@
 
 	order: 1;
 	z-index: 0;
+	opacity: 1;
 	transform: scaleY(1);
 
-	transition-property: height, transform;
+	transition-property: height, transform, opacity;
 	transition-duration: 1s;
-	transition-timing-function: ease;
+	transition-timing-function: linear;
 }
 
 #modal {

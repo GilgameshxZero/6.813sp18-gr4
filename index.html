@@ -16,7 +16,6 @@
 
 		<script src="assets/scripts/index-main.js"></script>
 		<script src="assets/scripts/index-data.js"></script>
-		<script src="assets/scripts/index-map.js"></script>
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrBPYvlDJmXgY_Smyoig8fFX4aTVORVtg&callback=gMapReady"></script>
@@ -32,13 +31,21 @@
 		<!-- components specific to landing except map -->
 		<div id="landing">
 			<!-- logo -->
-			<img id="landing-logo" src="assets/img/logo.png">
+			<img id="landing-logo" src="assets/img/logo-square.png">
 			<div id="landing-title">Connect-7</div>
 		</div>
 
 		<!-- textbox input -->
 		<div id="input-wrapper" class="input-wrapper-landing">
-			<input id="text-field" type="text"> 
+			<img id="input-logo" class="input-logo-landing" src="assets/img/logo-square.png">
+			<div id="input-wrapper-main">
+				<div id="input-tags">
+					<div id="input-tag-dummy" class="input-tag-hidden">
+						<img id="input-tag-dummy-remove" src="assets/img/x-mark-24.png">
+					</div>
+				</div>
+				<input id="text-field" type="text">
+			</div>
 		</div>
 
 		<!-- preferences -->
