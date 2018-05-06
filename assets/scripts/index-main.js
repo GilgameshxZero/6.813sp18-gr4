@@ -86,6 +86,7 @@ function makePopups(markers, locationName, position_x, position_y){
 	var modal = document.getElementById('modal');
 	var marker = markers[locationName];
 
+	// clear all popups
 	var existingPops = document.getElementsByClassName('popup');
 	for (var i = 0; i < existingPops.length; i++)
 		modal.removeChild(existingPops[i]);
@@ -93,18 +94,19 @@ function makePopups(markers, locationName, position_x, position_y){
 	var popup = document.createElement('div');
 	popup.classList.add('popup');
 	popup.id = locationName;
-	popup.style.top = (position_y - 100) + 'px';
-	popup.style.left = (position_x - 100) + 'px';
 
+	var popupHeader = document.createElement('div');
+	popupHeader.classList.add('popup-header-content');
+
+	// close btn
 	var close = document.createElement('span');
 	close.classList.add('close');
 	close.innerHTML = '&times;';
-	//close.style.float = 'right';
-
 	close.onclick = function(){
 		modal.style.display = 'none';
 		textField.focus();
 	}
+
 	var link = document.createElement('a');
 	var bookmark = document.createElement('img');
 	bookmark.src = 'assets/img/bookmark.png';
@@ -112,7 +114,6 @@ function makePopups(markers, locationName, position_x, position_y){
 	if (markers[locationName]['bookmarked']){
 		bookmark.style.filter = 'grayscale(0%)';
 	}
-
 	bookmark.onclick = function(){
 		if (markers[locationName]['bookmarked']){
 			bookmark.style.filter = 'grayscale(100%)';
@@ -127,17 +128,12 @@ function makePopups(markers, locationName, position_x, position_y){
 		}
 	}
 
-	popup.appendChild(close);
 	link.appendChild(bookmark);
-	popup.appendChild(link);
+	popupHeader.appendChild(link);
+	popupHeader.appendChild(close);
+	popup.appendChild(popupHeader);
 	modal.appendChild(popup);
-
-	close.classList.add('popup-non-image');
-	bookmark.classList.add('popup-non-image');
-	link.classList.add('popup-non-image');
-	link.classList.add('popup-link');
-
-	modal.style.display = 'block';
+	modal.style.display = 'flex';
 };
 
 function fillPopups(popupid, data){
@@ -165,7 +161,7 @@ function fillPopups(popupid, data){
 	image.classList.add('popup-image');
 	popup.appendChild(image);
 
-	//info and link 
+	//info
 	var info = document.createElement('div');
 	info.innerHTML = data['info'];
 	info.classList.add('popup-info');
@@ -177,6 +173,7 @@ function fillPopups(popupid, data){
 	popup.appendChild(info);
 	// popup.appendChild(link);
 
+	//link
 	var link = document.createElement('img');
 	link.src = 'assets/img/expedia.png';
 	link.classList.add('link-image');
