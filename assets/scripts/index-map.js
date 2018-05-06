@@ -33,110 +33,6 @@ function getZoomByBounds( map, bounds ){
 	return 0;
 }
 
-function checkData(){
-	var tags = document.getElementsByClassName('tag');
-	var allText = [];
-	
-	for (var i = 0; i < tags.length; i++){
-		allText.push(tags[i].innerHTML.toLowerCase());
-	}
-	
-	for (var i = 0; i < jsonData['data-markers'].length; i++){
-		var matched = true;
-		
-		//check for text
-		dataText = jsonData['data-markers'][i]['text'];
-		for (var j = 0; j < dataText.length; j++){
-			if (allText.indexOf(dataText[j]) < 0){
-				matched = false;
-				break;
-			}
-		}
-
-		//language preference
-		var languageSelect = document.getElementById('pref-language-select');
-		var l_option = languageSelect.options[languageSelect.selectedIndex].text;
-		
-		if (l_option.toLowerCase() != jsonData['data-markers'][i]['language']){
-			matched = false;
-		}
-
-		var location = jsonData['data-markers'][i]['location'];
-		var domestic = document.getElementById('pref-domestic');
-		var international = document.getElementById('pref-international');
-		if (domestic.classList.contains('clicked') && (location != 'domestic')){
-			matched = false;
-		}
-		else if (international.classList.contains('clicked') && (location != 'international')){
-			matched = false;
-		}
-		else if (!domestic.classList.contains('clicked') && !international.classList.contains('clicked')
-			&& location != '---'){
-			matched = false;
-		}
-
-		var budget = jsonData['data-markers'][i]['budget'];
-		var lowBudget = document.getElementById('pref-$');
-		var midBudget = document.getElementById('pref-$$');
-		var highBudget = document.getElementById('pref-$$$');
-		if (lowBudget.classList.contains('clicked') && (budget != '$')){
-			matched = false;
-		}
-		else if (midBudget.classList.contains('clicked') && (budget != '$$')){
-			matched = false;
-		}
-		else if (highBudget.classList.contains('clicked') && (budget != '$$$')){
-			matched = false;
-		}
-		else if (!lowBudget.classList.contains('clicked') && !midBudget.classList.contains('clicked') && !highBudget.classList.contains('clicked')
-			&& budget != '---'){
-			matched = false;
-		}
-
-		var season = jsonData['data-markers'][i]['season'];
-		var spring = document.getElementById('pref-spring');
-		var summer = document.getElementById('pref-summer');
-		var fall = document.getElementById('pref-fall');
-		var winter = document.getElementById('pref-winter');
-		if (spring.classList.contains('clicked') && (season != 'spring')){
-			matched = false;
-		}
-		else if (summer.classList.contains('clicked') && (season != 'summer')){
-			matched = false;
-		}
-		else if (fall.classList.contains('clicked') && (season != 'fall')){
-			matched = false;
-		}
-		else if (winter.classList.contains('clicked') && (season != 'winter')){
-			matched = false;
-		}
-		else if (!spring.classList.contains('clicked') && !summer.classList.contains('clicked') 
-			&& !fall.classList.contains('clicked') && !winter.classList.contains('clicked')){
-			matched = false;
-		}
-		
-		if (matched && !markers[i].getVisible())
-			markers[i].setVisible(true);
-		else if (!matched && !markers[i]['bookmarked'] && markers[i].getVisible())
-			markers[i].setVisible(false);
-	}
-		
-	//update map zoom & location
-	var bounds = new google.maps.LatLngBounds();
-	var markersVisible = 0;
-	for (var a = 0;a < markers.length;a++) {
-		if (markers[a].getVisible()) {
-			bounds.extend(markers[a].position);
-			markersVisible++;
-		}
-	}
-
-	if (markersVisible != 0) {
-		map.panTo(bounds.getCenter());
-		animateMapZoomTo(map, Math.max(Math.min(getZoomByBounds(map, bounds) - 1, zoomBounds[1]), zoomBounds[0]));
-	}
-}
-
 function initMap() {
 	let mit = {lat: 42.358792, lng: -71.093493};
 	var map = new google.maps.Map(mapElement, {
@@ -162,6 +58,110 @@ function initMap() {
 	}
 
 	textField.focus();
+
+	function checkData(){
+		var tags = document.getElementsByClassName('tag');
+		var allText = [];
+		
+		for (var i = 0; i < tags.length; i++){
+			allText.push(tags[i].innerHTML.toLowerCase());
+		}
+		
+		for (var i = 0; i < jsonData['data-markers'].length; i++){
+			var matched = true;
+			
+			//check for text
+			dataText = jsonData['data-markers'][i]['text'];
+			for (var j = 0; j < dataText.length; j++){
+				if (allText.indexOf(dataText[j]) < 0){
+					matched = false;
+					break;
+				}
+			}
+	
+			//language preference
+			var languageSelect = document.getElementById('pref-language-select');
+			var l_option = languageSelect.options[languageSelect.selectedIndex].text;
+			
+			if (l_option.toLowerCase() != jsonData['data-markers'][i]['language']){
+				matched = false;
+			}
+	
+			var location = jsonData['data-markers'][i]['location'];
+			var domestic = document.getElementById('pref-domestic');
+			var international = document.getElementById('pref-international');
+			if (domestic.classList.contains('clicked') && (location != 'domestic')){
+				matched = false;
+			}
+			else if (international.classList.contains('clicked') && (location != 'international')){
+				matched = false;
+			}
+			else if (!domestic.classList.contains('clicked') && !international.classList.contains('clicked')
+				&& location != '---'){
+				matched = false;
+			}
+	
+			var budget = jsonData['data-markers'][i]['budget'];
+			var lowBudget = document.getElementById('pref-$');
+			var midBudget = document.getElementById('pref-$$');
+			var highBudget = document.getElementById('pref-$$$');
+			if (lowBudget.classList.contains('clicked') && (budget != '$')){
+				matched = false;
+			}
+			else if (midBudget.classList.contains('clicked') && (budget != '$$')){
+				matched = false;
+			}
+			else if (highBudget.classList.contains('clicked') && (budget != '$$$')){
+				matched = false;
+			}
+			else if (!lowBudget.classList.contains('clicked') && !midBudget.classList.contains('clicked') && !highBudget.classList.contains('clicked')
+				&& budget != '---'){
+				matched = false;
+			}
+	
+			var season = jsonData['data-markers'][i]['season'];
+			var spring = document.getElementById('pref-spring');
+			var summer = document.getElementById('pref-summer');
+			var fall = document.getElementById('pref-fall');
+			var winter = document.getElementById('pref-winter');
+			if (spring.classList.contains('clicked') && (season != 'spring')){
+				matched = false;
+			}
+			else if (summer.classList.contains('clicked') && (season != 'summer')){
+				matched = false;
+			}
+			else if (fall.classList.contains('clicked') && (season != 'fall')){
+				matched = false;
+			}
+			else if (winter.classList.contains('clicked') && (season != 'winter')){
+				matched = false;
+			}
+			else if (!spring.classList.contains('clicked') && !summer.classList.contains('clicked') 
+				&& !fall.classList.contains('clicked') && !winter.classList.contains('clicked')){
+				matched = false;
+			}
+			
+			if (matched && !markers[i].getVisible())
+				markers[i].setVisible(true);
+			else if (!matched && !markers[i]['bookmarked'] && markers[i].getVisible())
+				markers[i].setVisible(false);
+		}
+			
+		//update map zoom & location
+		var bounds = new google.maps.LatLngBounds();
+		var markersVisible = 0;
+		for (var a = 0;a < markers.length;a++) {
+			if (markers[a].getVisible()) {
+				bounds.extend(markers[a].position);
+				markersVisible++;
+			}
+		}
+	
+		if (markersVisible != 0) {
+			map.panTo(bounds.getCenter());
+			animateMapZoomTo(map, Math.max(Math.min(getZoomByBounds(map, bounds) - 1, zoomBounds[1]), zoomBounds[0]));
+		}
+	}
 	
 	textField.addEventListener('keydown', function(event) {
         if (event.keyCode === 13 && textField.value != '' && !tagSet.has(textField.value)) {
