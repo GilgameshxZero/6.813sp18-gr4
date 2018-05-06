@@ -45,13 +45,13 @@
 }
 
 #input-wrapper.input-wrapper-landing {
-	width: 90%;
+	width: 50%;
 	margin: 0px;
 	margin-bottom: auto;
 	
 	/*non-auto absolutes for transitions*/
-	margin-left: calc(5% - 10px);
-	margin-right: calc(5% - 10px);
+	margin-left: calc(25% - 10px);
+	margin-right: calc(25% - 10px);
 
 	z-index: 1;
 }

@@ -13,6 +13,8 @@ var prefPriceSlider;
 var landingLogo;
 var landingBkg;
 
+var tagSet;
+
 window.onload = function () {
 	mapElement = document.getElementById('map');
 	textField = document.getElementById('text-field');
@@ -45,6 +47,9 @@ window.onload = function () {
 	landing.style.height = landing.offsetHeight + 'px';
 	landingLogo.classList.add('landing-logo-postsize');
 
+	//event handlers
+	tagSet = new Set([]);
+
 	initMap();
 }
 
@@ -60,14 +65,6 @@ function endLanding(event) {
 	pref.classList.remove('pref-landing');
 	body.classList.remove('body-landing');
 	landingBkg.classList.add('landing-bkg-hidden');
-
-	/*
-	window.onclick = function(event) {
-		var modal = document.getElementById('modal');
-	    if (event.target == modal) {
-	        modal.style.display = 'none';
-	    }
-	}*/
 
 	textField.focus();
 }
