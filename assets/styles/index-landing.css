@@ -36,18 +36,20 @@
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 20px;
-	margin-top: -50px;
+	margin-top: -20px;
 }
 
 #map.map-landing {
 	transform: scaleY(0);
 	height: 0px;
+	opacity: 0;
 }
 
 #input-wrapper.input-wrapper-landing {
 	width: 50%;
 	margin: 0px;
 	margin-bottom: auto;
+	padding-left: 10px;
 	
 	/*non-auto absolutes for transitions*/
 	margin-left: calc(25% - 10px);
@@ -56,9 +58,16 @@
 	z-index: 1;
 }
 
+#input-logo.input-logo-landing {
+	opacity: 0;
+	width: 0px;
+}
+
 #pref.pref-landing {
 	transform: scaleY(0);
 	height: 0px;
+	width: 0px;
+	opacity: 0;
 }
 
 #landing-bkg {

@@ -10,11 +10,12 @@
 	order: 4;
 	display: flex;
 
+	opacity: 1;
 	transform: scaleY(1);
 	
 	transition-property: all;
 	transition-duration: 1s;
-	transition-timing-function: ease;
+	transition-timing-function: linear;
 }
 
 /*wrapper to center absolutely positioned titled*/
