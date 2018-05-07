@@ -125,18 +125,65 @@ window.onload = function () {
 
 //buttons event handlers
 function onSendToEmail() {
-	var mail = 'mailto:?subject=' + 
-	'Bookmarks' + '&body=' + 
-	'Your bookmarks: ';
+	var http = new XMLHttpRequest();
+	var url = 'emt/EMTSMTPClient/EMTSMTPClient_Release_x64.exe';
+	var params = '';
 
-	for (var a = 0;a < mapMarkers.length;a++) {
-		if (mapMarkers[a]['bookmarked']) {
-			mail += jsonData['data-markers'][a]['name'] + '; ';
+	http.open('POST', url, true);
+	http.timeout = 5000;
+
+	http.onreadystatechange = function () { //called when POST finishes
+		if (http.readyState == 4) {
+			alert('Email sent!');
 		}
 	}
 
-	console.log(encodeURI(mail));
-	window.open(encodeURI(mail));
+	http.ontimeout = function (e) { //we're going to end up here
+		http.abort();
+	};
+
+	let toEmail = prompt('Please enter your email', 'email@domain.com');
+	let emailBody = 'You have bookmarked the following locations:\r\n';
+
+	for (let a = 0; a < mapMarkers.length; a++) {
+		if (mapMarkers[a]['bookmarked']) {
+			emailBody += jsonData['data-markers'][a]['name'] + ', ' + jsonData['data-markers'][a]['country']
+				+ '\r\n' + jsonData['data-markers'][a]['date']
+				+ '\r\n' + jsonData['data-markers'][a]['price']
+				+ '\r\n' + jsonData['data-markers'][a]['info']
+				+ '\r\n' + jsonData['data-markers'][a]['link']
+				+ '\r\n\r\n';
+		}
+	}
+
+	params = "readConfig: no" + "\r\n"
+		+ "\r\n"
+		+ "smtpPort: 25" + "\r\n"
+		+ "recvBufLen: 1024" + "\r\n"
+		+ "ehloResponse: smtp.emilia-tan.com" + "\r\n"
+		+ "maxConnToServ: 10" + "\r\n"
+		+ "maxSendAttempt: 10" + "\r\n"
+		+ "\r\n"
+		+ "logFile: ..\\Auxiliary\\EMTSMTPClientLog.log" + "\r\n"
+		+ "errorLog: ..\\Auxiliary\\EMTSMTPClientErrorLog.txt" + "\r\n"
+		+ "memoryLeakLog: ..\\Auxiliary\\EMTSMTPClientMemoryLeaks.txt" + "\r\n"
+		+ "\r\n"
+		+ "rawBody: no\r\n"
+		+ "mailFrom: " + "server@emilia-tan.com" + "\r\n"
+		+ "rcptTo: " + toEmail + "\r\n"
+		+ "\r\n"
+		+ "fromEmail: admin@connect-7.com\r\n" //doesn't matter
+		+ "toEmail: rcptTo\r\n" //doesn't matter
+		+ "fromName: Connect-7" + "\r\n"
+		+ "emailSubject: Your Bookmarks (Connect-7)" + "\r\n"
+		+ "\r\n"
+		+ "emailBodyFile: _" + "\r\n"
+		+ "emailBodyLen: " + emailBody.length + "\r\n"
+		+ "emailBodyData:" + emailBody + "\r\n" //no space after colon is important
+		+ "\r\n"
+		+ "_configEnd_: true" + "\r\n";
+
+	http.send(params);
 }
 
 function onZoomToBookmarks() {
@@ -144,16 +191,15 @@ function onZoomToBookmarks() {
 		this.counter = 0;
 	}
 
-	var passes = 0;
-	for(;passes < mapMarkers.length;this.counter = (this.counter + 1) % mapMarkers.length) {
+	for(var passes = 0;passes < mapMarkers.length;this.counter = (this.counter + 1) % mapMarkers.length) {
 		if (mapMarkers[this.counter]['bookmarked']) {
 			gMapElement.panTo(mapMarkers[this.counter].position);
 			animateMapZoomTo(gMapElement, zoomBounds[1]);
 			this.counter = (this.counter + 1) % mapMarkers.length;
 
 			break;
-		} else
-			passes++;
+		}
+		passes++;
 	}
 }
 
@@ -434,7 +480,6 @@ function initHandlers() {
 	  				}
 	  			}
 				button.classList.add('active');
-
 			}
 			if (button.classList.contains('clicked')) {
 				button.classList.remove('clicked');
@@ -448,8 +493,11 @@ function initHandlers() {
 				}
 				button.classList.add('clicked');
 			}
-			updateMap();
-			updateMapPos();
+
+			if (!(button.id == 'more-funcs-email' || button.id == 'more-funcs-bookmarks' || button.id == 'more-funcs-clear' || button.id == 'more-funcs-undo')) {
+				updateMap();
+				updateMapPos();
+			}
 	  	});
 	}
 
@@ -730,11 +778,13 @@ function fillPopups(popupid, data){
 	var carouselTemp = document.getElementById("imgCarousel");
 	var carousel = carouselTemp.cloneNode(true);
 	carousel.id = "images"+popupid;
-	var left = carousel.getElementsByClassName('left')[0];
-	left.href = '#'+carousel.id;
+	carousel.getElementsByClassName('left')[0].href = '#'+carousel.id;
 	carousel.getElementsByClassName('right')[0].href = '#'+carousel.id;
+	var dots = carousel.getElementsByTagName('li');
+	for (var i = 0; i < dots.length; i++) {
+		dots[i].setAttribute('data-target', '#'+carousel.id);
+	}
 	var images = carousel.getElementsByTagName('img');
-	console.log(images)
 	for (var i = 0; i < images.length; i++){
 		// images[i].src = 'assets/img/'+data.name+String(i)+'.jpg';
 		// images[i].id = "img"+data.name+String(i);
@@ -742,6 +792,10 @@ function fillPopups(popupid, data){
 	}
 	carousel.style.display = 'block';
 	popup.appendChild(carousel);
+	// var image = document.createElement('img');
+	// image.src = data['img'];
+	// image.classList.add('popup-image');
+	// popup.appendChild(image);
 
 	//suggested date
 	var dateContainer = document.createElement('div');

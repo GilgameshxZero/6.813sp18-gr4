@@ -1,0 +1,2 @@
+ÿþerror in quickServerInit
+Error code: 0
