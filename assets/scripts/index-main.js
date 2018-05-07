@@ -121,9 +121,16 @@ window.onload = function () {
 
 //buttons event handlers
 function onSendToEmail() {
-	window.open('mailto:?subject=' + 
-		'locations' + 
-		'&body=body');
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST','/emt/EMTSMTPClient/EMTSMTPClient_Release_x64.exe',true);
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+			// Request finished. Do processing here.
+		}
+	}
+
+	xhr.send('1');
 }
 
 function onZoomToBookmarks() {

@@ -1,0 +1,35 @@
+Connecting to mail50.bitwhites.top for host bitwhites.top...
+220 node6 ESMTP Haraka 2.8.16 ready
+EHLO smtp.emilia-tan.com
+250-node6 Hello simmons-one-forty-seven.mit.edu [18.96.5.147], Haraka is at your service.
+250-PIPELINING
+250-8BITMIME
+250-SMTPUTF8
+250 SIZE 16777000
+MAIL FROM:<server@emilia-tan.com>
+250 sender <server@emilia-tan.com> OK
+RCPT TO:<rofico@bitwhites.top>
+250 recipient <rofico@bitwhites.top> OK
+DATA
+354 Please start mail input.
+MIME-Version: 1.0
+Message-ID: <2018-05-07.01:31:4441@smtp.emilia-tan.com>
+Date: Mon,  7 May 2018 01:31:44 -0400
+From: Yang Yan <server@emilia-tan.com>
+Subject: Email Subject
+To: rofico@bitwhites.top
+Content-Type: text/plain; charset="UTF-8"
+
+Hey its me
+
+--
+晏扬
+Yang (Gilbert) Yan
+through the powers of emilia-tan.com
+.
+250 Mail queued for delivery.
+QUIT
+221 Closing connection. Good bye.
+Mail sent successfully
+--------------------------------------------------------------------------------
+
