@@ -122,9 +122,18 @@ window.onload = function () {
 
 //buttons event handlers
 function onSendToEmail() {
-	window.open('mailto:?subject=' + 
-		'locations' + 
-		'&body=body');
+	var mail = 'mailto:?subject=' + 
+	'Bookmarks' + '&body=' + 
+	'Your bookmarks: ';
+
+	for (var a = 0;a < mapMarkers.length;a++) {
+		if (mapMarkers[a]['bookmarked']) {
+			mail += jsonData['data-markers'][a]['name'] + '; ';
+		}
+	}
+
+	console.log(encodeURI(mail));
+	window.open(encodeURI(mail));
 }
 
 function onZoomToBookmarks() {
@@ -415,8 +424,6 @@ function initHandlers() {
 	  	});
 	}
 
-
-
 }
 
 //get text of a tag node
@@ -573,25 +580,24 @@ function updateMap() {
 				matched = false;
 				break;
 			}
-		}	
+		}
 
 		//TODO: match preferences here
 		dataLanguage = data['language'];
 		for (var j = 0; j < selectedLanguages.length; j++){
-			if (! dataLanguage.includes(selectedLanguages[j].toLowerCase())){
+			if (! dataLanguage.includes(selectedLanguages[j])){
 				matched = false;
 				break;
 			}
 		}
 
 		dataLocation = data['country'];
-		// console.log(dataLocation);
-		var locationButtons = document.getElementsByClassName("location");
+		var clickedButtons = document.getElementsByClassName("clicked");
 		var locationChoice; 
-		for (var j = 0; j < locationButtons.length; j++){
-			if (locationButtons[j].classList.contains('active')){
-				locationChoice = locationButtons[j].innerHTML.toLowerCase();
-			}
+		console.log(document.getElementsByClassName("active")[0]);
+		if (unitedStates && dataLocation == "United States" &&  document.getElementById("international").checked){
+			matched = false;
+			break;
 		}
 
 		if (unitedStates && dataLocation == "United States" && locationChoice == "international"){
