@@ -336,12 +336,12 @@ function initHandlers() {
 	//TODO: fix this
 	textField.addEventListener('focus',function(e){
 		inputWrapper.style.zIndex = parseInt(inputWrapper.style.zIndex) + 2;
-		console.log('focus');
+		// console.log('focus');
 	});
 	textField.addEventListener('blur',function(e){
 		setTimeout(function(){
 			inputWrapper.style.zIndex = parseInt(inputWrapper.style.zIndex) - 2;
-			console.log('blur');
+			// console.log('blur');
 		}, 100);
 	});
 
