@@ -39,6 +39,8 @@
 	border-style: solid;
 	overflow: hidden;
 
+	z-index: 5;
+
 	display: flex;
 	flex-flow: row nowrap;
 }
@@ -50,7 +52,7 @@
 	margin: auto;
 	/*z-index: 5;*/
 
-	font-size: 25px;
+	font-size: 20px;
 	background: transparent;
 
 	text-align: left;
@@ -89,6 +91,7 @@
 	margin: 2px;
 	border-radius: 5px;
 	
+	display: flex;
 	flex-flow: row nowrap;
 }
 
@@ -105,8 +108,9 @@
 }
 
 .input-tag-elem-text {
-	font-size: 25px;
+	font-size: 20px;
 	order: 1;
+	margin: auto;
 }
 
 .input-tag-elem-remove {
@@ -114,5 +118,5 @@
 	width: 15px;
 	order: 2;
 	margin: auto;
-	padding-left: 5px;
+	margin-left: 5px;
 }

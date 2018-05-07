@@ -152,11 +152,6 @@ function initHandlers() {
 			removeTag(tag);
 	});
 
-	// document.getElementById('pref-language-select')
-	// 	.addEventListener('change', function() {
-	// 	    updateMap();
-	// });
-
 	var buttons = document.getElementsByTagName('button');
 	var groups = {};
 	for (var i = 0; i < buttons.length; i++) {
