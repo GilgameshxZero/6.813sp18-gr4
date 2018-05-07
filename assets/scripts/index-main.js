@@ -135,7 +135,7 @@ function onSendToEmail() {
 		}
 	}
 
-	console.log(encodeURI(mail));
+	// console.log(encodeURI(mail));
 	window.open(encodeURI(mail));
 }
 
@@ -720,10 +720,13 @@ function fillPopups(popupid, data){
 	//image
 	var carouselTemp = document.getElementById("imgCarousel");
 	var carousel = carouselTemp.cloneNode(true);
-	carousel.id = "images"+data.name;
-	var left = carousel.getElementsByClassName('left')[0];
-	left.href = '#'+carousel.id;
+	carousel.id = "images"+popupid;
+	carousel.getElementsByClassName('left')[0].href = '#'+carousel.id;
 	carousel.getElementsByClassName('right')[0].href = '#'+carousel.id;
+	var dots = carousel.getElementsByTagName('li');
+	for (var i = 0; i < dots.length; i++) {
+		dots[i].setAttribute('data-target', '#'+carousel.id);
+	}
 	var images = carousel.getElementsByTagName('img');
 	for (var i = 0; i < images.length; i++){
 		// images[i].src = 'assets/img/'+data.name+String(i)+'.jpg';

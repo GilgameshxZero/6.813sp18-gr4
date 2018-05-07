@@ -20,6 +20,17 @@
 	/*height: 0px not here because height for original is calculated using js*/
 }
 
+.logo {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+	margin: 0px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 #landing-logo {
 	height: 50%;
 	margin: 0px;
