@@ -159,7 +159,7 @@ function initHandlers() {
 			var select = document.getElementById("pref-language-select").options;
 			for (var i = 0; i < select.length; i++){
 				if (select[i].selected){
-					selectedLanguages.push(select[i].value);
+					selectedLanguages.push(select[i].value.toLowerCase());
 				}
 			}
 		    updateMap();
@@ -195,6 +195,18 @@ function initHandlers() {
 			}
 			updateMap();
 	  	});
+	}
+
+	var radioButtons = document.getElementById('pref-location').getElementsByTagName('input');
+	console.log(radioButtons);
+	for (let i = 0; i < radioButtons.length; i++){
+		let radioButton = radioButtons[i];
+		console.log(radioButton)
+		// radioButton.onclick = console.log("here");
+		radioButton.addEventListener('change', function(){
+			console.log("awefaf");
+			// updateMap();
+		});
 	}
 }
 
@@ -339,9 +351,20 @@ function updateMap() {
 
 		//TODO: match preferences here
 		dataLanguage = data['language'];
-		console.log(selectedLanguages)
+		// selectedLanguages
+		for (var j = 0; j < selectedLanguages.length; j++){
+			if (! dataLanguage.includes(selectedLanguages[j])){
+				matched = false;
+				break;
+			}
+		}
 
 		dataLocation = data['country'];
+		console.log(unitedStates);
+		if (unitedStates && dataLocation == "United States" &&  document.getElementById("international").checked){
+			matched = false;
+			break;
+		}
 
 		dataBudget = data['budget'];
 		
