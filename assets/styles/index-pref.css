@@ -1,6 +1,7 @@
 /*------------------------------- PREFERENCES -------------------------------------*/
 #pref {
 	flex: 2 2 20%;
+	width: 80%;
 
 	margin-top: 5px;
 	border-width: 2px;
@@ -74,6 +75,7 @@
 
 	display: flex;
 	flex-flow: row nowrap;
+	z-index: 6;
 }
 
 #pref-language-select {
@@ -81,8 +83,7 @@
 	/*margin-right: 0px;*/
 }
 
-#pref-location button{
-	/*margin-right: 10px;*/
+/*#pref-location button{
 	background-color: #8eb9ff;
     border: none;
     color: white;
@@ -102,7 +103,7 @@
 
 #pref-location button.clicked{
 	background-color: #0042ad ;
-}
+}*/
 
 #pref-citizenship {
 	margin: 0px;

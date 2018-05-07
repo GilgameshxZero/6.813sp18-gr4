@@ -21,6 +21,8 @@ var tagSet;
 var mapMarkers = [];
 var gMapElement;
 
+var unitedStates = false;
+
 function gMapReady() {
 	//called by google API, do nothing
 }
@@ -65,6 +67,39 @@ window.onload = function () {
 	initAutocomplete();
 	initHandlers();
 	initMap();
+
+	// checking if current location is USA
+	var startPos;
+	var geoOptions = {
+		enableHighAccuracy: true
+	}
+
+	var geoSuccess = function(position) {
+		startPos = position;
+		var lat = startPos.coords.latitude;
+		var long = startPos.coords.longitude;
+
+		var topLat = 49.3457868;
+		var leftLong = -124.7844079;
+		var rightLong = -66.9513812;
+		var bottomLat =  24.7433195;
+
+		if ((bottomLat <= lat) && (lat <= topLat) && (leftLong <= long) && (long <= rightLong)){
+			unitedStates = true;
+		}
+
+	};
+	var geoError = function(error) {
+		console.log('Error occurred. Error code: ' + error.code);
+		// error.code can be:
+		//   0: unknown error
+		//   1: permission denied
+		//   2: position unavailable (error response from location provider)
+		//   3: timed out
+	};
+
+	navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+	
 }
 
 function initAutocomplete() {
@@ -112,10 +147,10 @@ function initHandlers() {
 			removeTag(tag);
 	});
 
-	document.getElementById('pref-language-select')
-		.addEventListener('change', function() {
-		    updateMap();
-	});
+	// document.getElementById('pref-language-select')
+	// 	.addEventListener('change', function() {
+	// 	    updateMap();
+	// });
 
 	var buttons = document.getElementsByTagName('button');
 	var groups = {};

@@ -14,10 +14,17 @@
 		<link rel="stylesheet" href="assets/styles/index-pref.css">
 		<link rel="stylesheet" href="assets/styles/index-landing.css">
 
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
+
+
 		<script src="assets/scripts/index-main.js"></script>
 		<script src="assets/scripts/index-data.js"></script>
 		
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrBPYvlDJmXgY_Smyoig8fFX4aTVORVtg&callback=gMapReady"></script>
 	</head>
 
@@ -60,16 +67,28 @@
 						<div id="pref-language">
 							Language:
 							<div id="pref-spacer"></div>
-							<select id="pref-language-select">
-								<option value="1">---</option>
-								<option value="2">German</option>
+							<select class="selectpicker" multiple>
+							  	<option>English</option>
+						        <option>Spanish</option>
+						        <option>French</option>
+						        <option>Japanese</option>
+						        <option>Korean</option>
 							</select>
 						</div>
 
 						<div id = "pref-location">
 							Location:
-							<button type="button" id = "pref-domestic" >Domestic</button>
-							<button type="button" id = "pref-international">International</button>
+							<div class="btn-group btn-group-toggle" data-toggle="buttons">
+							  <label class="btn btn-primary"">
+							    <input type="radio" name="options" id="option1" autocomplete="off"> Domestic
+							  </label>
+							  <label class="btn btn-primary active">
+							    <input type="radio" name="options" id="option2" autocomplete="off" checked> Both
+							  </label>
+							  <label class="btn btn-primary">
+							    <input type="radio" name="options" id="option3" autocomplete="off"> International
+							  </label>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -82,14 +101,14 @@
 							<button type="button" id = "pref-$$$">$$$</button>
 						</div>
 
-						<div id = "pref-season">
+<!-- 						<div id = "pref-season">
 							<p><span style = "color: red">*</span>Season:</p>
 							<button type="button" id = "pref-spring">Spring</button>
 							<button type="button" id = "pref-summer">Summer</button>
 							<button type="button" id = "pref-fall">Fall</button>
 							<button type="button" id = "pref-winter">Winter</button>
 						</div>
-						
+						 -->
 						<!-- <div id="pref-price">
 							<div id="pref-price-display">
 								Per-Day Max Residence Price:
