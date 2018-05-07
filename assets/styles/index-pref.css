@@ -1,12 +1,13 @@
 /*------------------------------- PREFERENCES -------------------------------------*/
 #pref {
 	height: 100%;
-	width: calc(70% - 7px);
+	width: calc(80% - 7px);
 	border-width: 2px;
 	border-radius: 5px;
 	border-style: solid;
 
 	margin-right: 7px;
+	overflow-x: scroll;
 }
 
 /*wrapper to center absolutely positioned titled*/
@@ -65,7 +66,7 @@
 	margin-bottom: 30px;
 
 	display: flex;
-	flex-flow: row nowrap;
+	flex-flow: row wrap;
 }
 
 #pref-language-select {
@@ -73,6 +74,10 @@
 	/*margin-right: 0px;*/
 }
 
+#pref-location {
+	display: flex;
+	flex-flow: row wrap;
+}
 /*#pref-location button{
 	background-color: #8eb9ff;
     border: none;
@@ -127,7 +132,6 @@
 #pref-price-select{
 	margin: auto;
 }
-
 
 /*#pref-price button{
 	background-color: #8eb9ff;
