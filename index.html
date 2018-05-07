@@ -59,7 +59,7 @@
 		<!-- preferences -->
 		<div id="pref" class="pref-landing">
 			<div id="pref-title-wrapper">
-				<div id="pref-title">Preferences</div>
+				<!-- <div id="pref-title">Preferences</div> -->
 			</div>
 			<div id="pref-inner-wrapper">
 				<div id="pref-col1-wrapper">
@@ -67,7 +67,7 @@
 						<div id="pref-language">
 							Language:
 							<div id="pref-spacer"></div>
-							<select class="selectpicker" multiple>
+							<select id = "pref-language-select" class="selectpicker" multiple title="Choose all...">
 							  	<option>English</option>
 						        <option>Spanish</option>
 						        <option>French</option>
@@ -79,11 +79,11 @@
 						<div id = "pref-location">
 							Location:
 							<div class="btn-group btn-group-toggle" data-toggle="buttons">
-							  <label class="btn btn-primary"">
-							    <input type="radio" name="options" id="option1" autocomplete="off"> Domestic
-							  </label>
 							  <label class="btn btn-primary active">
-							    <input type="radio" name="options" id="option2" autocomplete="off" checked> Both
+							    <input type="radio" name="options" id="option1" autocomplete="off"> Both
+							  </label>
+							  <label class="btn btn-primary">
+							    <input type="radio" name="options" id="option2" autocomplete="off" checked> Domestic
 							  </label>
 							  <label class="btn btn-primary">
 							    <input type="radio" name="options" id="option3" autocomplete="off"> International
@@ -94,11 +94,22 @@
 				</div>
 				<div id="pref-col2-wrapper">
 					<div id="pref-col2">
+						<div id = "pref-duration">
+							Trip Duration (# of days):  
+							<input type="number" id="tripDuration" step="1">
+						</div>
 						<div id = "pref-price">
-							<p>Price Range:</p>
-							<button type="button" id = "pref-$">$</button>
-							<button type="button" id = "pref-$$">$$</button>
-							<button type="button" id = "pref-$$$">$$$</button>
+							Price Range:
+							<div id="pref-spacer"></div>
+							<select id = "pref-price-select" class="selectpicker" title="Choose one of the following...">
+							  	<option>$0-$500</option>
+						        <option>$500-$1,000</option>
+						        <option>$1,000-$2,000</option>
+						        <option>$2,000-$3,000</option>
+						        <option>$3,000-$4,000</option>
+						        <option>$4,000-$5,000</option>
+						        <option>Over $5,000</option>
+							</select>
 						</div>
 
 <!-- 						<div id = "pref-season">
@@ -109,21 +120,7 @@
 							<button type="button" id = "pref-winter">Winter</button>
 						</div>
 						 -->
-						<!-- <div id="pref-price">
-							<div id="pref-price-display">
-								Per-Day Max Residence Price:
-								<div id="pref-spacer"></div>
-								<div id="pref-price-display-current"></div>
-							</div>
-							<div id="pref-spacer"></div>
-							<div class="pref-price-slider-wrapper">
-								<input id="pref-price-slider" type="range" min="0" max="500" value="0" class="slider">
-							</div>
-							<div id="pref-price-slider-label">
-								<div id="pref-price-slider-low">$0</div>
-								<div id="pref-price-slider-high">$500</div>
-							</div>
-						</div> -->
+					
 					</div>
 				</div>
 			</div>
