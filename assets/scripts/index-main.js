@@ -719,11 +719,12 @@ function fillPopups(popupid, data){
 	//image
 	var carouselTemp = document.getElementById("imgCarousel");
 	var carousel = carouselTemp.cloneNode(true);
-	carousel.id = "images"+data.name;
+	carousel.id = "images"+popupid;
 	var left = carousel.getElementsByClassName('left')[0];
 	left.href = '#'+carousel.id;
 	carousel.getElementsByClassName('right')[0].href = '#'+carousel.id;
 	var images = carousel.getElementsByTagName('img');
+	console.log(images)
 	for (var i = 0; i < images.length; i++){
 		// images[i].src = 'assets/img/'+data.name+String(i)+'.jpg';
 		// images[i].id = "img"+data.name+String(i);
@@ -731,10 +732,6 @@ function fillPopups(popupid, data){
 	}
 	carousel.style.display = 'block';
 	popup.appendChild(carousel);
-	// var image = document.createElement('img');
-	// image.src = data['img'];
-	// image.classList.add('popup-image');
-	// popup.appendChild(image);
 
 	//suggested date
 	var dateContainer = document.createElement('div');

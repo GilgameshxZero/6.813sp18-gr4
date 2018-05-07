@@ -70,7 +70,11 @@
 
 #pref-language-select {
 	margin: auto;
-	/*margin-right: 0px;*/
+	/*outline: none;*/
+}
+
+.location {
+	/*outline: none;*/
 }
 
 /*#pref-location button{
