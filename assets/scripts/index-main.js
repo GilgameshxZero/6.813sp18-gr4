@@ -34,6 +34,7 @@ var clearedBookmarks = [];
 
 var unitedStates = false;
 var selectedLanguages = [];
+var selectedPriceRange;
 
 function gMapReady() {
 	//called by google API, do nothing
@@ -356,6 +357,17 @@ function initHandlers() {
 		    updateMap();
 	});
 
+	document.getElementById('pref-price-select')
+		.addEventListener('change', function() {
+			var select = document.getElementById("pref-price-select").options;
+			for (var i = 0; i < select.length; i++){
+				if (select[i].selected){
+					selectedPriceRange = select[i].value;
+				}
+			}
+		    updateMap();
+	});
+
 	var buttons = document.getElementsByTagName('button');
 	var groups = {};
 	for (var i = 0; i < buttons.length; i++) {
@@ -397,6 +409,8 @@ function initHandlers() {
 			updateMap();
 	  	});
 	}
+
+
 
 }
 
@@ -582,8 +596,15 @@ function updateMap() {
 			matched = false;
 		}
 
-		
 		dataBudget = data['budget'];
+		var duration = document.getElementById("tripDuration").value;
+		if (duration && selectedPriceRange){
+			var priceArray = selectedPriceRange.split('-');
+			var low = Number(priceArray[0].substring(1).replace(/,/g , ""));
+			var high = Number(priceArray[1].substring(1).replace(/,/g , ""));
+			console.log(low);
+		}
+
 		
 		if (matched && !mapMarkers[i].getVisible())
 			mapMarkers[i].setVisible(true);
