@@ -98,7 +98,7 @@ function initHandlers() {
 			
 	    	updateMap();
 		} else if (event.keyCode === 8 && textField.value == '') {
-			if (inputTags.lastChild.classList.has('input-tag-real')) { //not dummy
+			if (inputTags.lastChild.classList.contains('input-tag-real')) { //not dummy
 				event.preventDefault();
 				textField.value = getTagText(inputTags.lastChild);
 				removeTag(inputTags.lastChild);
