@@ -592,12 +592,12 @@ function updateMap() {
 		}
 
 		dataLocation = data['country'];
-		var clickedButtons = document.getElementsByClassName("clicked");
+		var locationButtons = document.getElementsByClassName("location");
 		var locationChoice; 
-		console.log(document.getElementsByClassName("active")[0]);
-		if (unitedStates && dataLocation == "United States" &&  document.getElementById("international").checked){
-			matched = false;
-			break;
+		for (var j = 0; j < locationButtons.length; j++){
+			if (locationButtons[j].classList.contains("active")){
+				locationChoice = locationButtons[j].innerHTML.toLowerCase();
+			}
 		}
 
 		if (unitedStates && dataLocation == "United States" && locationChoice == "international"){
