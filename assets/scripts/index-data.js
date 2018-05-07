@@ -1,12 +1,11 @@
 var jsonData = {
     "textfield-placeholder": [
-        "warm",
-        "running",
-        "wine",
-        "asia",
-        "island",
-        "hiking",
-        "dance"
+        "What kind of weather would you like? ex) warm",
+        "What do you want to do? ex) running",
+        "What do you want to try? ex) wine",
+        "Any region in mind? ex) Asia",
+        "Where do you want to be? ex) island",
+        "What kind of activities do you want to do? ex) hiking",
     ],
     "data-markers": [
         {
@@ -17,10 +16,11 @@ var jsonData = {
             "text": ["warm", "beach"],
             "language": ["english"],
             "budget": 150,
+            "price": "For 7 days, total cost will be around $1000, spending around $150 per day",
             "date": "Mar 19 - Mar 24",
             "info": "Florida is the southernmost contiguous state in the United States. The state is bordered to the west by the Gulf of Mexico, to the northwest by Alabama, to the north by Georgia, to the east by the Atlantic Ocean, and to the south by the Straits of Florida.",
-            "link": "https://en.wikipedia.org/wiki/Florida",
-            "img": "https://www.housingwire.com/ext/resources/images/editorial/A-New-Big-Images/states/Florida/Miami.jpg?1461009518"
+            "link": "https://www.expedia.com/Hotel-Search?packageType=fh&searchProduct=hotel&c=f13ffdac-4a96-47f9-88b5-c6c45c3173c6&adults=1&originId=6139149&ftla=BOS&destination=Florida,+United+States+of+America&destinationId=211&ttla=MIA&startDate=6/19/2018&endDate=6/24/2018&sort=recommended",
+            "img": ["http://www.nln.org/images/default-source/default-album/o-welcome-to-florida-facebook.jpg?sfvrsn=0", "https://travel.home.sndimg.com/content/dam/images/travel/fullset/2015/08/03/top-florida-beaches/key-west-beach-florida.jpg.rend.hgtvcom.966.725.suffix/1491580836931.jpeg","https://media-cdn.tripadvisor.com/media/photo-s/01/0a/e6/63/universal-studios.jpg"]
         },
         {
             "lat": 33.7197257,
