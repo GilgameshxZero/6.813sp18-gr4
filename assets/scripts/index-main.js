@@ -477,7 +477,6 @@ function initMap() {
 	}
 }
 
-<<<<<<< HEAD
 //update map zoom & location
 function updateMapPos() {
 	var bounds = new google.maps.LatLngBounds();
@@ -494,17 +493,6 @@ function updateMapPos() {
 		animateMapZoomTo(gMapElement, Math.max(Math.min(getZoomByBounds(gMapElement, bounds) - 1, zoomBounds[1]), zoomBounds[0]));
 	}
 }
-=======
-// function languageSelect(){
-// 	// console.log(document.getElementById("pref-language-select").options);
-// 	var select = document.getElementById("pref-language-select").options;
-// 	for (var i = 0; i < select.length; i++){
-// 		if (select[i].selected){
-// 			selectedLanguages.push(select[i].value);
-// 		}
-// 	}
-// }
->>>>>>> master
 
 //displays markers based on tags and prefs
 function updateMap() {
