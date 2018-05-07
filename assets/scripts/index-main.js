@@ -136,6 +136,7 @@ function onZoomToBookmarks() {
 		if (mapMarkers[this.counter]['bookmarked']) {
 			gMapElement.panTo(mapMarkers[this.counter].position);
 			animateMapZoomTo(gMapElement, zoomBounds[1]);
+			this.counter = (this.counter + 1) % mapMarkers.length;
 
 			break;
 		} else
