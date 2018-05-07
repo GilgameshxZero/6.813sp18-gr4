@@ -22,6 +22,7 @@ var mapMarkers = [];
 var gMapElement;
 
 var unitedStates = false;
+var selectedLanguages = [];
 
 function gMapReady() {
 	//called by google API, do nothing
@@ -99,7 +100,7 @@ window.onload = function () {
 	};
 
 	navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
-	
+
 }
 
 function initAutocomplete() {
@@ -147,10 +148,17 @@ function initHandlers() {
 			removeTag(tag);
 	});
 
-	// document.getElementById('pref-language-select')
-	// 	.addEventListener('change', function() {
-	// 	    updateMap();
-	// });
+	document.getElementById('pref-language-select')
+		.addEventListener('change', function() {
+			selectedLanguages = [];
+			var select = document.getElementById("pref-language-select").options;
+			for (var i = 0; i < select.length; i++){
+				if (select[i].selected){
+					selectedLanguages.push(select[i].value);
+				}
+			}
+		    updateMap();
+	});
 
 	var buttons = document.getElementsByTagName('button');
 	var groups = {};
@@ -293,6 +301,16 @@ function initMap() {
 
 }
 
+// function languageSelect(){
+// 	// console.log(document.getElementById("pref-language-select").options);
+// 	var select = document.getElementById("pref-language-select").options;
+// 	for (var i = 0; i < select.length; i++){
+// 		if (select[i].selected){
+// 			selectedLanguages.push(select[i].value);
+// 		}
+// 	}
+// }
+
 //displays markers based on tags and prefs
 function updateMap() {
 	var tags = document.getElementsByClassName('input-tag-real');
@@ -304,8 +322,9 @@ function updateMap() {
 	
 	for (var i = 0; i < jsonData['data-markers'].length; i++){
 		var matched = true;
+		var data = jsonData['data-markers'][i];
 		
-		dataText = jsonData['data-markers'][i]['text'];
+		var dataText = data['text'];
 		for (var j = 0; j < allText.length; j++){
 			if (dataText.indexOf(allText[j]) < 0){
 				matched = false;
@@ -314,6 +333,12 @@ function updateMap() {
 		}
 
 		//TODO: match preferences here
+		dataLanguage = data['language'];
+		console.log(selectedLanguages)
+
+		dataLocation = data['country'];
+
+		dataBudget = data['budget'];
 		
 		if (matched && !mapMarkers[i].getVisible())
 			mapMarkers[i].setVisible(true);
