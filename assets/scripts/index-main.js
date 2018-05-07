@@ -330,6 +330,14 @@ function initHandlers() {
 	mfClear.addEventListener('click', onClearBookmarks);
 	mfUndo.addEventListener('click', onUndoClear);
 
+	//TODO: fix this
+	textField.addEventListener('focus',function(e){
+		inputWrapper.style.zIndex = 3;
+	});
+	textField.addEventListener('blur',function(e){
+		inputWrapper.style.zIndex = 1;
+	});
+
 	textField.addEventListener('keydown', function(event) {
         if (event.keyCode === 13 && textField.value != '' && !tagSet.has(textField.value))
 			enterTag();

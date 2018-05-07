@@ -10,7 +10,6 @@
 	flex-flow: row nowrap;
 	order: 3;
 	
-	/*keeps dropdown autocomplete on top*/
 	z-index: 1;
 	
 	transition-property: margin;
