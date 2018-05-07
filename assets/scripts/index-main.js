@@ -81,6 +81,9 @@ window.onload = function () {
 	landing.style.height = landing.offsetHeight + 'px';
 	landingLogo.classList.add('landing-logo-postsize');
 
+	//TODO
+	inputWrapper.style.zIndex = 3;
+
 	textField.focus();
 
 	initAutocomplete();
@@ -332,10 +335,14 @@ function initHandlers() {
 
 	//TODO: fix this
 	textField.addEventListener('focus',function(e){
-		inputWrapper.style.zIndex = 3;
+		inputWrapper.style.zIndex = parseInt(inputWrapper.style.zIndex) + 2;
+		console.log('focus');
 	});
 	textField.addEventListener('blur',function(e){
-		inputWrapper.style.zIndex = 1;
+		setTimeout(function(){
+			inputWrapper.style.zIndex = parseInt(inputWrapper.style.zIndex) - 2;
+			console.log('blur');
+		}, 100);
 	});
 
 	textField.addEventListener('keydown', function(event) {
