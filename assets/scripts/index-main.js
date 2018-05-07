@@ -687,9 +687,9 @@ function updateMap() {
 		var duration = document.getElementById("tripDuration").value;
 		if (duration && selectedPriceRange){
 			var priceArray = selectedPriceRange.split('-');
-			var low = Number(priceArray[0].substring(1).replace(/,/g , ""));
+			// var low = Number(priceArray[0].substring(1).replace(/,/g , ""));
 			var high = Number(priceArray[1].substring(1).replace(/,/g , ""));
-			if (((high/duration) <= dataBudget)){
+			if (((high/duration) < dataBudget)){
 				matched = false;
 			}
 		}
