@@ -360,7 +360,7 @@ function initHandlers() {
 			var select = document.getElementById("pref-language-select").options;
 			for (var i = 0; i < select.length; i++){
 				if (select[i].selected){
-					selectedLanguages.push(select[i].value);
+					selectedLanguages.push(select[i].value.toLowerCase());
 				}
 			}
 		    updateMap();
