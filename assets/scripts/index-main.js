@@ -191,15 +191,16 @@ function onZoomToBookmarks() {
 		this.counter = 0;
 	}
 
-	for(var passes = 0;passes < mapMarkers.length;this.counter = (this.counter + 1) % mapMarkers.length) {
+	var passes = 0;
+	for(;passes < mapMarkers.length;this.counter = (this.counter + 1) % mapMarkers.length) {
 		if (mapMarkers[this.counter]['bookmarked']) {
 			gMapElement.panTo(mapMarkers[this.counter].position);
 			animateMapZoomTo(gMapElement, zoomBounds[1]);
 			this.counter = (this.counter + 1) % mapMarkers.length;
 
 			break;
-		}
-		passes++;
+		} else
+			passes++;
 	}
 }
 
@@ -470,6 +471,7 @@ function initHandlers() {
 	  				}
 	  			}
 				button.classList.add('active');
+
 			}
 			if (button.classList.contains('clicked')) {
 				button.classList.remove('clicked');
@@ -483,11 +485,8 @@ function initHandlers() {
 				}
 				button.classList.add('clicked');
 			}
-
-			if (!(button.id == 'more-funcs-email' || button.id == 'more-funcs-bookmarks' || button.id == 'more-funcs-clear' || button.id == 'more-funcs-undo')) {
-				updateMap();
-				updateMapPos();
-			}
+			updateMap();
+			updateMapPos();
 	  	});
 	}
 
