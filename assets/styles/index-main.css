@@ -72,3 +72,11 @@ body {
 		margin-bottom: 10px !important;
 	}
 }
+
+@media (max-width: 800px){
+	.popup {
+		left: auto !important;
+		width: auto !important;
+		height: auto !important;
+	}
+}
