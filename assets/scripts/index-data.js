@@ -203,6 +203,19 @@ var jsonData = {
             "info": "",
             "link": "",
             "img": ""
+        },
+        {
+            "lat": 35.7169592,
+            "lng": 139.5829896,
+            "name": "Comiket",
+            "country": "Japan",
+            "text": ["cosplay", "otaku", "doujinshi", "touhou", "easter egg"],
+            "language": ["japanese"],
+            "budget": 150,
+            "date": "August 10 - August 13",
+            "info": "Comiket is short for Comic Market, the largest biannual event for lovers of the Japanese anime, manga, and game subculture. The event is held at Tokyo Big Sight once in summer and once in winter, over three days each time. Starting first as a small-scale event for the sale of fan-fiction and fan-art, it has evolved to be a large-scale event, with participation of cosplayers and commercial booths. Nevertheless, the mainstay spirit of Comiket is still in its representation of all things fan-made, the one great event where fans can socialize with those sharing their interests, and celebrate all that they love.",
+            "link": "http://www.comiket.co.jp/index_e.html",
+            "img": "https://scontent.fbed1-1.fna.fbcdn.net/v/t31.0-8/28827286_1719745551404427_8371433854578980560_o.jpg?_nc_cat=0&oh=f34c202d9f32a599e246ebac4b4c7db7&oe=5B5CA7A7"
         }
     ]
 }
