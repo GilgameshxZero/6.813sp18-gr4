@@ -135,7 +135,7 @@ function onSendToEmail() {
 		}
 	}
 
-	console.log(encodeURI(mail));
+	// console.log(encodeURI(mail));
 	window.open(encodeURI(mail));
 }
 
@@ -726,12 +726,10 @@ function fillPopups(popupid, data){
 	carousel.getElementsByClassName('right')[0].href = '#'+carousel.id;
 	var dots = carousel.getElementsByTagName('li');
 	for (var i = 0; i < dots.length; i++) {
-		console.log(dots[i]);
 		dots[i].setAttribute('data-target', '#'+carousel.id);
 	}
 
 	var images = carousel.getElementsByTagName('img');
-	console.log(images)
 	for (var i = 0; i < images.length; i++){
 		// images[i].src = 'assets/img/'+data.name+String(i)+'.jpg';
 		// images[i].id = "img"+data.name+String(i);

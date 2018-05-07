@@ -181,7 +181,7 @@ var jsonData = {
             "lng": -68.6114319,
             "name": "Punta Cana",
             "country": "Dominican Republic",
-            "text": ["diving", "driving", "hiking", "safari", "city", "marine", "biology", "surfing", "yacht"],
+            "text": ["diving", "diving", "hiking", "safari", "city", "marine", "biology", "surfing", "yacht"],
             "language": ["spanish"],
             "budget": 330,
             "price": "For 6 days, the total spending in Punta Cana will be around $1980, spending around $330 per day.",
