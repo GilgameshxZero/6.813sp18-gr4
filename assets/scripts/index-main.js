@@ -575,8 +575,12 @@ function updateMap() {
 			}
 		}
 
-		console.log(unitedStates);
-		console.log(locationChoice);
+		if (unitedStates && dataLocation == "United States" && locationChoice == "international"){
+			matched = false;
+		}
+		else if (unitedStates && dataLocation != "United States" && locationChoice == "domestic"){
+			matched = false;
+		}
 
 		
 		dataBudget = data['budget'];
