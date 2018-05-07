@@ -720,9 +720,16 @@ function fillPopups(popupid, data){
 	var carouselTemp = document.getElementById("imgCarousel");
 	var carousel = carouselTemp.cloneNode(true);
 	carousel.id = "images"+popupid;
-	var left = carousel.getElementsByClassName('left')[0];
-	left.href = '#'+carousel.id;
+
+	// update link
+	carousel.getElementsByClassName('left')[0].href = '#'+carousel.id;
 	carousel.getElementsByClassName('right')[0].href = '#'+carousel.id;
+	var dots = carousel.getElementsByTagName('li');
+	for (var i = 0; i < dots.length; i++) {
+		console.log(dots[i]);
+		dots[i].setAttribute('data-target', '#'+carousel.id);
+	}
+
 	var images = carousel.getElementsByTagName('img');
 	console.log(images)
 	for (var i = 0; i < images.length; i++){
