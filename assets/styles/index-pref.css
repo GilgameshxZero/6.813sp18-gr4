@@ -61,7 +61,7 @@
 
 #pref-language {
 	margin: 0px;
-	margin-bottom: 5px;
+	margin-bottom: 30px;
 
 	display: flex;
 	flex-flow: row nowrap;
@@ -109,7 +109,7 @@
 }
 
 #pref-duration{
-	margin-bottom: 5px;
+	margin-bottom: 30px;
 }
 
 #tripDuration{
