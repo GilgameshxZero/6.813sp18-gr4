@@ -11,6 +11,7 @@
 
 /*wrapper to center absolutely positioned titled*/
 #pref-title-wrapper {
+	/*z-index: 0;*/
 	position: absolute;
 	left: calc((70% - 7px)/2);;
 }
@@ -18,7 +19,7 @@
 #pref-title {
 	position: relative;
 	margin: auto;
-	top: -20px;
+	top: -17px;
 	left: -50%;
 
 	font-size: 30px;
