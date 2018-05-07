@@ -512,26 +512,31 @@ function updateMap() {
 				matched = false;
 				break;
 			}
-		}
+		}	
 
 		//TODO: match preferences here
 		dataLanguage = data['language'];
 		for (var j = 0; j < selectedLanguages.length; j++){
-			if (! dataLanguage.includes(selectedLanguages[j])){
+			if (! dataLanguage.includes(selectedLanguages[j].toLowerCase())){
 				matched = false;
 				break;
 			}
 		}
 
 		dataLocation = data['country'];
-		var clickedButtons = document.getElementsByClassName("clicked");
+		// console.log(dataLocation);
+		var locationButtons = document.getElementsByClassName("location");
 		var locationChoice; 
-		console.log(document.getElementsByClassName("active")[0]);
-		if (unitedStates && dataLocation == "United States" &&  document.getElementById("international").checked){
-			matched = false;
-			break;
+		for (var j = 0; j < locationButtons.length; j++){
+			if (locationButtons[j].classList.contains('active')){
+				locationChoice = locationButtons[j].innerHTML.toLowerCase();
+			}
 		}
 
+		console.log(unitedStates);
+		console.log(locationChoice);
+
+		
 		dataBudget = data['budget'];
 		
 		if (matched && !mapMarkers[i].getVisible())
