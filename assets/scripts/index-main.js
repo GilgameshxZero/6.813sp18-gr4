@@ -446,6 +446,14 @@ function initHandlers() {
 		    updateMapPos();
 	});
 
+	document.getElementById('tripDuration')
+		.addEventListener('keydown', function(e) {
+			if (e.keyCode >= 48 && e.keyCode <= 57){
+			    updateMap();
+			    updateMapPos();
+			}
+	});
+
 	var buttons = document.getElementsByTagName('button');
 	var groups = {};
 	for (var i = 0; i < buttons.length; i++) {
