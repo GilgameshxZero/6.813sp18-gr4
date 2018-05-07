@@ -21,6 +21,7 @@ var inputTagDummy;
 var inputWrapperMain;
 var bottomBar;
 var mfEmail;
+var mfBookmarks;
 var mfClear;
 var mfUndo;
 
@@ -55,6 +56,7 @@ window.onload = function () {
 	inputWrapperMain = document.getElementById('input-wrapper-main');
 	bottomBar = document.getElementById('bottom-bar');
 	mfEmail = document.getElementById('more-funcs-email');
+	mfBookmarks = document.getElementById('more-funcs-bookmarks');
 	mfClear = document.getElementById('more-funcs-clear');
 	mfUndo = document.getElementById('more-funcs-undo');
 
@@ -119,7 +121,27 @@ window.onload = function () {
 
 //buttons event handlers
 function onSendToEmail() {
-	//not implemented
+	window.open('mailto:?subject=' + 
+		'locations' + 
+		'&body=body');
+}
+
+function onZoomToBookmarks() {
+	if (typeof this.counter == 'undefined') {
+		this.counter = 0;
+	}
+
+	var passes = 0;
+	for(;passes < mapMarkers.length;this.counter = (this.counter + 1) % mapMarkers.length) {
+		if (mapMarkers[this.counter]['bookmarked']) {
+			gMapElement.panTo(mapMarkers[this.counter].position);
+			animateMapZoomTo(gMapElement, zoomBounds[1]);
+			this.counter = (this.counter + 1) % mapMarkers.length;
+
+			break;
+		} else
+			passes++;
+	}
 }
 
 function onClearBookmarks() {
@@ -288,11 +310,13 @@ function enterTag() {
 	textField.value = '';
 	
 	updateMap();
+	updateMapPos();
 	acRefresh(textField);
 }
 
 function initHandlers() {
 	mfEmail.addEventListener('click', onSendToEmail);
+	mfBookmarks.addEventListener('click', onZoomToBookmarks);
 	mfClear.addEventListener('click', onClearBookmarks);
 	mfUndo.addEventListener('click', onUndoClear);
 
@@ -343,32 +367,6 @@ function initHandlers() {
 			groups[parentName] = [buttons[i]];
 		}
 	}
-
-	var buttons = document.getElementsByTagName('button');
-	for (let j = 0; j < buttons.length; j++) {
-	  let button = buttons[j];
-	  button.addEventListener('click', function() {
-	  		if (button.classList.contains('location')){
-	  			document.getElementsByClassName("active")[0].classList.remove("active");
-				button.classList.add('active');
-
-
-			}
-			if (button.classList.contains('clicked')) {
-				button.classList.remove('clicked');
-			}
-			else{
-				var sametypes = groups[button.parentNode.id.slice(5)];
-				for (var i = 0; i < sametypes.length; i++){
-					if (sametypes[i] != button && sametypes[i].classList.contains('clicked')){
-						sametypes[i].classList.remove('clicked');
-					}
-				}
-				button.classList.add('clicked');
-			}
-			updateMap();
-	  	});
-	}
 }
 
 //get text of a tag node
@@ -384,6 +382,7 @@ function removeTag(tag) {
 	tagSet.delete(getTagText(tag));
 	textField.focus();
 	updateMap();
+	updateMapPos();
 }
 
 //animate landing away into main page
@@ -479,18 +478,34 @@ function initMap() {
 	}
 }
 
-// function languageSelect(){
-// 	// console.log(document.getElementById("pref-language-select").options);
-// 	var select = document.getElementById("pref-language-select").options;
-// 	for (var i = 0; i < select.length; i++){
-// 		if (select[i].selected){
-// 			selectedLanguages.push(select[i].value);
-// 		}
-// 	}
-// }
+//update map zoom & location
+function updateMapPos() {
+	var bounds = new google.maps.LatLngBounds();
+	var markersVisible = 0;
+	for (var a = 0;a < mapMarkers.length;a++) {
+		if (mapMarkers[a].getVisible() && !mapMarkers[a]['bookmarked']) {
+			bounds.extend(mapMarkers[a].position);
+			markersVisible++;
+		}
+	}
+
+	if (markersVisible != 0) {
+		gMapElement.panTo(bounds.getCenter());
+		animateMapZoomTo(gMapElement, Math.max(Math.min(getZoomByBounds(gMapElement, bounds) - 1, zoomBounds[1]), zoomBounds[0]));
+	}
+}
 
 //displays markers based on tags and prefs
 function updateMap() {
+	//set icons
+	for (var a = 0;a < mapMarkers.length;a++) {
+		if (mapMarkers[a]['bookmarked']) {
+			mapMarkers[a].setIcon('assets/img/bookmark-marker.png');
+		} else {
+			mapMarkers[a].setIcon('');
+		}
+	}
+
 	var tags = document.getElementsByClassName('input-tag-real');
 	var allText = [];
 	
@@ -535,29 +550,6 @@ function updateMap() {
 		else if (!matched && !mapMarkers[i]['bookmarked'] && mapMarkers[i].getVisible())
 			mapMarkers[i].setVisible(false);
 	}
-		
-	//update map zoom & location
-	var bounds = new google.maps.LatLngBounds();
-	var markersVisible = 0;
-	for (var a = 0;a < mapMarkers.length;a++) {
-		if (mapMarkers[a].getVisible() && !mapMarkers[a]['bookmarked']) {
-			bounds.extend(mapMarkers[a].position);
-			markersVisible++;
-		}
-
-		//set icons accordingly
-		if (mapMarkers[a]['bookmarked']) {
-			mapMarkers[a].setIcon('assets/img/bookmark-marker.png');
-		} else {
-			mapMarkers[a].setIcon('');
-		}
-	}
-
-	if (markersVisible != 0) {
-		gMapElement.panTo(bounds.getCenter());
-		animateMapZoomTo(gMapElement, Math.max(Math.min(getZoomByBounds(gMapElement, bounds) - 1, zoomBounds[1]), zoomBounds[0]));
-	}
-
 }
 
 function makePopups(markers, locationName, position_x, position_y){
