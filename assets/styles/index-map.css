@@ -15,7 +15,7 @@
 
 #modal {
 	display: none; /* Hidden by default */
-	justify-content: flex-end;
+	/*justify-content: center;*/
 	position: absolute; /* Stay in place */
 	z-index: 1; /* Sit on top */
 	width: 100%; 
@@ -28,10 +28,13 @@
 }
 
 .popup{
-	/*position: absolute;*/
+	position: absolute;
 	/*top: 50%;*/
     /*transform: translateY(-50%);*/
+    left: 50%;
+    transform: : translateX(90%);
 	width: 40%;
+	max-width: 400px;
 	height: 60%;
 	min-height: 500px;
 	margin: 50px;
