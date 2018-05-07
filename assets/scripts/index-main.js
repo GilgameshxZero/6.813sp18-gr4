@@ -442,7 +442,6 @@ function initHandlers() {
 
 	document.getElementById('tripDuration')
 		.addEventListener('change', function() {
-			console.log("changed");
 		    updateMap();
 		    updateMapPos();
 	});
@@ -450,7 +449,6 @@ function initHandlers() {
 	document.getElementById('tripDuration')
 		.addEventListener('keydown', function(e) {
 			if (e.keyCode >= 48 && e.keyCode <= 57){
-				console.log("numbers")
 			    updateMap();
 			    updateMapPos();
 			}
