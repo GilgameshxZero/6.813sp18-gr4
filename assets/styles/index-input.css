@@ -10,19 +10,19 @@
 	flex-flow: row nowrap;
 	order: 3;
 	
-	transition-property: all;
+	transition-property: margin;
 	transition-duration: 0.5s;
 	transition-timing-function: linear;
 }
 
 #input-logo {
 	height: 100%;
-	margin-left: 20px;
+	margin-left: 15px;
 
 	opacity: 1;
 	
 	transition-property: all;
-	transition-duration: 1s;
+	transition-duration: 0.5s;
 	transition-timing-function: linear;
 }
 
@@ -30,17 +30,22 @@
 	width: 100%;	
 	height: 100%;
 	margin-left: 10px;
-	margin-right: 20px;
+	margin-right: 15px;
 	padding-left: 10px;
 	padding-right: 10px;
 	border-radius: 5px;
 	border-width: 2px;
 	border-style: solid;
 
-	z-index: 5;
-
 	display: flex;
 	flex-flow: row nowrap;
+	
+	z-index: 5;
+	max-width: calc(100% - 95px);
+	
+	transition-property: all;
+	transition-duration: 0.5s;
+	transition-timing-function: linear;
 }
 
 #text-field {

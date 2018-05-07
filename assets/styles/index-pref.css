@@ -1,24 +1,12 @@
 /*------------------------------- PREFERENCES -------------------------------------*/
 #pref {
-	flex: 2 2 20%;
-	width: 75%;
-
-	margin-top: 5px;
-	margin-left: 20px;
-	margin-bottom: 20px;
+	height: 100%;
+	width: calc(70% - 7px);
 	border-width: 2px;
 	border-radius: 5px;
 	border-style: solid;
 
-	order: 4;
-	display: flex;
-
-	opacity: 1;
-	transform: scaleY(1);
-	
-	transition-property: all;
-	transition-duration: 0.5s;
-	transition-timing-function: linear;
+	margin-right: 7px;
 }
 
 /*wrapper to center absolutely positioned titled*/

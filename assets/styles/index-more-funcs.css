@@ -1,0 +1,32 @@
+#more-funcs {
+	height: 100%;
+	width: calc(30% - 8px);
+	border-width: 2px;
+	border-radius: 5px;
+    border-style: solid;
+    
+    margin-left: 8px;
+
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#more-funcs-inner {
+    width: 70%;
+    margin: auto;
+
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#more-funcs-email {
+    margin: 7px;
+}
+
+#more-funcs-clear {
+    margin: 7px;
+}
+
+#more-funcs-undo {
+    margin: 7px;
+}

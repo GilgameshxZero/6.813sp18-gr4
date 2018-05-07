@@ -1,6 +1,6 @@
 const cTagSuggestions = 4;
 
-let zoomBounds = [3, 10];
+let zoomBounds = [3, 9];
 
 var tfPhTime = 1500;
 var onLanding = true;
@@ -19,12 +19,17 @@ var inputLogo;
 var inputTags;
 var inputTagDummy;
 var inputWrapperMain;
+var bottomBar;
+var mfEmail;
+var mfClear;
+var mfUndo;
 
 var tagSet;
 var mapMarkers = [];
 var gMapElement;
 var tagSuggestions = new Set([]);
 var acCurrentFocus;
+var clearedBookmarks = [];
 
 var unitedStates = false;
 
@@ -47,6 +52,10 @@ window.onload = function () {
 	inputTags = document.getElementById('input-tags');
 	inputTagDummy = document.getElementById('input-tag-dummy');
 	inputWrapperMain = document.getElementById('input-wrapper-main');
+	bottomBar = document.getElementById('bottom-bar');
+	mfEmail = document.getElementById('more-funcs-email');
+	mfClear = document.getElementById('more-funcs-clear');
+	mfUndo = document.getElementById('more-funcs-undo');
 
 	tagSet = new Set([]);
 
@@ -107,6 +116,35 @@ window.onload = function () {
 	navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
 }
 
+//buttons event handlers
+function onSendToEmail() {
+	//not implemented
+}
+
+function onClearBookmarks() {
+	clearedBookmarks = []
+	for (var a = 0;a < mapMarkers.length;a++) {
+		if (mapMarkers[a]['bookmarked']) {
+			mapMarkers[a]['bookmarked'] = false;
+			clearedBookmarks.push(a);
+		}
+	}
+
+	updateMap();
+	if (clearedBookmarks.length > 0)
+		mfUndo.disabled = false;
+}
+
+function onUndoClear() {
+	for (var a = 0;a < clearedBookmarks.length;a++) {
+		mapMarkers[clearedBookmarks[a]]['bookmarked'] = true;
+	}
+
+	updateMap();
+	mfUndo.disabled = true;
+}
+
+//autocomplete helpers
 function acAddActive(x) {
 	/*a function to classify an item as "active":*/
 	if (!x) return false;
@@ -117,12 +155,14 @@ function acAddActive(x) {
 	/*add class "autocomplete-active":*/
 	x[acCurrentFocus].classList.add("autocomplete-active");
 }
+
 function acRemoveActive(x) {
 	/*a function to remove the "active" class from all autocomplete items:*/
 	for (var i = 0; i < x.length; i++) {
 		x[i].classList.remove("autocomplete-active");
 	}
 }
+
 function acCloseAllLists(elmnt) {
 	/*close all autocomplete lists in the document,
 	except the one passed as an argument:*/
@@ -251,6 +291,10 @@ function enterTag() {
 }
 
 function initHandlers() {
+	mfEmail.addEventListener('click', onSendToEmail);
+	mfClear.addEventListener('click', onClearBookmarks);
+	mfUndo.addEventListener('click', onUndoClear);
+
 	textField.addEventListener('keydown', function(event) {
         if (event.keyCode === 13 && textField.value != '' && !tagSet.has(textField.value))
 			enterTag();
@@ -333,10 +377,11 @@ function endLanding(event) {
 	landing.classList.add('hidden');
 	mapElement.classList.remove('map-landing');
 	inputWrapper.classList.remove('input-wrapper-landing');
-	pref.classList.remove('pref-landing');
+	bottomBar.classList.remove('bottom-bar-landing');
 	body.classList.remove('body-landing');
 	landingBkg.classList.add('landing-bkg-hidden');
 	inputLogo.classList.remove('input-logo-landing');
+	inputWrapperMain.classList.remove('input-wrapper-main-landing');
 
 	textField.focus();
 }
@@ -413,7 +458,6 @@ function initMap() {
 		var listener = listenerMaker(a);
 		google.maps.event.addListener(mapMarkers[a], 'click', listener);
 	}
-
 }
 
 //displays markers based on tags and prefs
@@ -452,12 +496,20 @@ function updateMap() {
 			bounds.extend(mapMarkers[a].position);
 			markersVisible++;
 		}
+
+		//set icons accordingly
+		if (mapMarkers[a]['bookmarked']) {
+			mapMarkers[a].setIcon('assets/img/bookmark-marker.png');
+		} else {
+			mapMarkers[a].setIcon('');
+		}
 	}
 
 	if (markersVisible != 0) {
 		gMapElement.panTo(bounds.getCenter());
 		animateMapZoomTo(gMapElement, Math.max(Math.min(getZoomByBounds(gMapElement, bounds) - 1, zoomBounds[1]), zoomBounds[0]));
 	}
+
 }
 
 function makePopups(markers, locationName, position_x, position_y){
@@ -496,7 +548,6 @@ function makePopups(markers, locationName, position_x, position_y){
 		if (mapMarkers[locationName]['bookmarked']){
 			bookmark.style.filter = 'grayscale(100%)';
 			marker.setIcon('');
-
 			mapMarkers[locationName]['bookmarked'] = false;
 		}
 		else{
