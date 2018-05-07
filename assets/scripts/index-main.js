@@ -368,6 +368,11 @@ function initHandlers() {
 		    updateMap();
 	});
 
+	document.getElementById('tripDuration')
+		.addEventListener('change', function() {
+		    updateMap();
+	});
+
 	var buttons = document.getElementsByTagName('button');
 	var groups = {};
 	for (var i = 0; i < buttons.length; i++) {
@@ -602,7 +607,9 @@ function updateMap() {
 			var priceArray = selectedPriceRange.split('-');
 			var low = Number(priceArray[0].substring(1).replace(/,/g , ""));
 			var high = Number(priceArray[1].substring(1).replace(/,/g , ""));
-			console.log(low);
+			if (((high/duration) <= dataBudget)){
+				matched = false;
+			}
 		}
 
 		
