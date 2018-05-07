@@ -36,7 +36,7 @@
 	width: 40%;
 	max-width: 400px;
 	height: 60%;
-	min-height: 500px;
+	min-height: 600px;
 	margin: 50px;
 	padding: 20px;
 
@@ -130,6 +130,7 @@
 
 .popup-price-container{
 	width: 100%;
+	min-height: 50px;
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 10px;
@@ -142,6 +143,7 @@
 
 .popup-price {
 	font-size: 16px;
+	height: 50px;
 }
 
 .card {

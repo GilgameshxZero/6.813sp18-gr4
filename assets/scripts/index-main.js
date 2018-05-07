@@ -725,8 +725,9 @@ function fillPopups(popupid, data){
 	carousel.getElementsByClassName('right')[0].href = '#'+carousel.id;
 	var images = carousel.getElementsByTagName('img');
 	for (var i = 0; i < images.length; i++){
-		images[i].src = 'assets/img/'+data.name+String(i)+'.jpg';
-		images[i].id = "img"+data.name+String(i);
+		// images[i].src = 'assets/img/'+data.name+String(i)+'.jpg';
+		// images[i].id = "img"+data.name+String(i);
+		images[i].src = data.img[i];
 	}
 	carousel.style.display = 'block';
 	popup.appendChild(carousel);
@@ -752,7 +753,7 @@ function fillPopups(popupid, data){
 	var priceContainer = document.createElement('div');
 	priceContainer.classList.add('popup-price-container');
 	var priceLabel = document.createElement('div');
-	priceLabel.innerHTML = 'Price Breakdown:';
+	priceLabel.innerHTML = 'Price:';
 	priceLabel.classList.add('popup-pricelabel');
 	var price = document.createElement('div');
 	price.innerHTML = data.price;
