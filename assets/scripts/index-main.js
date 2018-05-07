@@ -33,6 +33,7 @@ var acCurrentFocus;
 var clearedBookmarks = [];
 
 var unitedStates = false;
+var selectedLanguages = [];
 
 function gMapReady() {
 	//called by google API, do nothing
@@ -342,6 +343,18 @@ function initHandlers() {
 			removeTag(tag);
 	});
 
+	document.getElementById('pref-language-select')
+		.addEventListener('change', function() {
+			selectedLanguages = [];
+			var select = document.getElementById("pref-language-select").options;
+			for (var i = 0; i < select.length; i++){
+				if (select[i].selected){
+					selectedLanguages.push(select[i].value);
+				}
+			}
+		    updateMap();
+	});
+
 	var buttons = document.getElementsByTagName('button');
 	var groups = {};
 	for (var i = 0; i < buttons.length; i++) {
@@ -464,6 +477,7 @@ function initMap() {
 	}
 }
 
+<<<<<<< HEAD
 //update map zoom & location
 function updateMapPos() {
 	var bounds = new google.maps.LatLngBounds();
@@ -480,6 +494,17 @@ function updateMapPos() {
 		animateMapZoomTo(gMapElement, Math.max(Math.min(getZoomByBounds(gMapElement, bounds) - 1, zoomBounds[1]), zoomBounds[0]));
 	}
 }
+=======
+// function languageSelect(){
+// 	// console.log(document.getElementById("pref-language-select").options);
+// 	var select = document.getElementById("pref-language-select").options;
+// 	for (var i = 0; i < select.length; i++){
+// 		if (select[i].selected){
+// 			selectedLanguages.push(select[i].value);
+// 		}
+// 	}
+// }
+>>>>>>> master
 
 //displays markers based on tags and prefs
 function updateMap() {
@@ -501,8 +526,9 @@ function updateMap() {
 	
 	for (var i = 0; i < jsonData['data-markers'].length; i++){
 		var matched = true;
+		var data = jsonData['data-markers'][i];
 		
-		dataText = jsonData['data-markers'][i]['text'];
+		var dataText = data['text'];
 		for (var j = 0; j < allText.length; j++){
 			if (dataText.indexOf(allText[j]) < 0){
 				matched = false;
@@ -511,6 +537,24 @@ function updateMap() {
 		}
 
 		//TODO: match preferences here
+		dataLanguage = data['language'];
+		for (var j = 0; j < selectedLanguages.length; j++){
+			if (! dataLanguage.includes(selectedLanguages[j])){
+				matched = false;
+				break;
+			}
+		}
+
+		dataLocation = data['country'];
+		var clickedButtons = document.getElementsByClassName("clicked");
+		var locationChoice; 
+		console.log(document.getElementsByClassName("active")[0]);
+		if (unitedStates && dataLocation == "United States" &&  document.getElementById("international").checked){
+			matched = false;
+			break;
+		}
+
+		dataBudget = data['budget'];
 		
 		if (matched && !mapMarkers[i].getVisible())
 			mapMarkers[i].setVisible(true);
