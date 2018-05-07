@@ -349,9 +349,13 @@ function initHandlers() {
 	  let button = buttons[j];
 	  button.addEventListener('click', function() {
 	  		if (button.classList.contains('location')){
-	  			document.getElementsByClassName("active")[0].classList.remove("active");
+	  			var actives = document.getElementsByClassName('active');
+	  			for (var i = 0; i < actives.length; i++){
+	  				if (actives[i].classList.contains('location')){
+	  					actives[i].classList.remove('active');
+	  				}
+	  			}
 				button.classList.add('active');
-
 
 			}
 			if (button.classList.contains('clicked')) {
