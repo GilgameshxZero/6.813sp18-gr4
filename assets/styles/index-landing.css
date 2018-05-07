@@ -52,8 +52,6 @@
 	/*non-auto absolutes for transitions*/
 	margin-left: calc(25% - 10px);
 	margin-right: calc(25% - 10px);
-
-	z-index: 1;
 }
 
 #input-logo.input-logo-landing {
