@@ -526,18 +526,24 @@ function makePopups(markers, locationName, position_x, position_y){
 	popup.id = locationName;
 
 	var popupHeader = document.createElement('div');
-	popupHeader.classList.add('popup-header-content');
+	popupHeader.classList.add('popup-header-container');
 
 	// close btn
-	var close = document.createElement('span');
+	var close = document.createElement('img');
+	close.src = 'assets/img/x.png';
 	close.classList.add('close');
-	close.innerHTML = '&times;';
 	close.onclick = function(){
 		modal.style.display = 'none';
 		textField.focus();
 	}
 
-	var link = document.createElement('a');
+	//expedia link
+	var weblink = document.createElement('a');
+	var expedia = document.createElement('img');
+	expedia.src = 'assets/img/expedia.png';
+	expedia.classList.add('expedia-image');
+
+	// var bookmarklink = document.createElement('a');
 	var bookmark = document.createElement('img');
 	bookmark.src = 'assets/img/bookmark.png';
 	bookmark.classList.add('bookmark');
@@ -557,8 +563,10 @@ function makePopups(markers, locationName, position_x, position_y){
 		}
 	}
 
-	link.appendChild(bookmark);
-	popupHeader.appendChild(link);
+	popupHeader.appendChild(bookmark);
+	weblink.appendChild(expedia);
+	popupHeader.appendChild(weblink);
+	popupHeader.appendChild(weblink);
 	popupHeader.appendChild(close);
 	popup.appendChild(popupHeader);
 	modal.appendChild(popup);
@@ -566,6 +574,7 @@ function makePopups(markers, locationName, position_x, position_y){
 };
 
 function fillPopups(popupid, data){
+	// console.log(popupid, data);
 	var popup = document.getElementById(popupid);
 
 	//heading
@@ -574,31 +583,63 @@ function fillPopups(popupid, data){
 	heading.classList.add('popup-heading');
 	popup.appendChild(heading);
 
+	//image
+	var carouselTemp = document.getElementById("imgCarousel");
+	var carousel = carouselTemp.cloneNode(true);
+	carousel.id = "images"+data.name;
+	var left = carousel.getElementsByClassName('left')[0];
+	left.href = '#'+carousel.id;
+	carousel.getElementsByClassName('right')[0].href = '#'+carousel.id;
+	var images = carousel.getElementsByTagName('img');
+	for (var i = 0; i < images.length; i++){
+		images[i].src = 'assets/img/'+data.name+String(i)+'.jpg';
+		images[i].id = "img"+data.name+String(i);
+	}
+	carousel.style.display = 'block';
+	popup.appendChild(carousel);
+	// var image = document.createElement('img');
+	// image.src = data['img'];
+	// image.classList.add('popup-image');
+	// popup.appendChild(image);
+
 	//suggested date
+	var dateContainer = document.createElement('div');
+	dateContainer.classList.add('popup-date-container');
 	var dateLabel = document.createElement('div');
 	dateLabel.innerHTML = 'Suggested Dates:';
 	dateLabel.classList.add('popup-datelabel');
 	var date = document.createElement('div');
 	date.innerHTML = data['date'];
 	date.classList.add('popup-date');
-	popup.appendChild(dateLabel);
-	popup.appendChild(date);
+	dateContainer.appendChild(dateLabel);
+	dateContainer.appendChild(date);
+	popup.appendChild(dateContainer);
 
-	//image
-	var image = document.createElement('img');
-	image.src = data['img'];
-	image.classList.add('popup-image');
-	popup.appendChild(image);
+	//suggested date
+	var priceContainer = document.createElement('div');
+	priceContainer.classList.add('popup-price-container');
+	var priceLabel = document.createElement('div');
+	priceLabel.innerHTML = 'Price Breakdown:';
+	priceLabel.classList.add('popup-pricelabel');
+	var price = document.createElement('div');
+	price.innerHTML = "blah blah blah";
+	price.classList.add('popup-price');
+	priceContainer.appendChild(priceLabel);
+	priceContainer.appendChild(price);
+	popup.appendChild(priceContainer);
+
+	// info
+	var cardTemp = document.getElementById('cardTemp');
+	var card = cardTemp.cloneNode(true);
+	card.id = "info"+date.name;
+	var text = card.getElementsByClassName('card-body')[0];
+	text.innerHTML = data.info;
+	card.style.display = 'block';
+	popup.appendChild(card);
 
 	//info
-	var info = document.createElement('div');
-	info.innerHTML = data['info'];
-	info.classList.add('popup-info');
-	popup.appendChild(info);
-
-	//link
-	var link = document.createElement('img');
-	link.src = 'assets/img/expedia.png';
-	link.classList.add('link-image');
-	popup.appendChild(link);
+	// var info = document.createElement('div');
+	// info.innerHTML = data['info'];
+	// info.classList.add('popup-info');
+	// popup.appendChild(info);
 }
