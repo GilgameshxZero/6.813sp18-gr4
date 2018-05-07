@@ -348,6 +348,12 @@ function initHandlers() {
 	for (let j = 0; j < buttons.length; j++) {
 	  let button = buttons[j];
 	  button.addEventListener('click', function() {
+	  		if (button.classList.contains('location')){
+	  			document.getElementsByClassName("active")[0].classList.remove("active");
+				button.classList.add('active');
+
+
+			}
 			if (button.classList.contains('clicked')) {
 				button.classList.remove('clicked');
 			}
@@ -506,9 +512,21 @@ function updateMap() {
 
 		//TODO: match preferences here
 		dataLanguage = data['language'];
-		console.log(selectedLanguages)
+		for (var j = 0; j < selectedLanguages.length; j++){
+			if (! dataLanguage.includes(selectedLanguages[j])){
+				matched = false;
+				break;
+			}
+		}
 
 		dataLocation = data['country'];
+		var clickedButtons = document.getElementsByClassName("clicked");
+		var locationChoice; 
+		console.log(document.getElementsByClassName("active")[0]);
+		if (unitedStates && dataLocation == "United States" &&  document.getElementById("international").checked){
+			matched = false;
+			break;
+		}
 
 		dataBudget = data['budget'];
 		
