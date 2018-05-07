@@ -82,7 +82,7 @@ window.onload = function () {
 	landingLogo.classList.add('landing-logo-postsize');
 
 	//TODO
-	inputWrapper.style.zIndex = 3;
+	// inputWrappers.style.zIndex = 3;
 
 	textField.focus();
 
@@ -248,6 +248,7 @@ function acRemoveActive(x) {
 function acCloseAllLists(elmnt) {
 	/*close all autocomplete lists in the document,
 	except the one passed as an argument:*/
+	inputWrapper.style.zIndex = 1;
 	var x = document.getElementsByClassName("autocomplete-items");
 	for (var i = 0; i < x.length; i++) {
 		if (elmnt != x[i] && elmnt != textField) {
@@ -300,6 +301,7 @@ function acRefresh(elem) {
 				textField.focus();
 			});
 			a.appendChild(b);
+			inputWrapper.style.zIndex = 3;
 		}
 	}
 }
@@ -381,14 +383,18 @@ function initHandlers() {
 
 	//TODO: fix this
 	textField.addEventListener('focus',function(e){
-		inputWrapper.style.zIndex = parseInt(inputWrapper.style.zIndex) + 2;
+		// inputWrapper.style.zIndex = parseInt(inputWrapper.style.zIndex) + 2;
+				// inputWrapper.style.zIndex = 3;
+
 		// console.log('focus');
 	});
 	textField.addEventListener('blur',function(e){
 		setTimeout(function(){
-			inputWrapper.style.zIndex = parseInt(inputWrapper.style.zIndex) - 2;
+			// inputWrapper.style.zIndex = parseInt(inputWrapper.style.zIndex) - 2;
+						// inputWrapper.style.zIndex = 1;
+
 			// console.log('blur');
-		}, 100);
+		}, 150);
 	});
 
 	textField.addEventListener('keydown', function(event) {

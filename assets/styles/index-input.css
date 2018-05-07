@@ -61,6 +61,7 @@
 }
 
 #text-field:focus {
+	/*z-index: 10 !important;*/
 	outline: none;
 }
 

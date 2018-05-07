@@ -7,7 +7,7 @@
 	border-style: solid;
 
 	margin-right: 7px;
-	overflow-x: scroll;
+	/*overflow-x: scroll;*/
 }
 
 /*wrapper to center absolutely positioned titled*/
@@ -18,15 +18,15 @@
 }
 
 #pref-title {
-	position: relative;
+/*	position: relative;
 	margin: auto;
 	top: -17px;
 	left: -50%;
 
-	font-size: 30px;
+	font-size: 30px;*/
 
 	/*keep background non-transparent*/
-	background-color: rgba(255, 255, 255, 1);
+	/*background-color: rgba(255, 255, 255, 1);*/
 }
 
 #pref-inner-wrapper {

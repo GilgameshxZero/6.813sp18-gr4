@@ -26,16 +26,14 @@
 	justify-content: center;
 	align-items: center;
 	width: 50%;
-	margin: 0px;
-	margin-left: auto;
-	margin-right: auto;
+	margin: auto;
 }
 
 #landing-logo {
-	height: 50%;
+/*	height: 50%;
 	margin: 0px;
 	margin-left: auto;
-	margin-right: auto;
+	margin-right: auto;*/
 }
 
 #landing-logo.landing-logo-postsize {
