@@ -10,20 +10,19 @@
 	flex-flow: row nowrap;
 	order: 3;
 	
-	transition-property: all;
+	transition-property: margin;
 	transition-duration: 0.5s;
 	transition-timing-function: linear;
 }
 
 #input-logo {
 	height: 100%;
-	margin-left: 20px;
-	margin-right: 10px;
+	margin-left: 15px;
 
 	opacity: 1;
 	
 	transition-property: all;
-	transition-duration: 1s;
+	transition-duration: 0.5s;
 	transition-timing-function: linear;
 }
 
@@ -31,32 +30,33 @@
 	width: 100%;	
 	height: 100%;
 	margin-left: 10px;
-	margin-right: 20px;
+	margin-right: 15px;
 	padding-left: 10px;
 	padding-right: 10px;
 	border-radius: 5px;
 	border-width: 2px;
 	border-style: solid;
-	overflow: hidden;
-
-	z-index: 5;
 
 	display: flex;
 	flex-flow: row nowrap;
+	
+	z-index: 5;
+	max-width: calc(100% - 95px);
+	
+	transition-property: all;
+	transition-duration: 0.5s;
+	transition-timing-function: linear;
 }
 
 #text-field {
-	flex: 0 1 100%;
-
-	height: 85%;
-	margin: auto;
-	/*z-index: 5;*/
-
 	font-size: 20px;
 	background: transparent;
 
 	text-align: left;
 	border-width: 0px;
+
+	height: 100%;
+	width: 100%;
 }
 
 #text-field:focus {
@@ -119,4 +119,40 @@
 	order: 2;
 	margin: auto;
 	margin-left: 5px;
+}
+
+#text-field-autocomplete-wrapper {
+	position: relative;
+	display: inline-block;
+	flex: 0 1 100%;
+
+	height: 85%;
+	margin: auto;
+}
+
+.autocomplete-items {
+	position: absolute;
+	border: 1px solid #d4d4d4;
+	border-bottom: none;
+	border-top: none;
+	z-index: -3;
+	/*position the autocomplete items to be the same width as the container:*/
+	top: 100%;
+	left: 0;
+	right: 0;
+}
+.autocomplete-items div {
+	padding: 10px;
+	cursor: pointer;
+	background-color: #fff; 
+	border-bottom: 1px solid #d4d4d4; 
+}
+.autocomplete-items div:hover {
+	/*when hovering an item:*/
+	background-color: #e9e9e9; 
+}
+.autocomplete-active {
+	/*when navigating through the items using the arrow keys:*/
+	background-color: DodgerBlue !important; 
+	color: #ffffff; 
 }

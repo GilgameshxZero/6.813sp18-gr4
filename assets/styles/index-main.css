@@ -24,3 +24,23 @@ body {
 
 	font-family: 'Source Sans Pro', sans-serif !important;
 }
+
+#bottom-bar {
+	flex: 2 2 20%;
+	width: calc(100% - 30px);
+
+	margin: 15px;
+	margin-top: 0px;
+
+	order: 4;
+
+	opacity: 1;
+	transform: scaleY(1);
+
+	display: flex;
+	flex-flow: row nowrap;
+	
+	transition-property: opacity, transform;
+	transition-duration: 0.5s;
+	transition-timing-function: linear;
+}

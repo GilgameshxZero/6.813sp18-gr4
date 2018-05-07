@@ -9,7 +9,7 @@
 	transform: scaleY(1);
 
 	transition-property: all;
-	transition-duration: 1s;
+	transition-duration: 0.5s;
 	transition-timing-function: ease;
 }
 
@@ -47,9 +47,7 @@
 
 #input-wrapper.input-wrapper-landing {
 	width: 50%;
-	margin: 0px;
-	margin-bottom: auto;
-	padding-left: 10px;
+	margin-top: 8px;
 	
 	/*non-auto absolutes for transitions*/
 	margin-left: calc(25% - 10px);
@@ -63,7 +61,11 @@
 	width: 0px;
 }
 
-#pref.pref-landing {
+#input-wrapper-main.input-wrapper-main-landing {
+	max-width: 100%;
+}
+
+#bottom-bar.bottom-bar-landing {
 	transform: scaleY(0);
 	height: 0px;
 	width: 0px;

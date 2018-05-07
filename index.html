@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="assets/styles/index-input.css">
 		<link rel="stylesheet" href="assets/styles/index-pref.css">
 		<link rel="stylesheet" href="assets/styles/index-landing.css">
+		<link rel="stylesheet" href="assets/styles/index-more-funcs.css">
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
@@ -45,83 +46,84 @@
 		<!-- textbox input -->
 		<div id="input-wrapper" class="input-wrapper-landing">
 			<img id="input-logo" class="input-logo-landing" src="assets/img/logo-square.png">
-			<div id="input-wrapper-main">
+			<div id="input-wrapper-main" class="input-wrapper-main-landing">
 				<div id="input-tags">
 					<div id="input-tag-dummy" class="input-tag-elem input-tag-hidden">
 						<div class="input-tag-elem-text"></div>
 						<img class="input-tag-elem-remove" src="assets/img/x-mark-24.png">
 					</div>
 				</div>
-				<input id="text-field" type="text">
+				<div id="text-field-autocomplete-wrapper">
+					<input id="text-field" type="text">
+				</div>
 			</div>
 		</div>
 
-		<!-- preferences -->
-		<div id="pref" class="pref-landing">
-			<div id="pref-title-wrapper">
-				<!-- <div id="pref-title">Preferences</div> -->
-			</div>
-			<div id="pref-inner-wrapper">
-				<div id="pref-col1-wrapper">
-					<div id="pref-col1">
-						<div id="pref-language">
-							Language:
-							<div id="pref-spacer"></div>
-							<select id = "pref-language-select" class="selectpicker" multiple title="Choose all...">
-							  	<option>English</option>
-						        <option>Spanish</option>
-						        <option>French</option>
-						        <option>Japanese</option>
-						        <option>Korean</option>
-							</select>
-						</div>
+		<div id="bottom-bar" class="bottom-bar-landing">
+			<div id="pref">
+				<div id="pref-title-wrapper">
+					<!-- <div id="pref-title">Preferences</div> -->
+				</div>
+				<div id="pref-inner-wrapper">
+					<div id="pref-col1-wrapper">
+						<div id="pref-col1">
+							<div id="pref-language">
+								Language:
+								<div id="pref-spacer"></div>
+								<select id = "pref-language-select" class="selectpicker" multiple title="Choose all...">
+									<option>English</option>
+									<option>Spanish</option>
+									<option>French</option>
+									<option>Japanese</option>
+									<option>Korean</option>
+								</select>
+							</div>
 
-						<div id = "pref-location">
-							Location:
-							<div class="btn-group btn-group-toggle" data-toggle="buttons">
-							  <label class="btn btn-primary active">
-							    <input type="radio" name="options" id="option1" autocomplete="off"> Both
-							  </label>
-							  <label class="btn btn-primary">
-							    <input type="radio" name="options" id="option2" autocomplete="off" checked> Domestic
-							  </label>
-							  <label class="btn btn-primary">
-							    <input type="radio" name="options" id="option3" autocomplete="off"> International
-							  </label>
+							<div id = "pref-location">
+								Location:
+								<div class="btn-group btn-group-toggle" data-toggle="buttons">
+								<label class="btn btn-primary active">
+									<input type="radio" name="options" id="option1" autocomplete="off"> Both
+								</label>
+								<label class="btn btn-primary">
+									<input type="radio" name="options" id="option2" autocomplete="off" checked> Domestic
+								</label>
+								<label class="btn btn-primary">
+									<input type="radio" name="options" id="option3" autocomplete="off"> International
+								</label>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div id="pref-col2-wrapper">
-					<div id="pref-col2">
-						<div id = "pref-duration">
-							Trip Duration (# of days):  
-							<input type="number" id="tripDuration" step="1">
+					<div id="pref-col2-wrapper">
+						<div id="pref-col2">
+							<div id = "pref-duration">
+								Trip Duration (# of days):  
+								<input type="number" id="tripDuration" step="1">
+							</div>
+							<div id = "pref-price">
+								Price Range:
+								<div id="pref-spacer"></div>
+								<select id = "pref-price-select" class="selectpicker" title="Choose one of the following...">
+									<option>$0-$500</option>
+									<option>$500-$1,000</option>
+									<option>$1,000-$2,000</option>
+									<option>$2,000-$3,000</option>
+									<option>$3,000-$4,000</option>
+									<option>$4,000-$5,000</option>
+									<option>Over $5,000</option>
+								</select>
+							</div>					
 						</div>
-						<div id = "pref-price">
-							Price Range:
-							<div id="pref-spacer"></div>
-							<select id = "pref-price-select" class="selectpicker" title="Choose one of the following...">
-							  	<option>$0-$500</option>
-						        <option>$500-$1,000</option>
-						        <option>$1,000-$2,000</option>
-						        <option>$2,000-$3,000</option>
-						        <option>$3,000-$4,000</option>
-						        <option>$4,000-$5,000</option>
-						        <option>Over $5,000</option>
-							</select>
-						</div>
-
-<!-- 						<div id = "pref-season">
-							<p><span style = "color: red">*</span>Season:</p>
-							<button type="button" id = "pref-spring">Spring</button>
-							<button type="button" id = "pref-summer">Summer</button>
-							<button type="button" id = "pref-fall">Fall</button>
-							<button type="button" id = "pref-winter">Winter</button>
-						</div>
-						 -->
-					
 					</div>
+				</div>
+			</div>
+
+			<div id="more-funcs">
+				<div id="more-funcs-inner">
+					<button id="more-funcs-email" type="button" class="btn btn-primary">Email Bookmarks</button>
+					<button id="more-funcs-clear" type="button" class="btn btn-danger">Clear Bookmarks</button>
+					<button id="more-funcs-undo" type="button" class="btn btn-secondary" disabled>Undo Clear</button>
 				</div>
 			</div>
 		</div>
