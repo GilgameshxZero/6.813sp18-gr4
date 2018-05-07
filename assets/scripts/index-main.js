@@ -34,6 +34,7 @@ var clearedBookmarks = [];
 
 var unitedStates = false;
 var selectedLanguages = [];
+var selectedPriceRange;
 
 function gMapReady() {
 	//called by google API, do nothing
@@ -367,9 +368,25 @@ function initHandlers() {
 			var select = document.getElementById("pref-language-select").options;
 			for (var i = 0; i < select.length; i++){
 				if (select[i].selected){
-					selectedLanguages.push(select[i].value);
+					selectedLanguages.push(select[i].value.toLowerCase());
 				}
 			}
+		    updateMap();
+	});
+
+	document.getElementById('pref-price-select')
+		.addEventListener('change', function() {
+			var select = document.getElementById("pref-price-select").options;
+			for (var i = 0; i < select.length; i++){
+				if (select[i].selected){
+					selectedPriceRange = select[i].value;
+				}
+			}
+		    updateMap();
+	});
+
+	document.getElementById('tripDuration')
+		.addEventListener('change', function() {
 		    updateMap();
 	});
 
@@ -384,6 +401,37 @@ function initHandlers() {
 			groups[parentName] = [buttons[i]];
 		}
 	}
+
+	var buttons = document.getElementsByTagName('button');
+	for (let j = 0; j < buttons.length; j++) {
+	  let button = buttons[j];
+	  button.addEventListener('click', function() {
+	  		if (button.classList.contains('location')){
+	  			var actives = document.getElementsByClassName('active');
+	  			for (var i = 0; i < actives.length; i++){
+	  				if (actives[i].classList.contains('location')){
+	  					actives[i].classList.remove('active');
+	  				}
+	  			}
+				button.classList.add('active');
+
+			}
+			if (button.classList.contains('clicked')) {
+				button.classList.remove('clicked');
+			}
+			else{
+				var sametypes = groups[button.parentNode.id.slice(5)];
+				for (var i = 0; i < sametypes.length; i++){
+					if (sametypes[i] != button && sametypes[i].classList.contains('clicked')){
+						sametypes[i].classList.remove('clicked');
+					}
+				}
+				button.classList.add('clicked');
+			}
+			updateMap();
+	  	});
+	}
+
 }
 
 //get text of a tag node
@@ -552,12 +600,12 @@ function updateMap() {
 		}
 
 		dataLocation = data['country'];
-		var clickedButtons = document.getElementsByClassName("clicked");
+		var locationButtons = document.getElementsByClassName("location");
 		var locationChoice; 
-		console.log(document.getElementsByClassName("active")[0]);
-		if (unitedStates && dataLocation == "United States" &&  document.getElementById("international").checked){
-			matched = false;
-			break;
+		for (var j = 0; j < locationButtons.length; j++){
+			if (locationButtons[j].classList.contains("active")){
+				locationChoice = locationButtons[j].innerHTML.toLowerCase();
+			}
 		}
 
 		if (unitedStates && dataLocation == "United States" && locationChoice == "international"){
@@ -567,8 +615,17 @@ function updateMap() {
 			matched = false;
 		}
 
-		
 		dataBudget = data['budget'];
+		var duration = document.getElementById("tripDuration").value;
+		if (duration && selectedPriceRange){
+			var priceArray = selectedPriceRange.split('-');
+			var low = Number(priceArray[0].substring(1).replace(/,/g , ""));
+			var high = Number(priceArray[1].substring(1).replace(/,/g , ""));
+			if (((high/duration) <= dataBudget)){
+				matched = false;
+			}
+		}
+
 		
 		if (matched && !mapMarkers[i].getVisible())
 			mapMarkers[i].setVisible(true);
