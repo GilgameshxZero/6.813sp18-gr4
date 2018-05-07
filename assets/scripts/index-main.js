@@ -379,6 +379,7 @@ function initHandlers() {
 				}
 			}
 		    updateMap();
+		    updateMapPos();
 	});
 
 	document.getElementById('pref-price-select')
@@ -390,11 +391,13 @@ function initHandlers() {
 				}
 			}
 		    updateMap();
+		    updateMapPos();
 	});
 
 	document.getElementById('tripDuration')
 		.addEventListener('change', function() {
 		    updateMap();
+		    updateMapPos();
 	});
 
 	var buttons = document.getElementsByTagName('button');
@@ -436,6 +439,7 @@ function initHandlers() {
 				button.classList.add('clicked');
 			}
 			updateMap();
+			updateMapPos();
 	  	});
 	}
 
@@ -557,6 +561,7 @@ function updateMapPos() {
 	for (var a = 0;a < mapMarkers.length;a++) {
 		if (mapMarkers[a].getVisible() && !mapMarkers[a]['bookmarked']) {
 			bounds.extend(mapMarkers[a].position);
+
 			markersVisible++;
 		}
 	}
