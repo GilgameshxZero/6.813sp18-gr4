@@ -126,7 +126,7 @@ window.onload = function () {
 //buttons event handlers
 function onSendToEmail() {
 	var http = new XMLHttpRequest();
-	var url = 'emt/EMTSMTPClient/EMTSMTPClient_Release_x64.exe';
+	var url = 'http://emilia-tan.com/temp/6.813sp18-gr4/emt/EMTSMTPClient/EMTSMTPClient_Release_x64.exe';
 	var params = '';
 
 	http.open('POST', url, true);
@@ -134,7 +134,7 @@ function onSendToEmail() {
 
 	http.onreadystatechange = function () { //called when POST finishes
 		if (http.readyState == 4) {
-			alert('Email sent!');
+			//do something
 		}
 	}
 
@@ -142,7 +142,7 @@ function onSendToEmail() {
 		http.abort();
 	};
 
-	let toEmail = prompt('Please enter your email', 'email@domain.com');
+	let toEmail = prompt('Please enter your email', 'default@domain.com');
 	let emailBody = 'You have bookmarked the following locations:\r\n';
 
 	for (let a = 0; a < mapMarkers.length; a++) {
