@@ -125,65 +125,18 @@ window.onload = function () {
 
 //buttons event handlers
 function onSendToEmail() {
-	var http = new XMLHttpRequest();
-	var url = 'emt/EMTSMTPClient/EMTSMTPClient_Release_x64.exe';
-	var params = '';
+	var mail = 'mailto:?subject=' + 
+	'Bookmarks' + '&body=' + 
+	'Your bookmarks: ';
 
-	http.open('POST', url, true);
-	http.timeout = 5000;
-
-	http.onreadystatechange = function () { //called when POST finishes
-		if (http.readyState == 4) {
-			alert('Email sent!');
-		}
-	}
-
-	http.ontimeout = function (e) { //we're going to end up here
-		http.abort();
-	};
-
-	let toEmail = prompt('Please enter your email', 'email@domain.com');
-	let emailBody = 'You have bookmarked the following locations:\r\n';
-
-	for (let a = 0; a < mapMarkers.length; a++) {
+	for (var a = 0;a < mapMarkers.length;a++) {
 		if (mapMarkers[a]['bookmarked']) {
-			emailBody += jsonData['data-markers'][a]['name'] + ', ' + jsonData['data-markers'][a]['country']
-				+ '\r\n' + jsonData['data-markers'][a]['date']
-				+ '\r\n' + jsonData['data-markers'][a]['price']
-				+ '\r\n' + jsonData['data-markers'][a]['info']
-				+ '\r\n' + jsonData['data-markers'][a]['link']
-				+ '\r\n\r\n';
+			mail += jsonData['data-markers'][a]['name'] + '; ';
 		}
 	}
 
-	params = "readConfig: no" + "\r\n"
-		+ "\r\n"
-		+ "smtpPort: 25" + "\r\n"
-		+ "recvBufLen: 1024" + "\r\n"
-		+ "ehloResponse: smtp.emilia-tan.com" + "\r\n"
-		+ "maxConnToServ: 10" + "\r\n"
-		+ "maxSendAttempt: 10" + "\r\n"
-		+ "\r\n"
-		+ "logFile: ..\\Auxiliary\\EMTSMTPClientLog.log" + "\r\n"
-		+ "errorLog: ..\\Auxiliary\\EMTSMTPClientErrorLog.txt" + "\r\n"
-		+ "memoryLeakLog: ..\\Auxiliary\\EMTSMTPClientMemoryLeaks.txt" + "\r\n"
-		+ "\r\n"
-		+ "rawBody: no\r\n"
-		+ "mailFrom: " + "server@emilia-tan.com" + "\r\n"
-		+ "rcptTo: " + toEmail + "\r\n"
-		+ "\r\n"
-		+ "fromEmail: admin@connect-7.com\r\n" //doesn't matter
-		+ "toEmail: rcptTo\r\n" //doesn't matter
-		+ "fromName: Connect-7" + "\r\n"
-		+ "emailSubject: Your Bookmarks (Connect-7)" + "\r\n"
-		+ "\r\n"
-		+ "emailBodyFile: _" + "\r\n"
-		+ "emailBodyLen: " + emailBody.length + "\r\n"
-		+ "emailBodyData:" + emailBody + "\r\n" //no space after colon is important
-		+ "\r\n"
-		+ "_configEnd_: true" + "\r\n";
-
-	http.send(params);
+	console.log(encodeURI(mail));
+	window.open(encodeURI(mail));
 }
 
 function onZoomToBookmarks() {
