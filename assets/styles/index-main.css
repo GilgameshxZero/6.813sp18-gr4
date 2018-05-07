@@ -40,6 +40,8 @@ body {
 	display: flex;
 	flex-flow: row nowrap;
 	
+	z-index: 2;
+	
 	transition-property: opacity, transform;
 	transition-duration: 0.5s;
 	transition-timing-function: linear;

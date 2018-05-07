@@ -32,9 +32,10 @@
 	/*top: 50%;*/
     /*transform: translateY(-50%);*/
 	width: 40%;
-	height: 70%;
+	height: 60%;
+	min-height: 500px;
 	margin: 50px;
-	padding: 10px;
+	padding: 20px;
 
 	background-color: white;
 	border-radius: 5px;
@@ -45,16 +46,16 @@
 }
 
 .popup-header-container {
-	margin-right: 10px;
-	margin-top: 10px;
 	width: 100%;
 	height: 50px;
+	margin-bottom: 10px;
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
 }
 
 .bookmark{
-	width: 30px;
+	width: 20px;
 	height: 40px;
 	filter: grayscale(100%);
 	z-index: 3;
@@ -62,60 +63,105 @@
 
 .bookmark:hover,
 .bookmark:focus {
-	text-decoration: none;
-	cursor: pointer;
+/*	text-decoration: none;
+	cursor: pointer;*/
+}
+
+.expedia-image {
+	width: 40px;
+	height: 40px;
 }
 
 .close {
 	float: right;
-	color: #aaaaaa;
-	font-size: 30px;
-	font-weight: bold;
+	width: 30px;
+	height: 30px;
 	z-index: 3;
 }
 
 .close:hover,
 .close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
+	/*color: #000;*/
+	/*text-decoration: none;*/
+	/*cursor: pointer;*/
 }
 
 .popup-heading {
 	width: 100%;
 	font-size: 25px;
 	font-weight: bold;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#imgCarousel {
+	display: none;
+	width: 100%;
+	z-index: 3;
+}
+
+.item {
+	width: 100%;
+	height: 250px;
+}
+
+.popup-date-container {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
 .popup-datelabel {
-	width: 100%;
-	font-size: 16px;
+	font-size: 20px;
 	font-weight: bold;
 }
 
 .popup-date {
+	margin-left: 10px;
+	font-size: 18px;
+}
+
+.popup-price-container{
 	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 10px;
+}
+
+.popup-pricelabel {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.popup-price {
 	font-size: 16px;
-	margin-bottom: 10px;
 }
 
-.popup-image{
-	width: 80%;
-	height: 40%
-	margin-bottom: 10px;
-	align-self: center;
-}
-
-.popup-info {
-	width: 90%;
-	padding: 10px;
-	font-size: 12px;
+.card {
+	display: none;
+	margin-top: 10px;
+	width: 100%;
 	max-height: 100px;
-	overflow: hidden;
+	overflow-y: scroll;
 }
 
-.link-image {
-	width: 100px;
-	height: 75px;
+.scrollbar-ripe-malinka::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: #F5F5F5;
+  border-radius: 10px; }
+
+.scrollbar-ripe-malinka::-webkit-scrollbar {
+  width: 12px;
+  /*background-color: #F5F5F5; */
+}
+
+.scrollbar-ripe-malinka::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-image: -webkit-linear-gradient(bottom, #a8edea 0%, #fed6e3 100%);
+  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); 
 }

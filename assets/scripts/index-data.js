@@ -20,7 +20,7 @@ var jsonData = {
             "date": "Mar 19 - Mar 24",
             "info": "Florida is the southernmost contiguous state in the United States. The state is bordered to the west by the Gulf of Mexico, to the northwest by Alabama, to the north by Georgia, to the east by the Atlantic Ocean, and to the south by the Straits of Florida.",
             "link": "https://en.wikipedia.org/wiki/Florida",
-            "img": "assets/img/florida.jpg"
+            "img": "https://www.housingwire.com/ext/resources/images/editorial/A-New-Big-Images/states/Florida/Miami.jpg?1461009518"
         },
         {
             "lat": 33.7197257,
