@@ -121,16 +121,18 @@ window.onload = function () {
 
 //buttons event handlers
 function onSendToEmail() {
-	var xhr = new XMLHttpRequest();
-	xhr.open('POST','/emt/EMTSMTPClient/EMTSMTPClient_Release_x64.exe',true);
+	var mail = 'mailto:?subject=' + 
+	'Bookmarks' + '&body=' + 
+	'Your bookmarks: ';
 
-	xhr.onreadystatechange = function() {
-		if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-			// Request finished. Do processing here.
+	for (var a = 0;a < mapMarkers.length;a++) {
+		if (mapMarkers[a]['bookmarked']) {
+			mail += jsonData['data-markers'][a]['name'] + '; ';
 		}
 	}
 
-	xhr.send('1');
+	console.log(encodeURI(mail));
+	window.open(encodeURI(mail));
 }
 
 function onZoomToBookmarks() {
@@ -374,37 +376,6 @@ function initHandlers() {
 			groups[parentName] = [buttons[i]];
 		}
 	}
-
-	var buttons = document.getElementsByTagName('button');
-	for (let j = 0; j < buttons.length; j++) {
-	  let button = buttons[j];
-	  button.addEventListener('click', function() {
-	  		if (button.classList.contains('location')){
-	  			var actives = document.getElementsByClassName('active');
-	  			for (var i = 0; i < actives.length; i++){
-	  				if (actives[i].classList.contains('location')){
-	  					actives[i].classList.remove('active');
-	  				}
-	  			}
-				button.classList.add('active');
-
-			}
-			if (button.classList.contains('clicked')) {
-				button.classList.remove('clicked');
-			}
-			else{
-				var sametypes = groups[button.parentNode.id.slice(5)];
-				for (var i = 0; i < sametypes.length; i++){
-					if (sametypes[i] != button && sametypes[i].classList.contains('clicked')){
-						sametypes[i].classList.remove('clicked');
-					}
-				}
-				button.classList.add('clicked');
-			}
-			updateMap();
-	  	});
-	}
-
 }
 
 //get text of a tag node
@@ -561,31 +532,26 @@ function updateMap() {
 				matched = false;
 				break;
 			}
-		}	
+		}
 
 		//TODO: match preferences here
 		dataLanguage = data['language'];
 		for (var j = 0; j < selectedLanguages.length; j++){
-			if (! dataLanguage.includes(selectedLanguages[j].toLowerCase())){
+			if (! dataLanguage.includes(selectedLanguages[j])){
 				matched = false;
 				break;
 			}
 		}
 
 		dataLocation = data['country'];
-		// console.log(dataLocation);
-		var locationButtons = document.getElementsByClassName("location");
+		var clickedButtons = document.getElementsByClassName("clicked");
 		var locationChoice; 
-		for (var j = 0; j < locationButtons.length; j++){
-			if (locationButtons[j].classList.contains('active')){
-				locationChoice = locationButtons[j].innerHTML.toLowerCase();
-			}
+		console.log(document.getElementsByClassName("active")[0]);
+		if (unitedStates && dataLocation == "United States" &&  document.getElementById("international").checked){
+			matched = false;
+			break;
 		}
 
-		console.log(unitedStates);
-		console.log(locationChoice);
-
-		
 		dataBudget = data['budget'];
 		
 		if (matched && !mapMarkers[i].getVisible())
