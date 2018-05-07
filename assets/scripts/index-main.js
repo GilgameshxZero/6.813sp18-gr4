@@ -552,6 +552,14 @@ function updateMap() {
 			break;
 		}
 
+		if (unitedStates && dataLocation == "United States" && locationChoice == "international"){
+			matched = false;
+		}
+		else if (unitedStates && dataLocation != "United States" && locationChoice == "domestic"){
+			matched = false;
+		}
+
+		
 		dataBudget = data['budget'];
 		
 		if (matched && !mapMarkers[i].getVisible())
